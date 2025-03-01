@@ -1,0 +1,372 @@
+{
+	"gyms": [
+		{
+			"name": "True North Climbing",
+			"city": "toronto",
+			"address": "75 Carl Hall Rd #14, North York",
+			"mapUrl": "https://maps.app.goo.gl/e3HjG1ZUaGuuuEqbA",
+			"publicTransport": {
+				"subway": {
+					"line": "1",
+					"station": "downsview park"
+				}
+			},
+			"websiteUrl": "https://www.truenorthclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 28.5,
+				"tax": "HST",
+				"sourceUrl": "https://www.truenorthclimbing.com/prices/"
+			},
+			"iconUrl": "../../gym-icon/true-north-climbing.jpg",
+			"imageUrl": "../../gym-preview/true-north-climbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "The Rock Oasis",
+			"city": "toronto",
+			"address": "388 Carlaw Ave Suite 204",
+			"mapUrl": "https://maps.app.goo.gl/noVR6KT9WrG4FayA9",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.rockoasis.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27,
+				"tax": "HST",
+				"sourceUrl": "https://www.rockoasis.com/prices"
+			},
+			"iconUrl": "../../gym-icon/the-rock-oasis.jpg",
+			"imageUrl": "../../gym-preview/the-rock-oasis.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true
+			}
+		},
+		{
+			"name": "Joe Rockhead's",
+			"city": "toronto",
+			"address": "29 Fraser Ave",
+			"mapUrl": "https://maps.app.goo.gl/B6xKuYVPZVRX8t2Z6",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.joerockheads.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27,
+				"tax": "HST",
+				"sourceUrl": "https://www.joerockheads.com/price-dayuse"
+			},
+			"iconUrl": "../../gym-icon/joe-rockheads.jpg",
+			"imageUrl": "../../gym-preview/joe-rockheads.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "Basecamp - Queen West",
+			"city": "toronto",
+			"address": "186 Spadina Ave Unit 1A",
+			"mapUrl": "https://maps.app.goo.gl/3C9NDpTBts8rNwQJ7",
+			"publicTransport": {
+				"subway": {
+					"line": "1",
+					"station": "osgoode"
+				},
+				"busOrTram": true
+			},
+			"websiteUrl": "https://basecampclimbing.ca/queen/",
+			"price": {
+				"currency": "CAD",
+				"amount": 28,
+				"tax": "HST",
+				"sourceUrl": "https://basecampclimbing.ca/queen/pricing/"
+			},
+			"iconUrl": "../../gym-icon/basecamp.svg",
+			"imageUrl": "../../gym-preview/basecamp-queen-west.webp",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "Basecamp - Bloor West",
+			"city": "toronto",
+			"address": "677 Bloor St W",
+			"mapUrl": "https://maps.app.goo.gl/f29s8hKDQYJdbCbh8",
+			"publicTransport": {
+				"subway": {
+					"line": "2",
+					"station": "christie"
+				},
+				"busOrTram": true
+			},
+			"websiteUrl": "https://basecampclimbing.ca/bloor/",
+			"price": {
+				"currency": "CAD",
+				"amount": 28,
+				"tax": "HST",
+				"sourceUrl": "https://basecampclimbing.ca/bloor/pricing/"
+			},
+			"iconUrl": "../../gym-icon/basecamp.svg",
+			"imageUrl": "../../gym-preview/basecamp-bloor-west.jpeg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "Rock On Climbing",
+			"city": "toronto",
+			"address": "474 Front St E",
+			"mapUrl": "https://maps.app.goo.gl/hVQ7Jb7DuMSN7Lrc6",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.rockonclimbing.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 24,
+				"tax": "HST"
+			},
+			"iconUrl": "../../gym-icon/rock-on-climbing.jpg",
+			"imageUrl": "../../gym-preview/rock-on-climbing.jpeg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": true
+			}
+		},
+		{
+			"name": "VITAL Climbing Gym - Brooklyn",
+			"city": "new york",
+			"address": "221 N 14th St, Brooklyn, NY 11249",
+			"mapUrl": "https://maps.app.goo.gl/f9UsYukJSzX2HfND8",
+			"publicTransport": {
+				"subway": {
+					"line": "G",
+					"station": "nassau ave"
+				}
+			},
+			"websiteUrl": "https://www.vitalclimbinggym.com/brooklyn",
+			"price": {
+				"currency": "USD",
+				"amount": 35,
+				"tax": "4.5% NYC sales"
+			},
+			"iconUrl": "../../gym-icon/vital-climbing-gym-brooklyn.jpg",
+			"imageUrl": "../../gym-preview/vital-climbing-gym-brooklyn.webp",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": true
+			}
+		},
+		{
+			"name": "Boulderz Climbing - Etobicoke",
+			"city": "toronto",
+			"address": "80 The East Mall Unit 9",
+			"mapUrl": "https://maps.app.goo.gl/Cb28TBirM2JXdRFv5",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.boulderzclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27,
+				"tax": "HST",
+				"sourceUrl": "https://www.boulderzclimbing.com/etobicoke-pricing/"
+			},
+			"iconUrl": "../../gym-icon/boulderz-climbing.png",
+			"imageUrl": "../../gym-preview/boulderz-climbing-etobicoke.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 28000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true
+			}
+		},
+		{
+			"name": "Boulderz Climbing - Junction",
+			"city": "toronto",
+			"address": "1444, 16 Dupont St #16",
+			"mapUrl": "https://maps.app.goo.gl/UKfvwsXc7JJv41n17",
+			"publicTransport": {
+				"subway": {
+					"line": "2",
+					"station": "lansdowne"
+				},
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.boulderzclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23,
+				"tax": "HST",
+				"sourceUrl": "https://www.boulderzclimbing.com/junction-pricing/"
+			},
+			"iconUrl": "../../gym-icon/boulderz-climbing.png",
+			"imageUrl": "../../gym-preview/boulderz-climbing-toronto.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 4000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "Boulderz - Cave Rock Climbing",
+			"city": "mississauga",
+			"address": "1705 Argentia Rd #5",
+			"mapUrl": "https://maps.app.goo.gl/xQ85nF3PkrkVQpf46",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://climbingthecave.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21,
+				"tax": "HST",
+				"sourceUrl": "https://climbingthecave.ca/prices/"
+			},
+			"iconUrl": "../../gym-icon/boulderz-climbing.png",
+			"imageUrl": "../../gym-preview/boulderz-climbing-mississauga.webp",
+			"area": {
+				"unit": "sqft",
+				"value": 4000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"name": "Up The Bloc",
+			"city": "mississauga",
+			"address": "1224 Dundas St E #28",
+			"mapUrl": "https://maps.app.goo.gl/gXfBWWarRhMz7BKp8",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.upthebloc.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 25,
+				"tax": "HST",
+				"sourceUrl": "https://www.upthebloc.com/pricing"
+			},
+			"iconUrl": "../../gym-icon/up-the-bloc.png",
+			"imageUrl": "../../gym-preview/up-the-bloc.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		}
+	]
+}

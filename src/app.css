@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+	/* https://fonts.google.com/?lang=en_Latn&categoryFilters=Feeling:%2FExpressive%2FActive */
+	--font-fugaz: 'Fugaz One', sans-serif;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: #f0f0f0;
+}
