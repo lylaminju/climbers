@@ -1,8 +1,8 @@
 <script lang="ts">
 	import SortIcon from '$lib/SortIcon.svelte';
+	import capitalizeWords from '$lib/utils/capitalizeWords';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
-	import capitalizeWords from '$lib/utils/capitalizeWords';
 
 	let isMobile = $state(false);
 	onMount(() => {
@@ -37,8 +37,6 @@
 			{/each}
 		</select>
 		<SortIcon />
-
-		<use href="../../static/select-arrow.svg#icon"></use>
 	</div>
 
 	<div class="relative">
