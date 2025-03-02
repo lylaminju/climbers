@@ -1,11 +1,12 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import '../../static/app.css';
 	let { children } = $props();
 </script>
 
 <header class="pt-4 pr-4 pl-4">
 	<h1 class="font-fugaz text-5xl font-bold text-gray-900">
-		<a href="/">Climbers'</a>
+		<a href="{base}/">Climbers'</a>
 	</h1>
 	<nav>
 		<!-- <a href="www.google.com">Join Google Map Group</a> -->
