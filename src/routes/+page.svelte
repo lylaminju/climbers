@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import SortIcon from '$lib/SortIcon.svelte';
+	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
+	import SortIcon from '$lib/icons/SortIcon.svelte';
 	import capitalizeWords from '$lib/utils/capitalizeWords';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
@@ -81,7 +82,7 @@
 	{#each filteredGyms() as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card h-[200px] rounded-2xl text-white md:h-[300px]"
+			class="gym-card h-[170px] rounded-2xl text-white md:h-[300px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
@@ -102,7 +103,7 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details invisible cursor-pointer rounded-2xl pr-3 pl-3 text-left text-base md:p-6 md:text-2xl"
+				class="gym-details invisible cursor-pointer rounded-2xl p-3 pb-3.5 text-left text-base md:p-6 md:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
@@ -126,9 +127,6 @@
 					})}
 					{#if gym.price.tax}+ {gym.price.tax}{/if}
 				</a>
-				{#if gym.area.value !== 0}
-					<p>📏 {gym.area.value.toLocaleString()} {gym.area.unit}</p>
-				{/if}
 				<p>
 					🧗
 					{(Object.keys(gym.climbingTypes) as Array<keyof GymFeature>)
@@ -159,13 +157,16 @@
 						{/if}
 					{/if}
 				</p>
-				<a
-					class="mt-2 rounded-xl bg-yellow-600 pt-0.5 pr-1.5 pb-0.5 pl-1.5 text-center text-sm md:hidden"
-					href={gym.websiteUrl}
-					onclick={(event) => event.stopPropagation()}
-				>
-					Go to the website
-				</a>
+				<div class="flex w-full flex-row justify-between">
+					<p>📏 {gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
+					<a
+						class="w-fit md:hidden"
+						href={gym.websiteUrl}
+						onclick={(event) => event.stopPropagation()}
+					>
+						<ExternalLinkIcon />
+					</a>
+				</div>
 			</button>
 		</div>
 	{/each}
