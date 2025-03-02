@@ -10,6 +10,25 @@
 		isMobile = window.innerWidth <= 640;
 	});
 
+	function toggleChildElementVisibility(id: number) {
+		if (!isMobile) return;
+
+		const gymTitle: HTMLElement | null = document.querySelector(
+			`div#gym-card-${id.toString()} div.gym-title`,
+		);
+		const gymDetails: HTMLElement | null = document.querySelector(
+			`div#gym-card-${id.toString()} button.gym-details`,
+		);
+		if (gymTitle && gymDetails) {
+			gymTitle.style['visibility'] =
+				getComputedStyle(gymTitle).visibility == 'visible' ? 'hidden' : 'visible';
+			gymDetails.style['visibility'] =
+				getComputedStyle(gymDetails).visibility == 'hidden' ? 'visible' : 'hidden';
+		} else {
+			console.log('gymTitle or gymDetails not found');
+		}
+	}
+
 	const { data }: { data: { gyms: ClimbingGym[] } } = $props();
 	const uniqueCities = [...new Set(data.gyms.map((gym) => gym.city))].sort();
 
@@ -59,10 +78,15 @@
 	</div>
 </section>
 <section id="gyms">
-	{#each filteredGyms() as gym}
+	{#each filteredGyms() as gym, _ (gym.id)}
 		<div
+			id="gym-card-{gym.id}"
 			class="gym-card h-[200px] rounded-2xl text-white md:h-[300px]"
 			style="background-image: url({base}/{gym.imageUrl})"
+			onclick={() => toggleChildElementVisibility(gym.id)}
+			onkeydown={() => toggleChildElementVisibility(gym.id)}
+			role="button"
+			tabindex="0"
 		>
 			<div class="gym-title text-center">
 				<img class="h-10 w-10 rounded-full bg-white" src="{base}/{gym.iconUrl}" alt={gym.name} />
@@ -78,7 +102,7 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details cursor-pointer rounded-2xl pr-3 pl-3 text-left text-base md:p-6 md:text-2xl"
+				class="gym-details invisible cursor-pointer rounded-2xl pr-3 pl-3 text-left text-base md:p-6 md:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
@@ -133,7 +157,7 @@
 					{/if}
 				</p>
 				<a
-					class="mt-2 rounded-xl bg-yellow-600 pt-0.5 pb-0.5 text-center text-sm md:invisible"
+					class="mt-2 rounded-xl bg-yellow-600 pt-0.5 pr-1 pb-0.5 pl-1 text-center text-sm md:hidden"
 					href={gym.websiteUrl}
 					onclick={(event) => event.stopPropagation()}
 				>
@@ -164,10 +188,6 @@
 		background-position: center;
 		position: relative;
 
-		&:hover {
-			background-color: rgba(0, 0, 0, 0.5);
-		}
-
 		.gym-title {
 			position: absolute;
 			top: 0;
@@ -181,10 +201,6 @@
 			text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
 		}
 
-		&:hover .gym-title {
-			opacity: 0;
-		}
-
 		.gym-details {
 			position: absolute;
 			top: 0;
@@ -195,13 +211,6 @@
 			width: 100%;
 			height: 100%;
 			background-color: rgba(0, 0, 0, 0.7);
-			opacity: 0;
-			visibility: hidden;
-		}
-
-		&:hover .gym-details {
-			opacity: 1;
-			visibility: visible;
 		}
 	}
 
@@ -210,12 +219,16 @@
 			grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
 		}
 
-		.gym-details {
-			opacity: 0;
-			visibility: hidden;
-			transition:
-				opacity 0.3s ease,
-				visibility 0.3s ease;
+		.gym-card {
+			&:hover .gym-title {
+				visibility: hidden;
+			}
+
+			&:hover .gym-details {
+				visibility: visible;
+			}
+
+			transition: visibility 0.3s ease;
 		}
 	}
 </style>
