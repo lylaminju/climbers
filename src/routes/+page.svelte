@@ -208,7 +208,7 @@
 
 	@media (min-width: 640px) {
 		#gyms {
-			grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
 		}
 
 		.gym-details {
