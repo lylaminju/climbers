@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SortIcon from '$lib/SortIcon.svelte';
 	import capitalizeWords from '$lib/utils/capitalizeWords';
+	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
 
@@ -61,10 +62,10 @@
 	{#each filteredGyms() as gym}
 		<div
 			class="gym-card h-[200px] rounded-2xl text-white md:h-[300px]"
-			style="background-image: url({gym.imageUrl})"
+			style="background-image: url({base + gym.imageUrl})"
 		>
 			<div class="gym-title text-center">
-				<img class="h-10 w-10 rounded-full bg-white" src={gym.iconUrl} alt={gym.name} />
+				<img class="h-10 w-10 rounded-full bg-white" src={base + gym.iconUrl} alt={gym.name} />
 				<h2 class="text-2xl md:text-3xl">{gym.name}</h2>
 				<p class="text-base md:text-xl">{capitalizeWords(gym.city)}</p>
 				<!-- <span class="rounded-2xl bg-transparent pt-1 pr-2 pb-1 pl-2 text-sm">
