@@ -1,6 +1,7 @@
 {
 	"gyms": [
 		{
+			"id": 1,
 			"name": "True North Climbing",
 			"city": "toronto",
 			"address": "75 Carl Hall Rd #14, North York",
@@ -36,6 +37,7 @@
 			}
 		},
 		{
+			"id": 2,
 			"name": "The Rock Oasis",
 			"city": "toronto",
 			"address": "388 Carlaw Ave Suite 204",
@@ -68,6 +70,7 @@
 			}
 		},
 		{
+			"id": 3,
 			"name": "Joe Rockhead's",
 			"city": "toronto",
 			"address": "29 Fraser Ave",
@@ -100,6 +103,7 @@
 			}
 		},
 		{
+			"id": 4,
 			"name": "Basecamp - Queen West",
 			"city": "toronto",
 			"address": "186 Spadina Ave Unit 1A",
@@ -136,6 +140,7 @@
 			}
 		},
 		{
+			"id": 5,
 			"name": "Basecamp - Bloor West",
 			"city": "toronto",
 			"address": "677 Bloor St W",
@@ -172,6 +177,7 @@
 			}
 		},
 		{
+			"id": 6,
 			"name": "Rock On Climbing",
 			"city": "toronto",
 			"address": "474 Front St E",
@@ -203,6 +209,7 @@
 			}
 		},
 		{
+			"id": 7,
 			"name": "VITAL Climbing Gym - Brooklyn",
 			"city": "new york",
 			"address": "221 N 14th St, Brooklyn, NY 11249",
@@ -237,6 +244,7 @@
 			}
 		},
 		{
+			"id": 8,
 			"name": "Boulderz Climbing - Etobicoke",
 			"city": "toronto",
 			"address": "80 The East Mall Unit 9",
@@ -269,6 +277,7 @@
 			}
 		},
 		{
+			"id": 9,
 			"name": "Boulderz Climbing - Junction",
 			"city": "toronto",
 			"address": "1444, 16 Dupont St #16",
@@ -305,6 +314,7 @@
 			}
 		},
 		{
+			"id": 10,
 			"name": "Boulderz - Cave Rock Climbing",
 			"city": "mississauga",
 			"address": "1705 Argentia Rd #5",
@@ -337,6 +347,7 @@
 			}
 		},
 		{
+			"id": 11,
 			"name": "Up The Bloc",
 			"city": "mississauga",
 			"address": "1224 Dundas St E #28",

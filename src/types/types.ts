@@ -39,6 +39,7 @@ export const GymBoardSchema = z.object({
 export type GymBoard = z.infer<typeof GymBoardSchema>;
 
 export const ClimbingGymSchema = z.object({
+	id: z.number(),
 	name: z.string(),
 	city: z.string(),
 	address: z.string(),
