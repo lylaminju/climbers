@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import SortIcon from '$lib/SortIcon.svelte';
 	import capitalizeWords from '$lib/utils/capitalizeWords';
-	import { base } from '$app/paths';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
 
@@ -62,7 +62,7 @@
 	{#each filteredGyms() as gym}
 		<div
 			class="gym-card h-[200px] rounded-2xl text-white md:h-[300px]"
-			style="background-image: url({gym.imageUrl})"
+			style="background-image: url({base}/{gym.imageUrl})"
 		>
 			<div class="gym-title text-center">
 				<img class="h-10 w-10 rounded-full bg-white" src={base + gym.iconUrl} alt={gym.name} />
