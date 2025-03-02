@@ -82,7 +82,7 @@
 	{#each filteredGyms() as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card h-[170px] rounded-2xl text-white md:h-[300px]"
+			class="gym-card h-[170px] rounded-2xl text-white md:h-[270px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
@@ -103,29 +103,33 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details invisible cursor-pointer rounded-2xl p-3 pb-3.5 text-left text-base md:p-6 md:text-2xl"
+				class="gym-details invisible cursor-pointer rounded-2xl p-3 pb-3.5 text-left text-base leading-[1.5] md:p-6 md:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
-					class="w-fit hover:text-yellow-500"
+					class="flex w-fit flex-row hover:text-yellow-500"
 					href={gym.mapUrl}
 					target="_blank"
 					onclick={(event) => event.stopPropagation()}
 				>
-					📍 {gym.address}
+					<span class="mr-1">📍</span>
+					<span class="underline decoration-1 underline-offset-2">{gym.address}</span>
 				</a>
 				<a
-					class="w-fit hover:text-yellow-500"
+					class="flex w-fit flex-row hover:text-yellow-500"
 					href={gym.price.sourceUrl || gym.websiteUrl}
 					target="_blank"
 					onclick={(event) => event.stopPropagation()}
 				>
-					💵 {gym.price.amount.toLocaleString('en-US', {
-						style: 'currency',
-						currency: gym.price.currency,
-						minimumFractionDigits: 0,
-					})}
-					{#if gym.price.tax}+ {gym.price.tax}{/if}
+					<span class="mr-1">💵</span>
+					<span class="underline decoration-1 underline-offset-2">
+						{gym.price.amount.toLocaleString('en-US', {
+							style: 'currency',
+							currency: gym.price.currency,
+							minimumFractionDigits: 0,
+						})}
+						{#if gym.price.tax}+ {gym.price.tax}{/if}
+					</span>
 				</a>
 				<p>
 					🧗
@@ -220,7 +224,7 @@
 
 	@media (min-width: 640px) {
 		#gyms {
-			grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
 		}
 
 		.gym-card {
