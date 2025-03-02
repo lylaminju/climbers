@@ -2,7 +2,11 @@
 	import { base } from '$app/paths';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import SortIcon from '$lib/icons/SortIcon.svelte';
-	import capitalizeWords from '$lib/utils/capitalizeWords';
+	import {
+		camelCaseToSpaceSeparatedWords,
+		capitalizeFirstLetter,
+		capitalizeWords,
+	} from '$lib/utils/formatString';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
 
@@ -135,7 +139,7 @@
 					🧗
 					{(Object.keys(gym.climbingTypes) as Array<keyof GymFeature>)
 						.filter((feature) => gym.climbingTypes[feature]) // filtering only true
-						.map((feature) => feature.replace(/([A-Z])/g, ' $1').toLowerCase()) // converting camelCase to space-separated words
+						.map((feature) => capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(feature)))
 						.join(', ')}
 				</p>
 				<p>
@@ -143,7 +147,7 @@
 					{#if gym.boards && Object.values(gym.boards).some((value) => value)}
 						{(Object.keys(gym.boards) as Array<keyof GymBoard>)
 							.filter((board) => gym.boards[board])
-							.map((board) => board.replace(/([A-Z])/g, ' $1').toLowerCase())
+							.map((board) => capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(board)))
 							.join(', ')}
 					{:else}
 						x
