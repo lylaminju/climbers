@@ -157,7 +157,7 @@
 					{/if}
 				</p>
 				<a
-					class="mt-2 rounded-xl bg-yellow-600 pt-0.5 pr-1 pb-0.5 pl-1 text-center text-sm md:hidden"
+					class="mt-2 rounded-xl bg-yellow-600 pt-0.5 pr-1.5 pb-0.5 pl-1.5 text-center text-sm md:hidden"
 					href={gym.websiteUrl}
 					onclick={(event) => event.stopPropagation()}
 				>
