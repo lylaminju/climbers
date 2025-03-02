@@ -1,9 +1,7 @@
-import type { RequestEvent } from '@sveltejs/kit';
-import type { ClimbingGym } from '../types/types';
+import climbingGymData from '$lib/data/climbing-gyms.json';
 
-export async function load(event: RequestEvent): Promise<ClimbingGym[]> {
-	const response = await event.fetch('../../static/climbing-gyms.json');
-	const climbingGyms = await response.json();
-
-	return climbingGyms;
+export async function load() {
+	return climbingGymData;
 }
+
+export const prerender = true;
