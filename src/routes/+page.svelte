@@ -119,8 +119,11 @@
 					target="_blank"
 					onclick={(event) => event.stopPropagation()}
 				>
-					💵 {gym.price.currency}
-					{gym.price.amount}
+					💵 {gym.price.amount.toLocaleString('en-US', {
+						style: 'currency',
+						currency: gym.price.currency,
+						minimumFractionDigits: 0,
+					})}
 					{#if gym.price.tax}+ {gym.price.tax}{/if}
 				</a>
 				{#if gym.area.value !== 0}
