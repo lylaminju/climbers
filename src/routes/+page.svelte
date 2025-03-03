@@ -108,17 +108,23 @@
 	{#each updatedGyms() as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card h-[170px] rounded-2xl text-white md:h-[270px]"
+			class="gym-card h-[145px] rounded-2xl text-white md:h-[270px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
 			role="button"
 			tabindex="0"
 		>
-			<div class="gym-title p-3 text-center">
-				<img class="h-10 w-10 rounded-full bg-white" src="{base}/{gym.iconUrl}" alt={gym.name} />
-				<h2 class="text-2xl font-semibold md:text-3xl">{gym.name}</h2>
-				<p class="text-base md:text-xl">{capitalizeWords(gym.city)}</p>
+			<div class="gym-title p-2 text-center md:p-3">
+				<img
+					class="mb-0.5 h-6 w-6 rounded-full bg-white md:mb-0 md:h-10 md:w-10"
+					src="{base}/{gym.iconUrl}"
+					alt={gym.name}
+				/>
+				<h2 class="text-base leading-[1.2] font-semibold md:text-3xl md:leading-[1.5]">
+					{gym.name}
+				</h2>
+				<p class="text-xs md:text-xl">{capitalizeWords(gym.city)}</p>
 				<!-- <span class="rounded-2xl bg-transparent pt-1 pr-2 pb-1 pl-2 text-sm">
 					{#if gym.climbingTypes.boulder}
 						🪨
@@ -129,7 +135,7 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details invisible cursor-pointer rounded-2xl p-3 pb-3.5 text-left text-base leading-[1.5] md:p-6 md:text-2xl"
+				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap md:p-6 md:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
@@ -212,8 +218,8 @@
 
 	#gyms {
 		display: grid;
-		grid-template-columns: 1fr;
-		gap: 1rem;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.8rem;
 	}
 
 	.gym-card {
