@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import SortIcon from '$lib/icons/SortIcon.svelte';
+	import { toUSD } from '$lib/utils/convertCurrency';
 	import {
 		camelCaseToSpaceSeparatedWords,
 		capitalizeFirstLetter,
@@ -9,7 +10,6 @@
 	} from '$lib/utils/formatString';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
-
 	let isMobile = $state(false);
 	onMount(() => {
 		isMobile = window.innerWidth <= 640;
@@ -38,11 +38,29 @@
 	const uniqueCities = [...new Set(data.gyms.map((gym) => gym.city))].sort();
 
 	let selectedCity = $state('all');
+	let selectedSortingOption = $state('default');
 
-	function filteredGyms() {
+	function updatedGyms() {
 		return data.gyms
 			.filter((gym) => selectedCity === 'all' || gym.city.replace(/\s+/g, '-') === selectedCity)
-			.sort((a, b) => a.city.localeCompare(b.city)); // Sort gyms alphabetically by city name
+			.sort((a, b) => {
+				if (selectedSortingOption === 'default') {
+					return a.name.localeCompare(b.name);
+				}
+				if (selectedSortingOption === 'smallest') {
+					return a.area.value - b.area.value;
+				}
+				if (selectedSortingOption === 'largest') {
+					return b.area.value - a.area.value;
+				}
+				if (selectedSortingOption === 'cheapest') {
+					return toUSD(a.price.amount, a.price.currency) - toUSD(b.price.amount, b.price.currency);
+				}
+				if (selectedSortingOption === 'expensive') {
+					return toUSD(b.price.amount, b.price.currency) - toUSD(a.price.amount, a.price.currency);
+				}
+				return 0;
+			});
 	}
 </script>
 
@@ -53,6 +71,7 @@
 			name="cities"
 			id="city"
 			class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none"
+			aria-label="City filter"
 			bind:value={selectedCity}
 		>
 			<option value="all" selected>All cities</option>
@@ -69,13 +88,14 @@
 			name="sort-by"
 			id="sort"
 			class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none"
-			aria-label="Sort options"
+			aria-label="Sorting options"
+			bind:value={selectedSortingOption}
 		>
-			<option value="default" disabled selected>Sort by</option>
-			<option value="nearest">Nearest Distance</option>
-			<option value="farthest">Farthest Distance</option>
-			<option value="smallest">Smallest Area</option>
-			<option value="largest">Largest Area</option>
+			<option value="default" selected>Sort by</option>
+			<!-- <option value="nearest">Nearest Distance</option>
+			<option value="farthest">Farthest Distance</option> -->
+			<option value="smallest">Smallest Climbing Surface</option>
+			<option value="largest">Largest Climbing Surface</option>
 			<option value="cheapest">Price: Low to High</option>
 			<option value="expensive">Price: High to Low</option>
 			<!-- <option value="newest">Recently Opened</option>
@@ -85,7 +105,7 @@
 	</div>
 </section>
 <section id="gyms">
-	{#each filteredGyms() as gym, _ (gym.id)}
+	{#each updatedGyms() as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
 			class="gym-card h-[170px] rounded-2xl text-white md:h-[270px]"
@@ -95,7 +115,7 @@
 			role="button"
 			tabindex="0"
 		>
-			<div class="gym-title text-center">
+			<div class="gym-title p-3 text-center">
 				<img class="h-10 w-10 rounded-full bg-white" src="{base}/{gym.iconUrl}" alt={gym.name} />
 				<h2 class="text-2xl font-semibold md:text-3xl">{gym.name}</h2>
 				<p class="text-base md:text-xl">{capitalizeWords(gym.city)}</p>
