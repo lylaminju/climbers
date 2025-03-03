@@ -292,7 +292,7 @@
 			"websiteUrl": "https://www.boulderzclimbing.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 23,
+				"amount": 24,
 				"tax": "HST",
 				"sourceUrl": "https://www.boulderzclimbing.com/junction-pricing/"
 			},
