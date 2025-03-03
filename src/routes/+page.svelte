@@ -97,7 +97,7 @@
 		>
 			<div class="gym-title text-center">
 				<img class="h-10 w-10 rounded-full bg-white" src="{base}/{gym.iconUrl}" alt={gym.name} />
-				<h2 class="text-2xl md:text-3xl">{gym.name}</h2>
+				<h2 class="text-2xl font-semibold md:text-3xl">{gym.name}</h2>
 				<p class="text-base md:text-xl">{capitalizeWords(gym.city)}</p>
 				<!-- <span class="rounded-2xl bg-transparent pt-1 pr-2 pb-1 pl-2 text-sm">
 					{#if gym.climbingTypes.boulder}
