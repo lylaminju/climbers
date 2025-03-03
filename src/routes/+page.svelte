@@ -72,12 +72,14 @@
 			aria-label="Sort options"
 		>
 			<option value="default" disabled selected>Sort by</option>
+			<option value="nearest">Nearest Distance</option>
+			<option value="farthest">Farthest Distance</option>
 			<option value="smallest">Smallest Area</option>
 			<option value="largest">Largest Area</option>
 			<option value="cheapest">Price: Low to High</option>
 			<option value="expensive">Price: High to Low</option>
-			<option value="newest">Recently Opened</option>
-			<option value="oldest">Oldest Opened</option>
+			<!-- <option value="newest">Recently Opened</option>
+			<option value="oldest">Oldest Opened</option> -->
 		</select>
 		<SortIcon />
 	</div>
@@ -166,7 +168,7 @@
 					{/if}
 				</p>
 				<div class="flex w-full flex-row justify-between">
-					<p>📏 {gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
+					<p>📐 {gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
 					<a
 						class="w-fit md:hidden"
 						href={gym.websiteUrl}
