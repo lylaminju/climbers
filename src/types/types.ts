@@ -17,6 +17,7 @@ export const priceSchema = z.object({
 	sourceUrl: z.string().url().optional(),
 });
 
+// climbing surface
 export const areaSchema = z.object({
 	unit: z.string(),
 	value: z.number(),

@@ -56,7 +56,7 @@
 			"imageUrl": "gym-preview/the-rock-oasis.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 25000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -126,7 +126,7 @@
 			"imageUrl": "gym-preview/basecamp-queen-west.webp",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 7000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -163,7 +163,7 @@
 			"imageUrl": "gym-preview/basecamp-bloor-west.jpeg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 7000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -195,7 +195,7 @@
 			"imageUrl": "gym-preview/rock-on-climbing.jpeg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 1650
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -263,7 +263,7 @@
 			"imageUrl": "gym-preview/boulderz-climbing-etobicoke.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 28000
+				"value": 25000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -300,7 +300,7 @@
 			"imageUrl": "gym-preview/boulderz-climbing-toronto.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 4000
+				"value": 3200
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -333,7 +333,7 @@
 			"imageUrl": "gym-preview/boulderz-climbing-mississauga.webp",
 			"area": {
 				"unit": "sqft",
-				"value": 4000
+				"value": 3200
 			},
 			"climbingTypes": {
 				"boulder": true,
