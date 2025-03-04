@@ -13,12 +13,12 @@
 	</nav>
 </header>
 
-<main class="flex-grow p-4">
+<main class="flex-grow p-4 pt-1">
 	{@render children()}
 </main>
 
-<footer class="mt-5 bg-gray-200 p-5">
-	<p class="text-center text-sm text-gray-500">
+<footer class="mt-5 bg-gray-200 p-3">
+	<p class="text-center text-xs text-gray-500 md:text-sm">
 		© 2025 - {new Date().getFullYear()} Lyla Minju Park. All rights reserved.
 	</p>
 </footer>

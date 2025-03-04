@@ -64,7 +64,7 @@
 	}
 </script>
 
-<section id="filters" class="mb-3">
+<section id="filters" class="mb-3.5">
 	<p class="font-fugaz hidden w-full text-xl text-slate-700 md:block">Explore Climbing Gyms!</p>
 	<div class="relative">
 		<select
