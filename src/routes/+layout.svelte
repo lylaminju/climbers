@@ -5,8 +5,8 @@
 </script>
 
 <header class="pt-4 pr-4 pl-4">
-	<h1 class="font-fugaz text-5xl font-bold text-gray-900">
-		<a href="{base}/">Climbers'</a>
+	<h1 class="font-fugaz text-4xl font-bold text-gray-900 sm:text-5xl">
+		<a href="{base}/">RockClimberz</a>
 	</h1>
 	<nav>
 		<!-- <a href="www.google.com">Join Google Map Group</a> -->
@@ -19,7 +19,7 @@
 
 <footer class="mt-5 bg-gray-200 p-3">
 	<p class="text-center text-xs text-gray-500 md:text-sm">
-		© 2025 - {new Date().getFullYear()} Lyla Minju Park. All rights reserved.
+		© 2025 Lyla Minju Park. All rights reserved.
 	</p>
 </footer>
 
