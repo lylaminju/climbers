@@ -65,7 +65,7 @@
 </script>
 
 <section id="filters" class="mb-3.5">
-	<p class="font-fugaz hidden w-full text-xl text-slate-700 md:block">Explore Climbing Gyms!</p>
+	<p class="font-fugaz hidden w-full text-xl text-slate-700 sm:block">Explore Climbing Gyms!</p>
 	<div class="relative">
 		<select
 			name="cities"
@@ -108,23 +108,23 @@
 	{#each updatedGyms() as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card h-[145px] rounded-2xl text-white md:h-[270px]"
+			class="gym-card h-[145px] rounded-2xl text-white sm:h-[270px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
 			role="button"
 			tabindex="0"
 		>
-			<div class="gym-title p-2 text-center md:p-3">
+			<div class="gym-title p-2 text-center sm:p-3">
 				<img
-					class="mb-0.5 h-6 w-6 rounded-full bg-white md:mb-0 md:h-10 md:w-10"
+					class="mb-0.5 h-6 w-6 rounded-full bg-white sm:mb-0 sm:h-10 sm:w-10"
 					src="{base}/{gym.iconUrl}"
 					alt={gym.name}
 				/>
-				<h2 class="text-base leading-[1.2] font-semibold md:text-3xl md:leading-[1.5]">
+				<h2 class="text-base leading-[1.2] font-semibold sm:text-3xl sm:leading-[1.5]">
 					{gym.name}
 				</h2>
-				<p class="text-xs md:text-xl">{capitalizeWords(gym.city)}</p>
+				<p class="text-xs sm:text-xl">{capitalizeWords(gym.city)}</p>
 				<!-- <span class="rounded-2xl bg-transparent pt-1 pr-2 pb-1 pl-2 text-sm">
 					{#if gym.climbingTypes.boulder}
 						🪨
@@ -135,7 +135,7 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap md:p-6 md:text-2xl"
+				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
@@ -196,7 +196,7 @@
 				<div class="flex w-full flex-row justify-between">
 					<p>📐 {gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
 					<a
-						class="w-fit md:hidden"
+						class="w-fit sm:hidden"
 						href={gym.websiteUrl}
 						onclick={(event) => event.stopPropagation()}
 					>
