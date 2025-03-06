@@ -24,3 +24,13 @@ vite.config.ts.timestamp-*
 
 # npm configuration
 .npmrc
+
+# IDE
+.idea
+.vscode
+
+# DB
+identifier.sqlite
+
+# Python
+util.py
