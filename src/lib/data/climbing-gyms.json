@@ -10,7 +10,8 @@
 				"subway": {
 					"line": "1",
 					"station": "downsview park"
-				}
+				},
+				"busOrTram": false
 			},
 			"websiteUrl": "https://www.truenorthclimbing.com/",
 			"price": {
@@ -48,7 +49,7 @@
 			"websiteUrl": "https://www.rockoasis.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 27,
+				"amount": 27.0,
 				"tax": "HST",
 				"sourceUrl": "https://www.rockoasis.com/prices"
 			},
@@ -81,7 +82,7 @@
 			"websiteUrl": "https://www.joerockheads.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 27,
+				"amount": 27.0,
 				"tax": "HST",
 				"sourceUrl": "https://www.joerockheads.com/price-dayuse"
 			},
@@ -118,7 +119,7 @@
 			"websiteUrl": "https://basecampclimbing.ca/queen/",
 			"price": {
 				"currency": "CAD",
-				"amount": 28,
+				"amount": 28.0,
 				"tax": "HST",
 				"sourceUrl": "https://basecampclimbing.ca/queen/pricing/"
 			},
@@ -155,7 +156,7 @@
 			"websiteUrl": "https://basecampclimbing.ca/bloor/",
 			"price": {
 				"currency": "CAD",
-				"amount": 28,
+				"amount": 28.0,
 				"tax": "HST",
 				"sourceUrl": "https://basecampclimbing.ca/bloor/pricing/"
 			},
@@ -188,8 +189,9 @@
 			"websiteUrl": "https://www.rockonclimbing.ca/",
 			"price": {
 				"currency": "CAD",
-				"amount": 24,
-				"tax": "HST"
+				"amount": 24.0,
+				"tax": "HST",
+				"sourceUrl": null
 			},
 			"iconUrl": "gym-icon/rock-on-climbing.jpg",
 			"imageUrl": "gym-preview/rock-on-climbing.jpeg",
@@ -218,13 +220,15 @@
 				"subway": {
 					"line": "G",
 					"station": "nassau ave"
-				}
+				},
+				"busOrTram": true
 			},
 			"websiteUrl": "https://www.vitalclimbinggym.com/brooklyn",
 			"price": {
 				"currency": "USD",
-				"amount": 35,
-				"tax": "4.5% NYC sales"
+				"amount": 35.0,
+				"tax": "4.5% NYC sales",
+				"sourceUrl": null
 			},
 			"iconUrl": "gym-icon/vital-climbing-gym-brooklyn.jpg",
 			"imageUrl": "gym-preview/vital-climbing-gym-brooklyn.webp",
@@ -255,7 +259,7 @@
 			"websiteUrl": "https://www.boulderzclimbing.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 27,
+				"amount": 27.0,
 				"tax": "HST",
 				"sourceUrl": "https://www.boulderzclimbing.com/etobicoke-pricing/"
 			},
@@ -292,7 +296,7 @@
 			"websiteUrl": "https://www.boulderzclimbing.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 24,
+				"amount": 24.0,
 				"tax": "HST",
 				"sourceUrl": "https://www.boulderzclimbing.com/junction-pricing/"
 			},
@@ -325,7 +329,7 @@
 			"websiteUrl": "https://climbingthecave.ca/",
 			"price": {
 				"currency": "CAD",
-				"amount": 21,
+				"amount": 21.0,
 				"tax": "HST",
 				"sourceUrl": "https://climbingthecave.ca/prices/"
 			},
@@ -358,7 +362,7 @@
 			"websiteUrl": "https://www.upthebloc.com/",
 			"price": {
 				"currency": "CAD",
-				"amount": 25,
+				"amount": 25.0,
 				"tax": "HST",
 				"sourceUrl": "https://www.upthebloc.com/pricing"
 			},
