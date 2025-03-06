@@ -20,8 +20,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.truenorthclimbing.com/prices/"
 			},
-			"iconUrl": "gym-icon/true-north-climbing.jpg",
-			"imageUrl": "gym-preview/true-north-climbing.jpg",
+			"iconUrl": "true-north-climbing.jpg",
+			"imageUrl": "true-north-climbing.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 0
@@ -53,8 +53,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.rockoasis.com/prices"
 			},
-			"iconUrl": "gym-icon/the-rock-oasis.jpg",
-			"imageUrl": "gym-preview/the-rock-oasis.jpg",
+			"iconUrl": "the-rock-oasis.jpg",
+			"imageUrl": "the-rock-oasis.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 25000
@@ -86,8 +86,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.joerockheads.com/price-dayuse"
 			},
-			"iconUrl": "gym-icon/joe-rockheads.jpg",
-			"imageUrl": "gym-preview/joe-rockheads.jpg",
+			"iconUrl": "joe-rockheads.jpg",
+			"imageUrl": "joe-rockheads.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 0
@@ -123,8 +123,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://basecampclimbing.ca/queen/pricing/"
 			},
-			"iconUrl": "gym-icon/basecamp.svg",
-			"imageUrl": "gym-preview/basecamp-queen-west.webp",
+			"iconUrl": "basecamp.svg",
+			"imageUrl": "basecamp-queen-west.webp",
 			"area": {
 				"unit": "sqft",
 				"value": 7000
@@ -160,8 +160,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://basecampclimbing.ca/bloor/pricing/"
 			},
-			"iconUrl": "gym-icon/basecamp.svg",
-			"imageUrl": "gym-preview/basecamp-bloor-west.jpeg",
+			"iconUrl": "basecamp.svg",
+			"imageUrl": "basecamp-bloor-west.jpeg",
 			"area": {
 				"unit": "sqft",
 				"value": 7000
@@ -193,8 +193,8 @@
 				"tax": "HST",
 				"sourceUrl": null
 			},
-			"iconUrl": "gym-icon/rock-on-climbing.jpg",
-			"imageUrl": "gym-preview/rock-on-climbing.jpeg",
+			"iconUrl": "rock-on-climbing.jpg",
+			"imageUrl": "rock-on-climbing.jpeg",
 			"area": {
 				"unit": "sqft",
 				"value": 1650
@@ -230,8 +230,8 @@
 				"tax": "4.5% NYC sales",
 				"sourceUrl": null
 			},
-			"iconUrl": "gym-icon/vital-climbing-gym-brooklyn.jpg",
-			"imageUrl": "gym-preview/vital-climbing-gym-brooklyn.webp",
+			"iconUrl": "vital-climbing-gym-brooklyn.jpg",
+			"imageUrl": "vital-climbing-gym-brooklyn.webp",
 			"area": {
 				"unit": "sqft",
 				"value": 0
@@ -263,8 +263,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.boulderzclimbing.com/etobicoke-pricing/"
 			},
-			"iconUrl": "gym-icon/boulderz-climbing.png",
-			"imageUrl": "gym-preview/boulderz-climbing-etobicoke.jpg",
+			"iconUrl": "boulderz-climbing.png",
+			"imageUrl": "boulderz-climbing-etobicoke.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 25000
@@ -300,8 +300,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.boulderzclimbing.com/junction-pricing/"
 			},
-			"iconUrl": "gym-icon/boulderz-climbing.png",
-			"imageUrl": "gym-preview/boulderz-climbing-toronto.jpg",
+			"iconUrl": "boulderz-climbing.png",
+			"imageUrl": "boulderz-climbing-toronto.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 3200
@@ -333,8 +333,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://climbingthecave.ca/prices/"
 			},
-			"iconUrl": "gym-icon/boulderz-climbing.png",
-			"imageUrl": "gym-preview/boulderz-climbing-mississauga.webp",
+			"iconUrl": "boulderz-climbing.png",
+			"imageUrl": "boulderz-climbing-mississauga.webp",
 			"area": {
 				"unit": "sqft",
 				"value": 3200
@@ -366,8 +366,8 @@
 				"tax": "HST",
 				"sourceUrl": "https://www.upthebloc.com/pricing"
 			},
-			"iconUrl": "gym-icon/up-the-bloc.png",
-			"imageUrl": "gym-preview/up-the-bloc.jpg",
+			"iconUrl": "up-the-bloc.png",
+			"imageUrl": "up-the-bloc.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 0
@@ -381,6 +381,39 @@
 			"boards": {
 				"moonBoard": false,
 				"kilterBoard": false
+			}
+		},
+		{
+			"id": 12,
+			"name": "Hub Climbing",
+			"city": "markham",
+			"address": "165 McIntosh Dr",
+			"mapUrl": "https://maps.app.goo.gl/ebSshrDetkuT3uVK7",
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://hubclimbing.com/markham/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27.0,
+				"tax": "HST",
+				"sourceUrl": "https://hubclimbing.com/markham/prices/"
+			},
+			"iconUrl": "hub-climbing.jpg",
+			"imageUrl": "hub-climbing-markham.png",
+			"area": {
+				"unit": "sqft",
+				"value": 20000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true
 			}
 		}
 	]
