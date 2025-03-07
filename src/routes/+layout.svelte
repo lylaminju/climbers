@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import '../../static/app.css';
+	import '../app.css';
 	let { children } = $props();
 </script>
 
