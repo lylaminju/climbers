@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import SortIcon from '$lib/icons/SortIcon.svelte';
+	import type { ClimbingGym, ClimbingType, GymBoard } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
 	import {
@@ -10,7 +11,6 @@
 		capitalizeWords,
 	} from '$lib/utils/formatString';
 	import { onMount } from 'svelte';
-	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
 
 	let isMobile = $state(false);
 	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
@@ -195,7 +195,7 @@
 				</a>
 				<p>
 					🧗
-					{(Object.keys(gym.climbingTypes) as Array<keyof GymFeature>)
+					{(Object.keys(gym.climbingTypes) as Array<keyof ClimbingType>)
 						.filter((feature) => gym.climbingTypes[feature]) // filtering only true
 						.map((feature) => capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(feature)))
 						.join(', ')}

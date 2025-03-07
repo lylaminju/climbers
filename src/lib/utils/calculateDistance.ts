@@ -1,7 +1,4 @@
-type Coordinates = {
-	latitude: number;
-	longitude: number;
-};
+import type { Coordinates } from '$lib/types/types';
 
 export function haversineDistance(coord1: Coordinates, coord2: Coordinates) {
 	const { latitude: lat1, longitude: lon1 } = coord1;
