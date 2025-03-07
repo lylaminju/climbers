@@ -238,7 +238,7 @@
 			align-items: center;
 			width: 100%;
 			height: 100%;
-			text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+			text-shadow: 1px 1px 4px rgba(0, 0, 0, 1);
 		}
 
 		.gym-details {
