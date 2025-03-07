@@ -10,6 +10,7 @@
 	} from '$lib/utils/formatString';
 	import { onMount } from 'svelte';
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
+
 	let isMobile = $state(false);
 	onMount(() => {
 		isMobile = window.innerWidth <= 640;
@@ -39,9 +40,8 @@
 
 	let selectedCity = $state('all');
 	let selectedSortingOption = $state('default');
-
-	function updatedGyms() {
-		return data.gyms
+	let displayedGyms = $derived(
+		data.gyms
 			.filter((gym) => selectedCity === 'all' || gym.city.replace(/\s+/g, '-') === selectedCity)
 			.sort((a, b) => {
 				if (selectedSortingOption === 'default') {
@@ -60,8 +60,8 @@
 					return toUSD(b.price.amount, b.price.currency) - toUSD(a.price.amount, a.price.currency);
 				}
 				return 0;
-			});
-	}
+			}),
+	);
 </script>
 
 <section id="filters" class="mb-3.5">
@@ -105,7 +105,7 @@
 	</div>
 </section>
 <section id="gyms">
-	{#each updatedGyms() as gym, _ (gym.id)}
+	{#each displayedGyms as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
 			class="gym-card h-[145px] rounded-2xl text-white sm:h-[270px]"
