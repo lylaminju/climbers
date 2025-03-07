@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+export const CoordinatesSchema = z.object({
+	latitude: z.number(),
+	longitude: z.number(),
+});
+export type Coordinates = z.infer<typeof CoordinatesSchema>;
+
 export const PublicTransportSchema = z.object({
 	subway: z
 		.object({
@@ -45,6 +51,7 @@ export const ClimbingGymSchema = z.object({
 	city: z.string(),
 	address: z.string(),
 	mapUrl: z.string().url({ message: 'Invalid map URL' }),
+	coordinates: CoordinatesSchema,
 	publicTransport: PublicTransportSchema.optional(),
 	price: priceSchema,
 	iconUrl: z.string(),
