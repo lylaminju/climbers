@@ -14,9 +14,13 @@
 
 	let isMobile = $state(false);
 	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
+
 	onMount(() => {
 		isMobile = window.innerWidth <= 640;
+		setUserCoordinates();
+	});
 
+	function setUserCoordinates() {
 		try {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
@@ -32,7 +36,7 @@
 		} catch (error) {
 			console.error(`navigator error: ${error}`);
 		}
-	});
+	}
 
 	function toggleChildElementVisibility(id: number) {
 		if (!isMobile) return;
