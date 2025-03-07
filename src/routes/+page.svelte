@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import SortIcon from '$lib/icons/SortIcon.svelte';
+	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
 	import {
 		camelCaseToSpaceSeparatedWords,
@@ -12,8 +13,25 @@
 	import type { ClimbingGym, GymBoard, GymFeature } from '../types/types';
 
 	let isMobile = $state(false);
+	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
 	onMount(() => {
 		isMobile = window.innerWidth <= 640;
+
+		try {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					(position: GeolocationPosition) => {
+						userCoordinates.latitude = position.coords.latitude;
+						userCoordinates.longitude = position.coords.longitude;
+					},
+					() => console.log('Unable to retrieve the location'),
+				);
+			} else {
+				console.log('Geolocation is not supported by your browser');
+			}
+		} catch (error) {
+			console.error(`navigator error: ${error}`);
+		}
 	});
 
 	function toggleChildElementVisibility(id: number) {
@@ -39,13 +57,25 @@
 	const uniqueCities = [...new Set(data.gyms.map((gym) => gym.city))].sort();
 
 	let selectedCity = $state('all');
-	let selectedSortingOption = $state('default');
+	let selectedSortingOption = $state('nearest');
 	let displayedGyms = $derived(
 		data.gyms
 			.filter((gym) => selectedCity === 'all' || gym.city.replace(/\s+/g, '-') === selectedCity)
 			.sort((a, b) => {
-				if (selectedSortingOption === 'default') {
+				if (selectedSortingOption === 'name-asc') {
 					return a.name.localeCompare(b.name);
+				}
+				if (selectedSortingOption === 'nearest') {
+					return (
+						haversineDistance(a.coordinates, userCoordinates) -
+						haversineDistance(b.coordinates, userCoordinates)
+					);
+				}
+				if (selectedSortingOption === 'farthest') {
+					return (
+						haversineDistance(b.coordinates, userCoordinates) -
+						haversineDistance(a.coordinates, userCoordinates)
+					);
 				}
 				if (selectedSortingOption === 'smallest') {
 					return a.area.value - b.area.value;
@@ -91,9 +121,9 @@
 			aria-label="Sorting options"
 			bind:value={selectedSortingOption}
 		>
-			<option value="default" selected>Sort by</option>
-			<!-- <option value="nearest">Nearest Distance</option>
-			<option value="farthest">Farthest Distance</option> -->
+			<option value="name-asc">Name Ascending</option>
+			<option value="nearest" selected>Nearest Distance</option>
+			<option value="farthest">Farthest Distance</option>
 			<option value="smallest">Smallest Climbing Surface</option>
 			<option value="largest">Largest Climbing Surface</option>
 			<option value="cheapest">Price: Low to High</option>
