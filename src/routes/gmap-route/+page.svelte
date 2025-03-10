@@ -163,7 +163,6 @@
 				configuration.defaultTravelModeEnum = parseTravelModeEnum(configuration.defaultTravelMode);
 				setTravelModeLayer(configuration.defaultTravelModeEnum);
 				createMarker(origin);
-				console.log(origin.lat, origin.lng);
 			}
 
 			/**
