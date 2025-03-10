@@ -98,53 +98,54 @@
 	);
 </script>
 
-<section id="filters" class="mb-3.5">
+<section class="mb-3.5 flex flex-col gap-2 sm:flex-row sm:gap-3">
 	<p class="font-fugaz hidden w-full text-xl text-slate-700 sm:block">Explore Climbing Gyms!</p>
 
 	<a
 		href="{base}/gmap-route"
-		class="flex min-w-fit items-center rounded-md border border-slate-200 py-2 pr-3 pl-2 text-center text-sm text-slate-700 shadow-sm transition duration-300 hover:border-slate-800 hover:bg-slate-800 hover:text-white hover:shadow-lg"
+		class="flex w-fit min-w-fit items-center rounded-md border border-slate-200 py-2 pr-3 pl-2 text-center text-xs text-slate-700 shadow-sm transition duration-300 hover:border-slate-400 sm:text-sm"
 	>
 		<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
 		<span class="ml-1 text-nowrap">Search Routes</span>
 	</a>
+	<div class="flex flex-row gap-3">
+		<div class="relative w-fit">
+			<select
+				name="cities"
+				id="city"
+				class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-xs text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:text-sm"
+				aria-label="City filter"
+				bind:value={selectedCity}
+			>
+				<option value="all" selected>All cities</option>
 
-	<div class="relative">
-		<select
-			name="cities"
-			id="city"
-			class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-xs text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:text-sm"
-			aria-label="City filter"
-			bind:value={selectedCity}
-		>
-			<option value="all" selected>All cities</option>
+				{#each uniqueCities as city}
+					<option value={city.replace(/\s+/g, '-')}>{capitalizeWords(city)}</option>
+				{/each}
+			</select>
+			<SortIcon />
+		</div>
 
-			{#each uniqueCities as city}
-				<option value={city.replace(/\s+/g, '-')}>{capitalizeWords(city)}</option>
-			{/each}
-		</select>
-		<SortIcon />
-	</div>
-
-	<div class="relative">
-		<select
-			name="sort-by"
-			id="sort"
-			class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-xs text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:text-sm"
-			aria-label="Sorting options"
-			bind:value={selectedSortingOption}
-		>
-			<option value="name-asc">Name Ascending</option>
-			<option value="nearest" selected>Nearest Distance</option>
-			<option value="farthest">Farthest Distance</option>
-			<option value="smallest">Smallest Climbing Surface</option>
-			<option value="largest">Largest Climbing Surface</option>
-			<option value="cheapest">Price: Low to High</option>
-			<option value="expensive">Price: High to Low</option>
-			<!-- <option value="newest">Recently Opened</option>
+		<div class="relative w-fit">
+			<select
+				name="sort-by"
+				id="sort"
+				class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 text-xs text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:text-sm"
+				aria-label="Sorting options"
+				bind:value={selectedSortingOption}
+			>
+				<option value="name-asc">Name Ascending</option>
+				<option value="nearest" selected>Nearest Distance</option>
+				<option value="farthest">Farthest Distance</option>
+				<option value="smallest">Smallest Climbing Surface</option>
+				<option value="largest">Largest Climbing Surface</option>
+				<option value="cheapest">Price: Low to High</option>
+				<option value="expensive">Price: High to Low</option>
+				<!-- <option value="newest">Recently Opened</option>
 			<option value="oldest">Oldest Opened</option> -->
-		</select>
-		<SortIcon />
+			</select>
+			<SortIcon />
+		</div>
 	</div>
 </section>
 <section id="gyms">
@@ -252,13 +253,6 @@
 </section>
 
 <style>
-	#filters {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		gap: 1rem;
-	}
-
 	#gyms {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
