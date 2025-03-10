@@ -22,3 +22,7 @@ https://pmjuu.github.io/climbers
 - **Show Details**
   - Mobile: Tap to view details
   - Desktop: Hover to view details
+
+### Compare Routes by Google Maps
+
+- check optimal routes to climbing gyms from your location with various transportation options
