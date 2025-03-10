@@ -13,7 +13,7 @@
 	</nav>
 </header>
 
-<main class="flex-grow p-4 pt-1">
+<main class="flex-grow pr-4 pl-4">
 	{@render children()}
 </main>
 
