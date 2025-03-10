@@ -100,6 +100,15 @@
 
 <section id="filters" class="mb-3.5">
 	<p class="font-fugaz hidden w-full text-xl text-slate-700 sm:block">Explore Climbing Gyms!</p>
+
+	<a
+		href="/gmap-route"
+		class="flex min-w-fit items-center rounded-md border border-slate-200 py-2 pr-3 pl-2 text-center text-sm text-slate-700 shadow-sm transition duration-300 hover:border-slate-800 hover:bg-slate-800 hover:text-white hover:shadow-lg"
+	>
+		<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
+		<span class="ml-1 text-nowrap">Search Routes</span>
+	</a>
+
 	<div class="relative">
 		<select
 			name="cities"
