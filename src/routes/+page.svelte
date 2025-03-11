@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { TravelModes } from '$lib/enums/TravelModes';
 	import BicyclingIcon from '$lib/icons/commutes/BicyclingIcon.svelte';
 	import DrivingIcon from '$lib/icons/commutes/DrivingIcon.svelte';
 	import TransitIcon from '$lib/icons/commutes/TransitIcon.svelte';
@@ -102,15 +103,17 @@
 			}),
 	);
 
-	function searchRoutes() {
+	function searchRoutes(travelMode: TravelModes) {
 		const gymPlaceIds = displayedGyms.slice(0, 2).map((gym) => gym.placeId);
 		const placeIdsString = JSON.stringify(gymPlaceIds);
-		goto(`${base}/gmap-route?placeIds=${encodeURIComponent(placeIdsString)}`);
+		goto(
+			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`,
+		);
 	}
 </script>
 
 <section class="mb-3.5 flex flex-col gap-2 sm:flex-row sm:gap-3">
-	<p class="font-fugaz hidden w-full text-xl text-slate-700 sm:block">Explore Climbing Gyms!</p>
+	<p class="font-fugaz hidden w-full text-xl text-slate-700 md:block">Explore Climbing Gyms!</p>
 
 	<div
 		class="flex w-fit min-w-fit flex-row divide-x divide-slate-200 rounded-md border border-slate-200 shadow-sm transition duration-300"
@@ -119,16 +122,28 @@
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
 			<span class="ml-1 text-nowrap">Search Routes</span>
 		</div>
-		<button onclick={() => searchRoutes()} class="cursor-pointer px-2 hover:bg-slate-200">
+		<button
+			onclick={() => searchRoutes(TravelModes.DRIVING)}
+			class="cursor-pointer px-2 hover:bg-slate-200"
+		>
 			<DrivingIcon fillColor="#64748B" />
 		</button>
-		<button class="cursor-pointer px-2 hover:bg-slate-200">
+		<button
+			onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
+			class="cursor-pointer px-2 hover:bg-slate-200"
+		>
 			<TransitIcon fillColor="#64748B" />
 		</button>
-		<button class="cursor-pointer px-2 hover:bg-slate-200">
+		<button
+			onclick={() => searchRoutes(TravelModes.BICYCLING)}
+			class="cursor-pointer px-2 hover:bg-slate-200"
+		>
 			<BicyclingIcon fillColor="#64748B" />
 		</button>
-		<button class="cursor-pointer px-2 hover:bg-slate-200">
+		<button
+			onclick={() => searchRoutes(TravelModes.WALKING)}
+			class="cursor-pointer px-2 hover:bg-slate-200"
+		>
 			<WalkingIcon fillColor="#64748B" />
 		</button>
 	</div>

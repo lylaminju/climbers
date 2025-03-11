@@ -1,0 +1,6 @@
+export enum TravelModes {
+	DRIVING = 'DRIVING',
+	PUBLIC_TRANSIT = 'PUBLIC_TRANSIT',
+	BICYCLING = 'BICYCLING',
+	WALKING = 'WALKING',
+}

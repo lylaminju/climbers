@@ -31,15 +31,16 @@
 	}
 
 	const params = page.url.searchParams;
+	const travelMode = params.get('travelMode');
 	const placeIds = params.get('placeIds');
 	const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
 
 	const CONFIGURATION = $state({
-		defaultTravelMode: 'PUBLIC_TRANSIT',
+		defaultTravelMode: travelMode,
 		distanceMeasurementType: 'METRIC',
 		initialDestinations: gymPlaceIds.map((placeId) => ({
 			placeId: placeId,
-			travelMode: 'PUBLIC_TRANSIT',
+			travelMode: travelMode,
 		})),
 		mapOptions: {
 			center: { lat: 43.6519307, lng: -79.3847546 },
