@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import SortIcon from '$lib/icons/SortIcon.svelte';
@@ -96,18 +97,24 @@
 				return 0;
 			}),
 	);
+
+	function searchRoutes() {
+		const gymPlaceIds = displayedGyms.slice(0, 2).map((gym) => gym.placeId);
+		const placeIdsString = JSON.stringify(gymPlaceIds);
+		goto(`/gmap-route?placeIds=${encodeURIComponent(placeIdsString)}`);
+	}
 </script>
 
 <section class="mb-3.5 flex flex-col gap-2 sm:flex-row sm:gap-3">
 	<p class="font-fugaz hidden w-full text-xl text-slate-700 sm:block">Explore Climbing Gyms!</p>
 
-	<a
-		href="{base}/gmap-route"
+	<button
+		onclick={searchRoutes}
 		class="flex w-fit min-w-fit items-center rounded-md border border-slate-200 py-2 pr-3 pl-2 text-center text-xs text-slate-700 shadow-sm transition duration-300 hover:border-slate-400 sm:text-sm"
 	>
 		<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
 		<span class="ml-1 text-nowrap">Search Routes</span>
-	</a>
+	</button>
 	<div class="flex flex-row gap-3">
 		<div class="relative w-fit">
 			<select

@@ -1,4 +1,5 @@
 <script lang="js">
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import './commutes.css';
 	import {
@@ -29,19 +30,17 @@
 		});
 	}
 
+	const params = page.url.searchParams;
+	const placeIds = params.get('placeIds');
+	const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
+
 	const CONFIGURATION = $state({
 		defaultTravelMode: 'PUBLIC_TRANSIT',
 		distanceMeasurementType: 'METRIC',
-		initialDestinations: [
-			{
-				placeId: 'ChIJYWE1i_QxK4gRu_JSrOQA8Eg',
-				travelMode: 'PUBLIC_TRANSIT',
-			},
-			{
-				placeId: 'ChIJC5QtSXrL1IkRhhF0XF6XwBs',
-				travelMode: 'PUBLIC_TRANSIT',
-			},
-		],
+		initialDestinations: gymPlaceIds.map((placeId) => ({
+			placeId: placeId,
+			travelMode: 'PUBLIC_TRANSIT',
+		})),
 		mapOptions: {
 			center: { lat: 43.6519307, lng: -79.3847546 },
 			fullscreenControl: true,
