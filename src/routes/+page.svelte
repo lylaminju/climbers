@@ -101,7 +101,7 @@
 	function searchRoutes() {
 		const gymPlaceIds = displayedGyms.slice(0, 2).map((gym) => gym.placeId);
 		const placeIdsString = JSON.stringify(gymPlaceIds);
-		goto(`/gmap-route?placeIds=${encodeURIComponent(placeIdsString)}`);
+		goto(`${base}/gmap-route?placeIds=${encodeURIComponent(placeIdsString)}`);
 	}
 </script>
 
