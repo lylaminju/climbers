@@ -168,7 +168,7 @@
 				<h2 class="text-base leading-[1.2] font-semibold sm:text-3xl sm:leading-[1.5]">
 					{gym.name}
 				</h2>
-				<p class="text-xs sm:text-xl">{capitalizeWords(gym.city)}</p>
+				<p class="text-xs sm:text-xl sm:font-medium">{capitalizeWords(gym.city)}</p>
 				<!-- <span class="rounded-2xl bg-transparent pt-1 pr-2 pb-1 pl-2 text-sm">
 					{#if gym.climbingTypes.boulder}
 						🪨
