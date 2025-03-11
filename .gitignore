@@ -31,6 +31,3 @@ vite.config.ts.timestamp-*
 
 # DB
 identifier.sqlite
-
-# Python
-util.py
