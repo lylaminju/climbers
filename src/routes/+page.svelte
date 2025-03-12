@@ -76,6 +76,9 @@
 				if (selectedSortingOption === 'name-asc') {
 					return a.name.localeCompare(b.name);
 				}
+				if (selectedSortingOption === 'name-desc') {
+					return b.name.localeCompare(a.name);
+				}
 				if (selectedSortingOption === 'nearest') {
 					return (
 						haversineDistance(a.coordinates, userCoordinates) -
@@ -190,15 +193,14 @@
 				aria-label="Sorting options"
 				bind:value={selectedSortingOption}
 			>
-				<option value="name-asc">Name Ascending</option>
+				<option value="name-asc">Name (A → Z)</option>
+				<option value="name-desc">Name (Z → A)</option>
 				<option value="nearest" selected>Nearest Distance</option>
 				<option value="farthest">Farthest Distance</option>
 				<option value="smallest">Smallest Climbing Surface</option>
 				<option value="largest">Largest Climbing Surface</option>
 				<option value="cheapest">Price: Low to High</option>
 				<option value="expensive">Price: High to Low</option>
-				<!-- <option value="newest">Recently Opened</option>
-			<option value="oldest">Oldest Opened</option> -->
 			</select>
 			<SortIcon />
 		</div>
