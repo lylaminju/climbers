@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { TravelModes } from '$lib/enums/TravelModes';
+	import AddDestination from '$lib/icons/AddDestination.svelte';
 	import BicyclingIcon from '$lib/icons/commutes/BicyclingIcon.svelte';
 	import DrivingIcon from '$lib/icons/commutes/DrivingIcon.svelte';
 	import TransitIcon from '$lib/icons/commutes/TransitIcon.svelte';
@@ -103,8 +104,20 @@
 			}),
 	);
 
+	const gymPlaceIds: string[] = $state([]);
+
+	function handleDestination(event: MouseEvent, gymPlaceId: string) {
+		event.stopPropagation();
+
+		const index = gymPlaceIds.indexOf(gymPlaceId);
+		if (index === -1) {
+			gymPlaceIds.push(gymPlaceId);
+		} else {
+			gymPlaceIds.splice(index, 1);
+		}
+	}
+
 	function searchRoutes(travelMode: TravelModes) {
-		const gymPlaceIds = displayedGyms.slice(0, 2).map((gym) => gym.placeId);
 		const placeIdsString = JSON.stringify(gymPlaceIds);
 		goto(
 			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`,
@@ -120,7 +133,7 @@
 	>
 		<div class="flex min-w-fit items-center py-2 pr-3 pl-2 text-center text-sm text-slate-700">
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
-			<span class="ml-1">Routes</span>
+			<span class="ml-1">Routes ({gymPlaceIds.length})</span>
 		</div>
 		<div
 			class="flex w-full flex-row divide-x divide-slate-300 rounded-md border border-slate-300 sm:min-h-[38px] sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
@@ -203,6 +216,16 @@
 			tabindex="0"
 		>
 			<div class="gym-title p-2 text-center sm:p-3">
+				<button
+					class="absolute top-2 right-2 cursor-pointer sm:visible sm:z-10"
+					onclick={(event) => handleDestination(event, gym.placeId)}
+				>
+					<AddDestination
+						styles="sm:w-[24px] w-[18px] hover:stroke-blue-600 hover:fill-none
+							{gymPlaceIds.includes(gym.placeId) ? 'stroke-blue-600 fill-blue-200' : 'stroke-white-300 fill-none'}
+						"
+					/>
+				</button>
 				<img
 					class="mb-0.5 h-6 w-6 rounded-full bg-white sm:mb-0 sm:h-10 sm:w-10"
 					src="{base}/{gym.iconUrl}"
