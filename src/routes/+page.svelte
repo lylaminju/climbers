@@ -116,36 +116,40 @@
 	<p class="font-fugaz hidden w-full text-xl text-slate-700 lg:block">Explore Climbing Gyms!</p>
 
 	<div
-		class="flex h-fit w-full flex-row justify-between divide-x divide-slate-300 rounded-md border border-slate-300 transition duration-300 sm:w-fit sm:min-w-fit sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
+		class="flex h-fit w-full flex-row justify-between transition duration-300 sm:w-fit sm:min-w-fit"
 	>
 		<div class="flex min-w-fit items-center py-2 pr-3 pl-2 text-center text-sm text-slate-700">
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
-			<span class="ml-1 text-nowrap">Search Routes</span>
+			<span class="ml-1">Routes</span>
 		</div>
-		<button
-			onclick={() => searchRoutes(TravelModes.DRIVING)}
-			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+		<div
+			class="flex w-full flex-row divide-x divide-slate-300 rounded-md border border-slate-300 sm:min-h-[38px] sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
 		>
-			<DrivingIcon fillColor="#64748B" />
-		</button>
-		<button
-			onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
-			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-		>
-			<TransitIcon fillColor="#64748B" />
-		</button>
-		<button
-			onclick={() => searchRoutes(TravelModes.BICYCLING)}
-			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-		>
-			<BicyclingIcon fillColor="#64748B" />
-		</button>
-		<button
-			onclick={() => searchRoutes(TravelModes.WALKING)}
-			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-		>
-			<WalkingIcon fillColor="#64748B" />
-		</button>
+			<button
+				onclick={() => searchRoutes(TravelModes.DRIVING)}
+				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+			>
+				<DrivingIcon fillColor="#64748B" />
+			</button>
+			<button
+				onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
+				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+			>
+				<TransitIcon fillColor="#64748B" />
+			</button>
+			<button
+				onclick={() => searchRoutes(TravelModes.BICYCLING)}
+				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+			>
+				<BicyclingIcon fillColor="#64748B" />
+			</button>
+			<button
+				onclick={() => searchRoutes(TravelModes.WALKING)}
+				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+			>
+				<WalkingIcon fillColor="#64748B" />
+			</button>
+		</div>
 	</div>
 	<div class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
 		<div class="relative w-fit max-w-[50%] flex-grow sm:max-w-fit">
