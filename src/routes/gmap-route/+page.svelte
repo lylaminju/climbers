@@ -30,51 +30,50 @@
 		});
 	}
 
-	const params = page.url.searchParams;
-	const travelMode = params.get('travelMode');
-	const placeIds = params.get('placeIds');
-	const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
-
-	const CONFIGURATION = $state({
-		defaultTravelMode: travelMode,
-		distanceMeasurementType: 'METRIC',
-		initialDestinations: gymPlaceIds.map((placeId) => ({
-			placeId: placeId,
-			travelMode: travelMode,
-		})),
-		mapOptions: {
-			center: { lat: 43.6519307, lng: -79.3847546 },
-			fullscreenControl: true,
-			mapTypeControl: false,
-			streetViewControl: false,
-			zoom: 14,
-			zoomControl: true,
-			maxZoom: 20,
-			mapId: '',
-		},
-		mapsApiKey: apiKey,
-	});
-
-	async function setUserCoordinates() {
+	async function setUserCoordinates(configuration) {
 		try {
 			if (navigator.geolocation) {
 				const position = await new Promise((resolve, reject) => {
 					navigator.geolocation.getCurrentPosition(resolve, reject);
 				});
 
-				CONFIGURATION.mapOptions.center.lat = position.coords.latitude;
-				CONFIGURATION.mapOptions.center.lng = position.coords.longitude;
+				configuration.mapOptions.center.lat = position.coords.latitude;
+				configuration.mapOptions.center.lng = position.coords.longitude;
 			} else {
 				console.log('Geolocation is not supported by your browser');
 			}
 		} catch (error) {
-			console.error(`navigator error: ${error}`);
+			console.error(`[navigator error] ${error}`);
 		}
 	}
 
 	onMount(async () => {
+		const params = page.url.searchParams;
+		const travelMode = params.get('travelMode');
+		const placeIds = params.get('placeIds');
+		const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
+
+		const CONFIGURATION = $state({
+			defaultTravelMode: travelMode,
+			distanceMeasurementType: 'METRIC',
+			initialDestinations: gymPlaceIds.map((placeId) => ({
+				placeId: placeId,
+				travelMode: travelMode,
+			})),
+			mapOptions: {
+				center: { lat: 43.6519307, lng: -79.3847546 },
+				fullscreenControl: true,
+				mapTypeControl: false,
+				streetViewControl: false,
+				zoom: 14,
+				zoomControl: true,
+				maxZoom: 20,
+				mapId: '',
+			},
+			mapsApiKey: apiKey,
+		});
 		await loadGoogleMaps();
-		await setUserCoordinates();
+		await setUserCoordinates(CONFIGURATION);
 
 		/**
 		 * Element selectors for commutes widget.

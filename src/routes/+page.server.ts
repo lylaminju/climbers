@@ -9,5 +9,3 @@ export async function load() {
 
 	return { gyms: updatedGyms };
 }
-
-export const prerender = true;
