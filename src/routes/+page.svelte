@@ -112,47 +112,47 @@
 	}
 </script>
 
-<section class="mb-3.5 flex flex-col gap-2 sm:flex-row sm:gap-3">
-	<p class="font-fugaz hidden w-full text-xl text-slate-700 md:block">Explore Climbing Gyms!</p>
+<section class="mb-3.5 flex w-full flex-col gap-2 sm:flex-row sm:gap-3">
+	<p class="font-fugaz hidden w-full text-xl text-slate-700 lg:block">Explore Climbing Gyms!</p>
 
 	<div
-		class="flex w-fit min-w-fit flex-row divide-x divide-slate-200 rounded-md border border-slate-200 shadow-sm transition duration-300"
+		class="flex h-fit w-full flex-row justify-between divide-x divide-slate-300 rounded-md border border-slate-300 transition duration-300 sm:w-fit sm:min-w-fit sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
 	>
-		<div class="flex items-center py-2 pr-3 pl-2 text-center text-sm text-slate-700">
+		<div class="flex min-w-fit items-center py-2 pr-3 pl-2 text-center text-sm text-slate-700">
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
 			<span class="ml-1 text-nowrap">Search Routes</span>
 		</div>
 		<button
 			onclick={() => searchRoutes(TravelModes.DRIVING)}
-			class="cursor-pointer px-2 hover:bg-slate-200"
+			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
 		>
 			<DrivingIcon fillColor="#64748B" />
 		</button>
 		<button
 			onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
-			class="cursor-pointer px-2 hover:bg-slate-200"
+			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
 		>
 			<TransitIcon fillColor="#64748B" />
 		</button>
 		<button
 			onclick={() => searchRoutes(TravelModes.BICYCLING)}
-			class="cursor-pointer px-2 hover:bg-slate-200"
+			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
 		>
 			<BicyclingIcon fillColor="#64748B" />
 		</button>
 		<button
 			onclick={() => searchRoutes(TravelModes.WALKING)}
-			class="cursor-pointer px-2 hover:bg-slate-200"
+			class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
 		>
 			<WalkingIcon fillColor="#64748B" />
 		</button>
 	</div>
-	<div class="flex flex-row gap-3 text-xs text-slate-700 sm:text-sm">
-		<div class="relative w-fit">
+	<div class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
+		<div class="relative w-fit max-w-[50%] flex-grow sm:max-w-fit">
 			<select
 				name="cities"
 				id="city"
-				class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none"
+				class="ease w-full min-w-[100px] cursor-pointer appearance-none rounded border border-slate-300 py-2 pr-8 pl-3 transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:border-slate-200 sm:shadow-sm"
 				aria-label="City filter"
 				bind:value={selectedCity}
 			>
@@ -165,11 +165,11 @@
 			<SortIcon />
 		</div>
 
-		<div class="relative w-fit">
+		<div class="relative w-fit flex-grow sm:max-w-fit">
 			<select
 				name="sort-by"
 				id="sort"
-				class="ease min-w-[100px] cursor-pointer appearance-none rounded border border-slate-200 py-2 pr-8 pl-3 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none"
+				class="ease w-full min-w-[100px] cursor-pointer appearance-none rounded border border-slate-300 py-2 pr-8 pl-3 transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:border-slate-200 sm:shadow-sm"
 				aria-label="Sorting options"
 				bind:value={selectedSortingOption}
 			>

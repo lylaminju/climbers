@@ -4,7 +4,7 @@
 	let { children } = $props();
 </script>
 
-<header class="px-3 pt-3 sm:px-4 sm:pt-4">
+<header class="px-3 pt-3 pb-1 sm:px-4 sm:pt-4">
 	<h1 class="font-fugaz text-4xl font-bold text-gray-900 sm:text-5xl">
 		<a href="{base}/">RockClimberz</a>
 	</h1>
