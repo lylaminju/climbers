@@ -6,7 +6,7 @@ https://pmjuu.github.io/climbers
 
 ## Features
 
-### Display Climbing gyms
+### Explore Climbing gyms
 
 - **Filter Options:**
 
@@ -15,14 +15,16 @@ https://pmjuu.github.io/climbers
 - **Sort Options:**
 
   - name
-  - distance: compared using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
-  - climbing surface
+  - distance: compare coordination using the [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula)
+  - climbing surface area
   - price
 
 - **Show Details**
   - Mobile: Tap to view details
   - Desktop: Hover to view details
 
-### Compare Routes by Google Maps
+### Compare Routes with Google Maps
 
-- check optimal routes to climbing gyms from your location with various transportation options
+- Select climbing gyms for destinations
+- Check optimal routes to climbing gyms from your current location with various transportation options
+- Edit the destinations or add other destinations
