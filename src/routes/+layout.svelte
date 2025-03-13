@@ -4,10 +4,11 @@
 	let { children } = $props();
 </script>
 
-<header class="px-3 pt-3 pb-1 sm:px-4 sm:pt-4">
+<header class="flex flex-row items-end gap-3 px-3 pt-3 pb-1 sm:px-4 sm:pt-4">
 	<h1 class="font-fugaz text-4xl font-bold text-gray-900 sm:text-5xl">
 		<a href="{base}/">RockClimberz</a>
 	</h1>
+	<p class="font-fugaz hidden text-xl text-slate-500 lg:block">Explore Climbing Gyms!</p>
 	<nav>
 		<!-- <a href="www.google.com">Join Google Map Group</a> -->
 	</nav>

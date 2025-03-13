@@ -128,44 +128,57 @@
 	}
 </script>
 
-<section class="mb-3.5 flex w-full flex-col gap-2 sm:flex-row sm:gap-3">
-	<p class="font-fugaz hidden w-full text-xl text-slate-700 lg:block">Explore Climbing Gyms!</p>
-
+<section class="mb-2 flex w-full flex-col sm:flex-row sm:items-center sm:justify-between">
 	<div
-		class="flex h-fit w-full flex-row justify-between transition duration-300 sm:w-fit sm:min-w-fit"
+		class="flex h-fit w-full flex-col transition duration-300 sm:w-fit sm:min-w-fit sm:flex-row sm:gap-3"
 	>
-		<div class="flex min-w-fit items-center py-2 pr-3 pl-2 text-center text-sm text-slate-700">
+		<div class="flex min-w-fit items-center text-center text-sm text-slate-700">
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
-			<span class="ml-1">Routes ({gymPlaceIds.length})</span>
+			<span class="mr-2 ml-1 text-nowrap sm:mr-3">Routes ({gymPlaceIds.length})</span>
+
+			<div
+				class="flex w-full flex-row divide-x divide-slate-300 rounded-md border border-slate-300 sm:min-h-[38px] sm:w-fit sm:min-w-fit sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
+			>
+				<button
+					onclick={() => searchRoutes(TravelModes.DRIVING)}
+					class="flex w-full cursor-pointer items-center justify-center p-1 hover:bg-slate-200 sm:px-3"
+				>
+					<DrivingIcon fillColor="#64748B" />
+				</button>
+				<button
+					onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
+					class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+				>
+					<TransitIcon fillColor="#64748B" />
+				</button>
+				<button
+					onclick={() => searchRoutes(TravelModes.BICYCLING)}
+					class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+				>
+					<BicyclingIcon fillColor="#64748B" />
+				</button>
+				<button
+					onclick={() => searchRoutes(TravelModes.WALKING)}
+					class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
+				>
+					<WalkingIcon fillColor="#64748B" />
+				</button>
+			</div>
 		</div>
-		<div
-			class="flex w-full flex-row divide-x divide-slate-300 rounded-md border border-slate-300 sm:min-h-[38px] sm:divide-slate-200 sm:border-slate-200 sm:shadow-sm"
-		>
-			<button
-				onclick={() => searchRoutes(TravelModes.DRIVING)}
-				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-			>
-				<DrivingIcon fillColor="#64748B" />
-			</button>
-			<button
-				onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
-				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-			>
-				<TransitIcon fillColor="#64748B" />
-			</button>
-			<button
-				onclick={() => searchRoutes(TravelModes.BICYCLING)}
-				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-			>
-				<BicyclingIcon fillColor="#64748B" />
-			</button>
-			<button
-				onclick={() => searchRoutes(TravelModes.WALKING)}
-				class="flex w-full cursor-pointer items-center justify-center hover:bg-slate-200 sm:px-3"
-			>
-				<WalkingIcon fillColor="#64748B" />
-			</button>
-		</div>
+		<ul class="flex w-full flex-row items-center gap-2 overflow-x-scroll p-2">
+			{#each displayedGyms as gym}
+				<li>
+					<img
+						class="h-6 w-6 min-w-6 rounded-full bg-white sm:h-8 sm:w-8
+							{gymPlaceIds.includes(gym.placeId) ? 'opacity-100' : 'opacity-20'}
+						"
+						src="{base}/{gym.iconUrl}"
+						alt={gym.name}
+						title={gym.name}
+					/>
+				</li>
+			{/each}
+		</ul>
 	</div>
 	<div class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
 		<div class="relative w-fit max-w-[50%] flex-grow sm:max-w-fit">
