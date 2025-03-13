@@ -223,8 +223,10 @@
 					onclick={(event) => handleDestination(event, gym.placeId)}
 				>
 					<AddDestination
-						styles="sm:w-[24px] w-[18px] hover:stroke-blue-600 hover:fill-none
-							{gymPlaceIds.includes(gym.placeId) ? 'stroke-blue-600 fill-blue-200' : 'stroke-white-300 fill-none'}
+						styles="sm:w-[24px] w-[18px] 
+							{gymPlaceIds.includes(gym.placeId)
+							? 'stroke-blue-600 fill-blue-200 hover:stroke-blue-600 hover:fill-none'
+							: 'stroke-white-300 fill-none hover:stroke-blue-300'}
 						"
 					/>
 				</button>
