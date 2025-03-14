@@ -24,7 +24,7 @@
 				font-fugaz text-4xl font-bold text-gray-900 text-white
 			"
 		>
-			<a href="{base}/">ClimberzDay</a>
+			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
 		<p class="font-fugaz text-xs text-slate-500 sm:text-xl">Explore Climbing Gyms!</p>
 	</div>
