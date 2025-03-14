@@ -981,6 +981,6 @@
 	});
 </script>
 
-<div class="h-full">
+<section class="h-[100vh]">
 	{@html routeHtml}
-</div>
+</section>

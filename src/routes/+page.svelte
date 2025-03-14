@@ -377,6 +377,7 @@
 	@media (min-width: 640px) {
 		#gyms {
 			grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+			gap: 1.2rem;
 		}
 
 		.gym-card {
