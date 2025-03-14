@@ -14,10 +14,11 @@
 		bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
 	"
 >
+	<div class="absolute inset-0 bg-black/20"></div>
 	<div
 		class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
 	></div>
-	<div class="sm:flex sm:h-full sm:flex-col sm:justify-center">
+	<div class="z-1 sm:flex sm:h-full sm:flex-col sm:justify-center">
 		<h1
 			class="
 				{page.url.pathname === `${base}/` ? 'sm:text-6xl' : 'sm:text-5xl'}
@@ -28,7 +29,7 @@
 		</h1>
 		<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">Explore Climbing Gyms!</p>
 	</div>
-	<nav>
+	<nav class="z-1">
 		<a href="{base}/gmap-view">
 			<MapIcon styles="w-6 sm:w-8 stroke-white hover:stroke-slate-500" />
 		</a>
