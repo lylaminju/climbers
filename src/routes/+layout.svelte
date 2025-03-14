@@ -26,7 +26,7 @@
 		>
 			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
-		<p class="font-fugaz text-xs text-slate-500 sm:text-xl">Explore Climbing Gyms!</p>
+		<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">Explore Climbing Gyms!</p>
 	</div>
 	<nav>
 		<a href="{base}/gmap-view">
