@@ -46,7 +46,4 @@
 </footer>
 
 <style>
-	h1 {
-		text-shadow: 1px 1px 2px #a2a2a2;
-	}
 </style>
