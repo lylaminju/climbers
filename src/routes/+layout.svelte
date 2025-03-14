@@ -10,7 +10,7 @@
 <header
 	style="background-image: url({base}/wall-paper.jpeg)"
 	class="relative flex flex-row items-start justify-between gap-3
-		{page.url.pathname === '/' ? 'h-100 sm:h-[50vh]' : 'h-fit'} 
+		{page.url.pathname === `${base}/` ? 'h-100 sm:h-[50vh]' : 'h-fit'} 
 		bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
 	"
 >
@@ -20,7 +20,7 @@
 	<div class="sm:flex sm:h-full sm:flex-col sm:justify-center">
 		<h1
 			class="
-				{page.url.pathname === '/' ? 'sm:text-6xl' : 'sm:text-5xl'}
+				{page.url.pathname === `${base}/` ? 'sm:text-6xl' : 'sm:text-5xl'}
 				font-fugaz text-4xl font-bold text-gray-900 text-white
 			"
 		>
