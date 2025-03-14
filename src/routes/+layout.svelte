@@ -47,6 +47,6 @@
 
 <style>
 	h1 {
-		text-shadow: 1px 1px 2px #5d5d5d;
+		text-shadow: 1px 1px 2px #797979;
 	}
 </style>
