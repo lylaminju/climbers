@@ -30,7 +30,7 @@
 	</div>
 	<nav>
 		<a href="{base}/gmap-view">
-			<MapIcon styles="w-6 sm:w-8 stroke-slate-500 sm:stroke-white hover:stroke-slate-500" />
+			<MapIcon styles="w-6 sm:w-8 stroke-white hover:stroke-slate-500" />
 		</a>
 	</nav>
 </header>
