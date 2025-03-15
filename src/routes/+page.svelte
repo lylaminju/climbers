@@ -128,7 +128,7 @@
 	}
 </script>
 
-<section class="mb-2 flex w-full flex-col sm:flex-row sm:items-center sm:justify-between">
+<section class="mb-3 flex w-full flex-col sm:mb-4 sm:flex-row sm:items-center sm:justify-between">
 	<div
 		class="flex h-fit w-full flex-col transition duration-300 sm:w-fit sm:min-w-fit sm:flex-row sm:gap-3"
 	>
