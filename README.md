@@ -4,6 +4,8 @@
 
 https://pmjuu.github.io/climbers
 
+![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.png)
+
 ## Features
 
 ### Explore Climbing gyms
@@ -24,6 +26,8 @@ https://pmjuu.github.io/climbers
   - Desktop: Hover to view details
 
 ### Compare Routes with Google Maps
+
+![Google Map routes page](https://github.com/pmjuu/climbers/raw/main/readme-images/gmap-route-page.png)
 
 - Select climbing gyms for destinations
 - Check optimal routes to climbing gyms from your current location with various transportation options
