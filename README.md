@@ -1,4 +1,4 @@
-# RockClimberz
+# ClimberzDay
 
 🧗 _Explore Climbing Gyms!_
 
