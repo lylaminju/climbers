@@ -475,6 +475,234 @@
 				"moonBoard": true,
 				"kilterBoard": true
 			}
+		},
+		{
+			"id": 13,
+			"name": "Hub Climbing",
+			"city": "mississauga",
+			"address": "3636 Hawkestone Rd Unit 1",
+			"mapUrl": "https://maps.app.goo.gl/t4nGx8YqyxUi6dYz5",
+			"placeId": "ChIJgTaRcXVBK4gRgaQVG922LvU",
+			"coordinates": {
+				"latitude": 43.57381,
+				"longitude": -79.6534
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://hubclimbing.com/mississauga/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27.0,
+				"tax": "HST",
+				"sourceUrl": "https://hubclimbing.com/mississauga/prices/"
+			},
+			"iconUrl": "hub-climbing.jpg",
+			"imageUrl": "hub-climbing-mississauga.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false
+			}
+		},
+		{
+			"id": 14,
+			"name": "Steel Peak Climbing & Ninja",
+			"city": "vaughan",
+			"address": "231 Trade Valley Drive Unit D-F, Woodbridge",
+			"mapUrl": "https://maps.app.goo.gl/bVF48KE8wmEdTD2f6",
+			"placeId": "ChIJQ-OhebYjK4gRjfoPGdkQsHA",
+			"coordinates": {
+				"latitude": 43.79158,
+				"longitude": -79.66091
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.steelpeakclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.steelpeakclimbing.com/pricing"
+			},
+			"iconUrl": "steel-peak-climbing.png",
+			"imageUrl": "steel-peak-climbing.avif",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"id": 15,
+			"name": "Alt. Rock",
+			"city": "barrie",
+			"address": "445 Dunlop St W Unit-A",
+			"mapUrl": "https://maps.app.goo.gl/UwFRAURN4K9RShf99",
+			"placeId": "ChIJ5_a5jUe9KogRMLXAVUQ68qM",
+			"coordinates": {
+				"latitude": 44.37618,
+				"longitude": -79.71833
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.altrock.co/",
+			"price": {
+				"currency": "CAD",
+				"amount": 24.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.altrock.co/products/"
+			},
+			"iconUrl": "alt-rock.jpg",
+			"imageUrl": "alt-rock.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 6000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"id": 16,
+			"name": "Altitude Gym - Kanata",
+			"city": "ottawa",
+			"address": "501 Palladium Dr #0E5, Stittsville",
+			"mapUrl": "https://maps.app.goo.gl/XWYEGguTuwavh8BN6",
+			"placeId": "ChIJg43NX4D_zUwRv8scYexZ6_k",
+			"coordinates": {
+				"latitude": 45.29787,
+				"longitude": -75.91136
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://altitudegym.ca/kanata/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.5,
+				"tax": "HST",
+				"sourceUrl": "https://altitudegym.ca/en/kanata/about-us/rates/"
+			},
+			"iconUrl": "altitude-gym.jpg",
+			"imageUrl": "altitude-gym-kanata.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 13500
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"id": 17,
+			"name": "Altitude Gym - Gatineau",
+			"city": "gatineau",
+			"address": "35 Bd Saint-Raymond, Gatineau",
+			"mapUrl": "https://maps.app.goo.gl/kFTm9Rhsi4i7W6ZF9",
+			"placeId": "ChIJ-clpeGADzkwR5_gn3LWRKnI",
+			"coordinates": {
+				"latitude": 45.44688,
+				"longitude": -75.73686
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://altitudegym.ca/en/gatineau/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.5,
+				"tax": "QST/GST",
+				"sourceUrl": "https://altitudegym.ca/en/gatineau/about/rates/"
+			},
+			"iconUrl": "altitude-gym.jpg",
+			"imageUrl": "altitude-gym-gatineau.webp",
+			"area": {
+				"unit": "sqft",
+				"value": 6000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false
+			}
+		},
+		{
+			"id": 18,
+			"name": "Altitude Gym - Orleans",
+			"city": "ottawa",
+			"address": "265 Centrum Blvd, Orléans",
+			"mapUrl": "https://maps.app.goo.gl/sBM5KK1YEyMWDb956",
+			"placeId": "ChIJu-hEerwTzkwRIo4WtUezQfY",
+			"coordinates": {
+				"latitude": 45.48121,
+				"longitude": -75.50928
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://altitudegym.ca/en/orleans/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.5,
+				"tax": "HST",
+				"sourceUrl": "https://altitudegym.ca/en/orleans/about/rates/"
+			},
+			"iconUrl": "altitude-gym.jpg",
+			"imageUrl": "altitude-gym-orleans.webp",
+			"area": {
+				"unit": "sqft",
+				"value": 17000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true
+			}
 		}
 	]
 }
