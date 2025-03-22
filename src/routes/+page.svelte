@@ -128,9 +128,10 @@
 	}
 </script>
 
-<section class="mb-3 flex w-full flex-col sm:mb-4 sm:flex-row sm:items-center sm:justify-between">
+<section class="mb-3 flex w-full flex-col gap-y-1 sm:mb-4 sm:flex-row sm:items-center sm:gap-x-3">
 	<div
-		class="flex h-fit w-full flex-col transition duration-300 sm:w-fit sm:min-w-fit sm:flex-row sm:gap-3"
+		id="routes"
+		class="flex h-fit w-full flex-col transition duration-300 sm:min-w-0 sm:flex-row sm:gap-3"
 	>
 		<div class="flex min-w-fit items-center text-center text-sm text-slate-700">
 			<img src="{base}/google-map-icon.png" alt="Google Map Icon" width="20" />
@@ -165,11 +166,13 @@
 				</button>
 			</div>
 		</div>
-		<ul class="flex w-full flex-row items-center gap-2 overflow-x-scroll p-2">
+		<ul
+			class="flex w-full max-w-full flex-row items-center gap-2 overflow-x-scroll p-2 sm:min-w-0 sm:grow sm:overflow-x-auto"
+		>
 			{#each displayedGyms as gym}
 				<li>
 					<img
-						class="h-6 w-6 min-w-6 rounded-full bg-white sm:h-8 sm:w-8
+						class="h-6 w-6 min-w-6 rounded-full bg-white sm:h-8 sm:w-8 sm:min-w-8
 							{gymPlaceIds.includes(gym.placeId) ? 'opacity-100' : 'opacity-20'}
 						"
 						src="{base}/{gym.iconUrl}"
@@ -180,7 +183,10 @@
 			{/each}
 		</ul>
 	</div>
-	<div class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
+	<div
+		id="filter"
+		class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm"
+	>
 		<div class="relative w-fit max-w-[50%] flex-grow sm:max-w-fit">
 			<select
 				name="cities"
