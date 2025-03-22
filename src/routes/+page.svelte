@@ -8,7 +8,6 @@
 	import TransitIcon from '$lib/icons/commutes/TransitIcon.svelte';
 	import WalkingIcon from '$lib/icons/commutes/WalkingIcon.svelte';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
-	import SortIcon from '$lib/icons/SortIcon.svelte';
 	import type { ClimbingGym, ClimbingType, GymBoard } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
@@ -17,6 +16,7 @@
 		capitalizeFirstLetter,
 		capitalizeWords,
 	} from '$lib/utils/formatString';
+	import { Button, Checkbox, Dropdown } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	let isMobile = $state(false);
@@ -183,10 +183,24 @@
 			{/each}
 		</ul>
 	</div>
-	<div
-		id="filter"
-		class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm"
-	>
+	<div id="filter">
+		<Button class="text-nowrap focus:ring-2">Climbing Types</Button>
+		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
+			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
+				<Checkbox checked>Boulder</Checkbox>
+			</li>
+			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
+				<Checkbox checked>Auto belay</Checkbox>
+			</li>
+			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
+				<Checkbox checked>Top Rope</Checkbox>
+			</li>
+			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
+				<Checkbox checked>Lead</Checkbox>
+			</li>
+		</Dropdown>
+	</div>
+	<div id="sort" class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
 		<div class="relative w-fit max-w-[50%] flex-grow sm:max-w-fit">
 			<select
 				name="cities"
@@ -201,7 +215,6 @@
 					<option value={city.replace(/\s+/g, '-')}>{capitalizeWords(city)}</option>
 				{/each}
 			</select>
-			<SortIcon />
 		</div>
 
 		<div class="relative w-fit flex-grow sm:max-w-fit">
@@ -221,7 +234,6 @@
 				<option value="cheapest">Price: Low to High</option>
 				<option value="expensive">Price: High to Low</option>
 			</select>
-			<SortIcon />
 		</div>
 	</div>
 </section>

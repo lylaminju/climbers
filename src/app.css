@@ -1,11 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+@plugin 'flowbite/plugin';
 
 @theme {
 	/* https://fonts.google.com/?lang=en_Latn&categoryFilters=Feeling:%2FExpressive%2FActive */
 	--font-fugaz: 'Fugaz One', sans-serif;
+
+	--color-primary-50: #f9fafb;
+	--color-primary-100: #f3f4f6;
+	--color-primary-200: #e5e7eb;
+	--color-primary-300: #d1d5db;
+	--color-primary-400: #9ca3af;
+	--color-primary-500: #6b7280;
+	--color-primary-600: #4b5563;
+	--color-primary-700: #374151;
+	--color-primary-800: #1f2937;
+	--color-primary-900: #111827;
 }
+
+@source "../node_modules/flowbite-svelte/dist";
 
 html {
 	scroll-behavior: smooth;
