@@ -196,7 +196,7 @@
 			</div>
 		</div>
 		<ul
-			class="flex w-full max-w-full flex-row items-center gap-2 overflow-x-scroll p-2 sm:min-w-0 sm:grow sm:overflow-x-auto"
+			class="no-scrollbar flex w-full max-w-full flex-row items-center gap-2 overflow-x-scroll p-2 sm:min-w-0 sm:grow sm:overflow-x-auto"
 		>
 			{#each displayedGyms as gym}
 				<li>
@@ -290,7 +290,7 @@
 				</span> -->
 			</div>
 			<button
-				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
+				class="gym-details no-scrollbar invisible overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 			>
 				<a
