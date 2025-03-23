@@ -31,9 +31,9 @@ export const AreaSchema = z.object({
 
 export const ClimbingTypeSchema = z.object({
 	boulder: z.boolean(),
+	autoBelay: z.boolean(),
 	topRope: z.boolean(),
 	lead: z.boolean(),
-	autoBelay: z.boolean(),
 });
 export type ClimbingType = z.infer<typeof ClimbingTypeSchema>;
 

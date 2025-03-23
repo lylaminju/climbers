@@ -75,18 +75,38 @@
 		cities.filter((city) => city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')),
 	);
 
+	const climbingType: ClimbingType = $state({
+		boulder: false,
+		autoBelay: false,
+		topRope: false,
+		lead: false,
+	});
+
 	let selectedSortingOption = $state('nearest');
 	function handleSortChange(value: string) {
 		selectedSortingOption = value;
 	}
 	let displayedGyms = $derived.by(() => {
-		const filteredGyms = data.gyms.filter((gym) =>
-			cities.some((city) => city.checked && city.name === gym.city),
-		);
+		const filteredGyms = data.gyms.filter((gym) => {
+			const matchesCity = cities.some((city) => city.checked && city.name === gym.city);
+			const hasCityFilter = cities.some((city) => city.checked);
 
-		const beforeSortGyms = filteredGyms.length > 0 ? filteredGyms : data.gyms;
+			const matchesClimbingTypes = Object.entries(climbingType).every(([type, isSelected]) => {
+				if (isSelected) {
+					return gym.climbingTypes[type as keyof ClimbingType] === true;
+				}
+				// Unselected types are excluded
+				return true;
+			});
+			const hasClimbingFilter = Object.values(climbingType).some((isSelected) => isSelected);
 
-		return [...beforeSortGyms].sort((a, b) => {
+			return (
+				(!hasCityFilter || matchesCity) && // Pass if no city filter or city matches
+				(!hasClimbingFilter || matchesClimbingTypes) // Pass if no climbing filter or climbing type matches
+			);
+		});
+
+		return [...filteredGyms].sort((a, b) => {
 			switch (selectedSortingOption) {
 				case 'name-asc':
 					return a.name.localeCompare(b.name);
@@ -199,16 +219,16 @@
 		</Button>
 		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox checked>Boulder</Checkbox>
+				<Checkbox bind:checked={climbingType.boulder}>Boulder</Checkbox>
 			</li>
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox checked>Auto belay</Checkbox>
+				<Checkbox bind:checked={climbingType.autoBelay}>Auto belay</Checkbox>
 			</li>
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox checked>Top Rope</Checkbox>
+				<Checkbox bind:checked={climbingType.topRope}>Top Rope</Checkbox>
 			</li>
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox checked>Lead</Checkbox>
+				<Checkbox bind:checked={climbingType.lead}>Lead</Checkbox>
 			</li>
 		</Dropdown>
 		<Button>
