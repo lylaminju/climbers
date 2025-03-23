@@ -212,7 +212,7 @@
 			{/each}
 		</ul>
 	</div>
-	<div id="filter" class="flex flex-row gap-3">
+	<div id="filter-sort" class="flex w-full flex-row gap-2 sm:w-fit">
 		<Button class="text-nowrap">
 			{isMobile ? '🧗' : 'Climbing Types'}
 			<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
@@ -244,8 +244,8 @@
 				</li>
 			{/each}
 		</Dropdown>
+		<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 	</div>
-	<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 </section>
 <section id="gyms">
 	{#each displayedGyms as gym, _ (gym.id)}

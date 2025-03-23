@@ -12,8 +12,8 @@
 			{ value: 'farthest', label: 'Farthest Distance' },
 		],
 		[
-			{ value: 'smallest', label: 'Smallest Climbing Surface' },
-			{ value: 'largest', label: 'Largest Climbing Surface' },
+			{ value: 'smallest', label: 'Smallest Climbing Area' },
+			{ value: 'largest', label: 'Largest Climbing Area' },
 		],
 		[
 			{ value: 'cheapest', label: 'Price: Low to High' },
@@ -24,8 +24,11 @@
 	const { selectedSortingOption = '', onSortChange = (value) => {} } = $props();
 </script>
 
-<div id="sort">
-	<Button class="flex min-w-[246px] flex-row justify-between" aria-label="Sorting options">
+<div id="sort" class="w-full">
+	<Button
+		class="flex w-full flex-row justify-between sm:min-w-[246px]"
+		aria-label="Sorting options"
+	>
 		{sortGroups.flat().find((option) => option.value === selectedSortingOption)?.label}
 		<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
 	</Button>
