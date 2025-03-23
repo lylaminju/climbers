@@ -22,11 +22,22 @@
 	import SortDropdown from './SortDropdown.svelte';
 
 	let isMobile = $state(false);
+	function updateIsMobile() {
+		isMobile = window.innerWidth <= 640;
+	}
 	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
 
 	onMount(() => {
-		isMobile = window.innerWidth <= 640;
+		// Set initial value
+		updateIsMobile();
 		setUserCoordinates();
+
+		window.addEventListener('resize', updateIsMobile);
+
+		// Cleanup function to remove event listener
+		return () => {
+			window.removeEventListener('resize', updateIsMobile);
+		};
 	});
 
 	function setUserCoordinates() {
