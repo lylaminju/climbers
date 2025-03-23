@@ -19,6 +19,7 @@
 	import { Button, Checkbox, Dropdown, Search } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
+	import SortDropdown from './SortDropdown.svelte';
 
 	let isMobile = $state(false);
 	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
@@ -71,10 +72,13 @@
 	let searchTerm = $state('');
 	const cities = $state(uniqueCities.map((city) => ({ name: city, checked: false })));
 	let filteredCities = $derived(
-		cities.filter((city) => city.name.toLowerCase().indexOf(searchTerm?.toLowerCase()) !== -1),
+		cities.filter((city) => city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')),
 	);
 
 	let selectedSortingOption = $state('nearest');
+	function handleSortChange(value: string) {
+		selectedSortingOption = value;
+	}
 	let displayedGyms = $derived.by(() => {
 		const filteredGyms = data.gyms.filter((gym) =>
 			cities.some((city) => city.checked && city.name === gym.city),
@@ -82,38 +86,33 @@
 
 		const beforeSortGyms = filteredGyms.length > 0 ? filteredGyms : data.gyms;
 
-		return beforeSortGyms.sort((a, b) => {
-			if (selectedSortingOption === 'name-asc') {
-				return a.name.localeCompare(b.name);
+		return [...beforeSortGyms].sort((a, b) => {
+			switch (selectedSortingOption) {
+				case 'name-asc':
+					return a.name.localeCompare(b.name);
+				case 'name-desc':
+					return b.name.localeCompare(a.name);
+				case 'nearest':
+					return (
+						haversineDistance(a.coordinates, userCoordinates) -
+						haversineDistance(b.coordinates, userCoordinates)
+					);
+				case 'farthest':
+					return (
+						haversineDistance(b.coordinates, userCoordinates) -
+						haversineDistance(a.coordinates, userCoordinates)
+					);
+				case 'smallest':
+					return a.area.value - b.area.value;
+				case 'largest':
+					return b.area.value - a.area.value;
+				case 'cheapest':
+					return toUSD(a.price.amount, a.price.currency) - toUSD(b.price.amount, b.price.currency);
+				case 'expensive':
+					return toUSD(b.price.amount, b.price.currency) - toUSD(a.price.amount, a.price.currency);
+				default:
+					return 0;
 			}
-			if (selectedSortingOption === 'name-desc') {
-				return b.name.localeCompare(a.name);
-			}
-			if (selectedSortingOption === 'nearest') {
-				return (
-					haversineDistance(a.coordinates, userCoordinates) -
-					haversineDistance(b.coordinates, userCoordinates)
-				);
-			}
-			if (selectedSortingOption === 'farthest') {
-				return (
-					haversineDistance(b.coordinates, userCoordinates) -
-					haversineDistance(a.coordinates, userCoordinates)
-				);
-			}
-			if (selectedSortingOption === 'smallest') {
-				return a.area.value - b.area.value;
-			}
-			if (selectedSortingOption === 'largest') {
-				return b.area.value - a.area.value;
-			}
-			if (selectedSortingOption === 'cheapest') {
-				return toUSD(a.price.amount, a.price.currency) - toUSD(b.price.amount, b.price.currency);
-			}
-			if (selectedSortingOption === 'expensive') {
-				return toUSD(b.price.amount, b.price.currency) - toUSD(a.price.amount, a.price.currency);
-			}
-			return 0;
 		});
 	});
 
@@ -226,26 +225,7 @@
 			{/each}
 		</Dropdown>
 	</div>
-	<div id="sort" class="flex w-full flex-row gap-3 text-xs text-slate-700 sm:max-w-fit sm:text-sm">
-		<div class="relative w-fit flex-grow sm:max-w-fit">
-			<select
-				name="sort-by"
-				id="sort"
-				class="ease w-full min-w-[100px] cursor-pointer appearance-none rounded border border-slate-300 py-2 pr-8 pl-3 transition duration-300 placeholder:text-slate-400 hover:border-slate-400 focus:border-slate-400 focus:shadow-md focus:outline-none sm:border-slate-200 sm:shadow-sm"
-				aria-label="Sorting options"
-				bind:value={selectedSortingOption}
-			>
-				<option value="name-asc">Name (A → Z)</option>
-				<option value="name-desc">Name (Z → A)</option>
-				<option value="nearest" selected>Nearest Distance</option>
-				<option value="farthest">Farthest Distance</option>
-				<option value="smallest">Smallest Climbing Surface</option>
-				<option value="largest">Largest Climbing Surface</option>
-				<option value="cheapest">Price: Low to High</option>
-				<option value="expensive">Price: High to Low</option>
-			</select>
-		</div>
-	</div>
+	<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 </section>
 <section id="gyms">
 	{#each displayedGyms as gym, _ (gym.id)}
