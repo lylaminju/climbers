@@ -3,6 +3,8 @@
 @plugin '@tailwindcss/typography';
 @plugin 'flowbite/plugin';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
 	/* https://fonts.google.com/?lang=en_Latn&categoryFilters=Feeling:%2FExpressive%2FActive */
 	--font-fugaz: 'Fugaz One', sans-serif;
@@ -33,9 +35,12 @@ body {
 }
 
 button {
+	cursor: pointer;
+}
+
+#filter-sort button {
 	padding: 5px 10px;
 	font-size: 0.75rem;
-	cursor: pointer;
 	text-wrap: nowrap;
 }
 
@@ -51,7 +56,7 @@ button {
 }
 
 @media (min-width: 640px) {
-	button {
+	#filter-sort button {
 		padding: 8px 16px;
 		font-size: 0.875rem;
 	}
