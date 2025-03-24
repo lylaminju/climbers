@@ -11,11 +11,7 @@
 	import type { ClimbingGym, ClimbingType, GymBoard } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
-	import {
-		camelCaseToSpaceSeparatedWords,
-		capitalizeFirstLetter,
-		capitalizeWords,
-	} from '$lib/utils/formatString';
+	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
 	import { Button, Checkbox, Dropdown, Search } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
@@ -225,7 +221,16 @@
 	</div>
 	<div id="filter-sort" class="flex w-full flex-row gap-2 sm:w-fit">
 		<Button class="text-nowrap">
-			{isMobile ? '🧗' : 'Climbing Types'}
+			{isMobile
+				? '🧗'
+				: `${
+						Object.values(climbingType).every((v) => !v)
+							? 'Climbing Types'
+							: Object.entries(climbingType)
+									.filter(([type, isSelected]) => isSelected)
+									.map(([type]) => formatCamelCase(type))
+									.join(', ')
+					}`}
 			<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
 		</Button>
 		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
@@ -236,7 +241,7 @@
 				<Checkbox bind:checked={climbingType.autoBelay}>Auto belay</Checkbox>
 			</li>
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox bind:checked={climbingType.topRope}>Top Rope</Checkbox>
+				<Checkbox bind:checked={climbingType.topRope}>Top rope</Checkbox>
 			</li>
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
 				<Checkbox bind:checked={climbingType.lead}>Lead</Checkbox>
@@ -333,7 +338,7 @@
 					🧗
 					{(Object.keys(gym.climbingTypes) as Array<keyof ClimbingType>)
 						.filter((feature) => gym.climbingTypes[feature]) // filtering only true
-						.map((feature) => capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(feature)))
+						.map((feature) => formatCamelCase(feature))
 						.join(', ')}
 				</p>
 				<p>
@@ -341,7 +346,7 @@
 					{#if gym.boards && Object.values(gym.boards).some((value) => value)}
 						{(Object.keys(gym.boards) as Array<keyof GymBoard>)
 							.filter((board) => gym.boards[board])
-							.map((board) => capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(board)))
+							.map((board) => formatCamelCase(board))
 							.join(', ')}
 					{:else}
 						x

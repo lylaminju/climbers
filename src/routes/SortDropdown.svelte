@@ -24,29 +24,24 @@
 	const { selectedSortingOption = '', onSortChange = (value) => {} } = $props();
 </script>
 
-<div id="sort" class="w-full">
-	<Button
-		class="flex w-full flex-row justify-between sm:min-w-[246px]"
-		aria-label="Sorting options"
-	>
-		{sortGroups.flat().find((option) => option.value === selectedSortingOption)?.label}
-		<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
-	</Button>
-	<Dropdown>
-		{#each sortGroups as group, index}
-			{#each group as option}
-				<DropdownItem
-					onclick={() => {
-						onSortChange(option.value);
-					}}
-					class={selectedSortingOption === option.value ? 'bg-gray-100 dark:bg-gray-600' : ''}
-				>
-					{option.label}
-				</DropdownItem>
-			{/each}
-			{#if index < sortGroups.length - 1}
-				<DropdownDivider />
-			{/if}
+<Button class="flex w-full flex-row justify-between sm:min-w-[217px]" aria-label="Sorting options">
+	{sortGroups.flat().find((option) => option.value === selectedSortingOption)?.label}
+	<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+</Button>
+<Dropdown>
+	{#each sortGroups as group, index}
+		{#each group as option}
+			<DropdownItem
+				onclick={() => {
+					onSortChange(option.value);
+				}}
+				class={selectedSortingOption === option.value ? 'bg-gray-100 dark:bg-gray-600' : ''}
+			>
+				{option.label}
+			</DropdownItem>
 		{/each}
-	</Dropdown>
-</div>
+		{#if index < sortGroups.length - 1}
+			<DropdownDivider />
+		{/if}
+	{/each}
+</Dropdown>
