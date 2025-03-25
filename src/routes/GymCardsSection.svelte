@@ -13,7 +13,7 @@
 	{#each displayedGyms as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card h-[145px] rounded-2xl text-white sm:h-[270px]"
+			class="gym-card relative h-[145px] rounded-2xl bg-[#aaaaaa] bg-cover bg-center text-white sm:h-[270px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
@@ -107,6 +107,7 @@
 					<a
 						class="w-fit sm:hidden"
 						href={gym.websiteUrl}
+						target="_blank"
 						onclick={(event) => event.stopPropagation()}
 					>
 						<ExternalLinkIcon />
@@ -125,11 +126,6 @@
 	}
 
 	.gym-card {
-		background-color: #aaaaaa;
-		background-size: cover;
-		background-position: center;
-		position: relative;
-
 		.gym-title {
 			position: absolute;
 			top: 0;
