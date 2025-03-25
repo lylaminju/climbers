@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import type { ClimbingGym } from '$lib/types/types';
+	import type { ClimbingGym, ClimbingType, GymBoard } from '$lib/types/types';
+	import { formatCamelCase } from '$lib/utils/formatString';
 	import { onMount } from 'svelte';
 
 	const { displayedGyms }: { displayedGyms: ClimbingGym[] } = $props();
@@ -67,26 +68,72 @@
 
 		const infoWindowContent = `
 			<div
-				style="background-image: url(${base}/${gym.imageUrl})"
-				class="bg-cover bg-center text-white p-2"
+				class="bg-cover bg-center rounded-[8px] text-nowrap text-white text-xs sm:text-base"
+				style="background-image: url(${base}/${gym.imageUrl}); width: fit-content"
 			>
-				<h1 class="font-semibold text-sm sm:text-xl">${gym.name}</h1>
-				<a
-					class="flex w-fit flex-row hover:text-yellow-500"
-					href=${gym.price.sourceUrl || gym.websiteUrl}
-					target="_blank"
-				>
-					<span class="mr-1">💵</span>
-					<span class="underline decoration-1 underline-offset-2">
-						${gym.price.amount.toLocaleString('en-US', {
-							style: 'currency',
-							currency: gym.price.currency,
-							minimumFractionDigits: 0,
-						})}
-						${gym.price.tax ? `+ ${gym.price.tax}` : ''}
-					</span>
-				</a>
-				<a href="${gym.mapUrl}">Google Map</a>
+				<div class="w-fit h-fit rounded-[inherit] p-2 bg-black/60">
+					<h1 class="font-semibold text-sm sm:text-xl">${gym.name}</h1>
+					<a
+						class="flex w-fit flex-row hover:text-yellow-500"
+						href=${gym.mapUrl}
+						target="_blank"
+					>
+						<span class="mr-1">📍</span>
+						<span class="underline decoration-1 underline-offset-2">${gym.address}</span>
+					</a>
+					<a
+						class="flex w-fit flex-row hover:text-yellow-500"
+						href=${gym.price.sourceUrl || gym.websiteUrl}
+						target="_blank"
+					>
+						<span class="mr-1">💵</span>
+						<span class="underline decoration-1 underline-offset-2">
+							${gym.price.amount.toLocaleString('en-US', {
+								style: 'currency',
+								currency: gym.price.currency,
+								minimumFractionDigits: 0,
+							})}
+							${gym.price.tax ? `+ ${gym.price.tax}` : ''}
+						</span>
+					</a>
+					<p>
+						🧗
+						${(Object.keys(gym.climbingTypes) as Array<keyof ClimbingType>)
+							.filter((feature) => gym.climbingTypes[feature]) // filtering only true
+							.map((feature) => formatCamelCase(feature))
+							.join(', ')}
+					</p>
+					<p>
+						🛹
+						${
+							gym.boards && Object.values(gym.boards).some((value) => value)
+								? (Object.keys(gym.boards) as Array<keyof GymBoard>)
+										.filter((board) => gym.boards[board])
+										.map((board) => formatCamelCase(board))
+										.join(', ')
+								: 'x'
+						}
+					</p>
+					<div class="flex w-full flex-row justify-between">
+						<p>📐 ${gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
+						<a class="w-fit" href=${gym.websiteUrl} target="_blank">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="18" height="18"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path d="M15 3h6v6" />
+								<path d="M10 14 21 3" />
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+							</svg>
+						</a>
+					</div>
+				</div>
 			</div>
 		`;
 		const infoWindow = new google.maps.InfoWindow({ content: infoWindowContent });
