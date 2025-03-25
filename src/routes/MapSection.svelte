@@ -68,11 +68,11 @@
 
 		const infoWindowContent = `
 			<div
-				class="bg-cover bg-center rounded-[8px] text-nowrap text-white text-xs sm:text-base"
+				class="max-w-full bg-cover bg-center rounded-[8px] text-nowrap text-white text-sm sm:text-base"
 				style="background-image: url(${base}/${gym.imageUrl}); width: fit-content"
 			>
-				<div class="w-fit h-fit rounded-[inherit] p-2 bg-black/60">
-					<h1 class="font-semibold text-sm sm:text-xl">${gym.name}</h1>
+				<div class="w-fit h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
+					<h1 class="font-semibold text-base sm:text-xl">${gym.name}</h1>
 					<a
 						class="flex w-fit flex-row hover:text-yellow-500"
 						href=${gym.mapUrl}
@@ -114,9 +114,9 @@
 								: 'x'
 						}
 					</p>
-					<div class="flex w-full flex-row justify-between">
+					<div class="relative flex w-full flex-row justify-between items-center">
 						<p>📐 ${gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
-						<a class="w-fit" href=${gym.websiteUrl} target="_blank">
+						<a class="fixed sm:relative right-5 sm:right-0 w-fit" href=${gym.websiteUrl} target="_blank">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="18" height="18"
