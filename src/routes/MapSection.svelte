@@ -69,7 +69,7 @@
 		const infoWindowContent = `
 			<div
 				class="w-full max-w-full bg-cover bg-center rounded-[8px] text-nowrap text-white text-sm sm:text-base"
-				style="background-image: url(${base}/${gym.imageUrl}); width: fit-content"
+				style="background-image: url(${base}/${gym.imageUrl});"
 			>
 				<div class="w-full h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
 					<a
