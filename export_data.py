@@ -58,7 +58,8 @@ def export_to_json(db_path, json_path):
             },
             "boards": {
                 "moonBoard": bool(gym_dict["moon_board"]),
-                "kilterBoard": bool(gym_dict["kilter_board"])
+                "kilterBoard": bool(gym_dict["kilter_board"]),
+                "tensionBoard": bool(gym_dict["tension_board"])
             }
         })
 

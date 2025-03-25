@@ -40,6 +40,7 @@ export type ClimbingType = z.infer<typeof ClimbingTypeSchema>;
 export const GymBoardSchema = z.object({
 	moonBoard: z.boolean(),
 	kilterBoard: z.boolean(),
+	tensionBoard: z.boolean(),
 });
 export type GymBoard = z.infer<typeof GymBoardSchema>;
 
