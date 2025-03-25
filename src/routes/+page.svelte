@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { GymsViewMode } from '$lib/enums/GymsViewMode';
 	import { TravelModes } from '$lib/enums/TravelModes';
+	import ClimberIcon from '$lib/icons/ClimberIcon.svelte';
 	import BicyclingIcon from '$lib/icons/commutes/BicyclingIcon.svelte';
 	import DrivingIcon from '$lib/icons/commutes/DrivingIcon.svelte';
 	import TransitIcon from '$lib/icons/commutes/TransitIcon.svelte';
@@ -230,7 +231,7 @@
 	<div class="flex w-full flex-row gap-2 sm:w-fit">
 		<Button class="dropdown-btn text-nowrap">
 			{#if isMobile}
-				🧗
+				<ClimberIcon styles="w-5 stroke-white fill-white" />
 			{:else}
 				{Object.values(climbingType).every((v) => !v)
 					? 'Climbing Types'
@@ -239,7 +240,7 @@
 							.map(([type]) => formatCamelCase(type))
 							.join(', ')}
 			{/if}
-			<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
+			<ChevronDownOutline class="ms-0 h-6 w-6 text-white sm:ms-2 dark:text-white" />
 		</Button>
 		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
