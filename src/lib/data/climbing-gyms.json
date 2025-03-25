@@ -8,8 +8,8 @@
 			"mapUrl": "https://maps.app.goo.gl/e3HjG1ZUaGuuuEqbA",
 			"placeId": "ChIJYWE1i_QxK4gRu_JSrOQA8Eg",
 			"coordinates": {
-				"latitude": 43.7452525,
-				"longitude": -79.4752164
+				"latitude": 43.7453603,
+				"longitude": -79.47440519
 			},
 			"publicTransport": {
 				"subway": {
@@ -51,8 +51,8 @@
 			"mapUrl": "https://maps.app.goo.gl/noVR6KT9WrG4FayA9",
 			"placeId": "ChIJC5QtSXrL1IkRhhF0XF6XwBs",
 			"coordinates": {
-				"latitude": 43.665825,
-				"longitude": -79.3455155
+				"latitude": 43.665821,
+				"longitude": -79.34294059
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -90,8 +90,8 @@
 			"mapUrl": "https://maps.app.goo.gl/B6xKuYVPZVRX8t2Z6",
 			"placeId": "ChIJWejHUAY1K4gRHUUQL18qt8E",
 			"coordinates": {
-				"latitude": 43.6363355,
-				"longitude": -79.4260273
+				"latitude": 43.6363316,
+				"longitude": -79.4234524
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -129,8 +129,8 @@
 			"mapUrl": "https://maps.app.goo.gl/3C9NDpTBts8rNwQJ7",
 			"placeId": "ChIJ5SgWpQI1K4gRBA54S5bTLlk",
 			"coordinates": {
-				"latitude": 43.6497157,
-				"longitude": -79.4002635
+				"latitude": 43.6497118,
+				"longitude": -79.3976886
 			},
 			"publicTransport": {
 				"subway": {
@@ -172,8 +172,8 @@
 			"mapUrl": "https://maps.app.goo.gl/f29s8hKDQYJdbCbh8",
 			"placeId": "ChIJuzPxBI00K4gRnXcc44_32oQ",
 			"coordinates": {
-				"latitude": 43.6638317,
-				"longitude": -79.4191138
+				"latitude": 43.6638278,
+				"longitude": -79.41653889
 			},
 			"publicTransport": {
 				"subway": {
@@ -215,8 +215,8 @@
 			"mapUrl": "https://maps.app.goo.gl/hVQ7Jb7DuMSN7Lrc6",
 			"placeId": "ChIJuVfZvxbL1IkRHaP1B3TY9dw",
 			"coordinates": {
-				"latitude": 43.6535997,
-				"longitude": -79.3577572
+				"latitude": 43.6535958,
+				"longitude": -79.3551823
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -254,8 +254,8 @@
 			"mapUrl": "https://maps.app.goo.gl/f9UsYukJSzX2HfND8",
 			"placeId": "ChIJqR_jAeRZwokRpmZBdYTeb9A",
 			"coordinates": {
-				"latitude": 40.7227209,
-				"longitude": -75.7311426
+				"latitude": 40.72271689,
+				"longitude": -73.95477559
 			},
 			"publicTransport": {
 				"subway": {
@@ -297,8 +297,8 @@
 			"mapUrl": "https://maps.app.goo.gl/Cb28TBirM2JXdRFv5",
 			"placeId": "ChIJYym_Kv03K4gRds_tH2Sf2qM",
 			"coordinates": {
-				"latitude": 43.6187533,
-				"longitude": -79.5545625
+				"latitude": 43.6187494,
+				"longitude": -79.5496916
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -336,8 +336,8 @@
 			"mapUrl": "https://maps.app.goo.gl/UKfvwsXc7JJv41n17",
 			"placeId": "ChIJc2RSGBU0K4gR8Rxwt5gT4iM",
 			"coordinates": {
-				"latitude": 43.6669589,
-				"longitude": -79.4520519
+				"latitude": 43.666955,
+				"longitude": -79.449477
 			},
 			"publicTransport": {
 				"subway": {
@@ -379,8 +379,8 @@
 			"mapUrl": "https://maps.app.goo.gl/xQ85nF3PkrkVQpf46",
 			"placeId": "ChIJpYtkhSVAK4gReZb651H0C0Q",
 			"coordinates": {
-				"latitude": 43.605889,
-				"longitude": -79.7371202
+				"latitude": 43.60588519,
+				"longitude": -79.73224929
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -418,8 +418,8 @@
 			"mapUrl": "https://maps.app.goo.gl/gXfBWWarRhMz7BKp8",
 			"placeId": "ChIJyUUJW5RHK4gRQTO7WYUOqew",
 			"coordinates": {
-				"latitude": 43.6037512,
-				"longitude": -79.5869894
+				"latitude": 43.60374729,
+				"longitude": -79.5844145
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -457,8 +457,8 @@
 			"mapUrl": "https://maps.app.goo.gl/ebSshrDetkuT3uVK7",
 			"placeId": "ChIJf0dQfN3U1IkRKU3LDZAYfnQ",
 			"coordinates": {
-				"latitude": 43.8568441,
-				"longitude": -79.360118
+				"latitude": 43.85684029,
+				"longitude": -79.3575431
 			},
 			"publicTransport": {
 				"busOrTram": true
@@ -496,8 +496,8 @@
 			"mapUrl": "https://maps.app.goo.gl/t4nGx8YqyxUi6dYz5",
 			"placeId": "ChIJgTaRcXVBK4gRgaQVG922LvU",
 			"coordinates": {
-				"latitude": 43.57381,
-				"longitude": -79.6534
+				"latitude": 43.5738141,
+				"longitude": -79.6534059
 			},
 			"publicTransport": {
 				"busOrTram": true
