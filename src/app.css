@@ -38,11 +38,15 @@ button {
 	cursor: pointer;
 }
 
-#filter-sort > button {
-	padding: 5px 10px;
+.dropdown-btn {
+	padding: 5px 3px 5px 10px;
 	font-size: 0.75rem;
 	text-wrap: nowrap;
-	background-color: #64748b;
+	background-color: var(--color-primary-500);
+
+	&:hover {
+		background-color: var(--color-primary-600);
+	}
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -57,8 +61,8 @@ button {
 }
 
 @media (min-width: 640px) {
-	#filter-sort > button {
-		padding: 8px 16px;
+	.dropdown-btn {
+		padding: 8px 8px 8px 16px;
 		font-size: 0.875rem;
 	}
 }

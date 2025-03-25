@@ -227,19 +227,19 @@
 			{/each}
 		</ul>
 	</div>
-	<div id="filter-sort" class="flex w-full flex-row gap-2 sm:w-fit">
-		<Button class="text-nowrap">
-			{isMobile
-				? '🧗'
-				: `${
-						Object.values(climbingType).every((v) => !v)
-							? 'Climbing Types'
-							: Object.entries(climbingType)
-									.filter(([type, isSelected]) => isSelected)
-									.map(([type]) => formatCamelCase(type))
-									.join(', ')
-					}`}
-			<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+	<div class="flex w-full flex-row gap-2 sm:w-fit">
+		<Button class="dropdown-btn text-nowrap">
+			{#if isMobile}
+				🧗
+			{:else}
+				{Object.values(climbingType).every((v) => !v)
+					? 'Climbing Types'
+					: Object.entries(climbingType)
+							.filter(([type, isSelected]) => isSelected)
+							.map(([type]) => formatCamelCase(type))
+							.join(', ')}
+			{/if}
+			<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
 		</Button>
 		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
@@ -255,8 +255,9 @@
 				<Checkbox bind:checked={climbingType.lead}>Lead</Checkbox>
 			</li>
 		</Dropdown>
-		<Button>
-			Cities<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+
+		<Button class="dropdown-btn">
+			Cities<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
 		</Button>
 		<Dropdown class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50">
 			<div slot="header" class="p-3">
@@ -268,25 +269,22 @@
 				</li>
 			{/each}
 		</Dropdown>
+
 		<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
+
+		<Button
+			class="px-2.5 py-1 sm:px-4"
+			onclick={() => {
+				handleViewMode(gymsViewMode === GymsViewMode.CARD ? GymsViewMode.MAP : GymsViewMode.CARD);
+			}}
+		>
+			{#if gymsViewMode === GymsViewMode.CARD}
+				<MapIcon styles="w-4 sm:w-5 stroke-white" />
+			{:else}
+				<ImagesIcon styles="w-4 sm:w-5 stroke-white" />
+			{/if}
+		</Button>
 	</div>
-	{#if gymsViewMode == GymsViewMode.CARD}
-		<Button
-			onclick={() => {
-				handleViewMode(GymsViewMode.MAP);
-			}}
-		>
-			<MapIcon styles="w-3 sm:w-5 stroke-white" />
-		</Button>
-	{:else if gymsViewMode == GymsViewMode.MAP}
-		<Button
-			onclick={() => {
-				handleViewMode(GymsViewMode.CARD);
-			}}
-		>
-			<ImagesIcon styles="w-3 sm:w-5 stroke-white" />
-		</Button>
-	{/if}
 </section>
 {#if gymsViewMode == GymsViewMode.CARD}
 	<GymCardsSection

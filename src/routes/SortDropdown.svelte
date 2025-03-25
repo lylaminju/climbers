@@ -24,9 +24,12 @@
 	const { selectedSortingOption = '', onSortChange = (value) => {} } = $props();
 </script>
 
-<Button class="flex w-full flex-row justify-between sm:min-w-[217px]" aria-label="Sorting options">
+<Button
+	class="dropdown-btn flex w-full flex-row justify-between overflow-x-hidden sm:max-w-fit sm:min-w-[205px]"
+	aria-label="Sorting options"
+>
 	{sortGroups.flat().find((option) => option.value === selectedSortingOption)?.label}
-	<ChevronDownOutline class="ms-2 h-6 w-6 text-white dark:text-white" />
+	<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
 </Button>
 <Dropdown>
 	{#each sortGroups as group, index}
