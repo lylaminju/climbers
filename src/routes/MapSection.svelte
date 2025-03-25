@@ -68,11 +68,10 @@
 
 		const infoWindowContent = `
 			<div
-				class="max-w-full bg-cover bg-center rounded-[8px] text-nowrap text-white text-sm sm:text-base"
+				class="w-full max-w-full bg-cover bg-center rounded-[8px] text-nowrap text-white text-sm sm:text-base"
 				style="background-image: url(${base}/${gym.imageUrl}); width: fit-content"
 			>
-				<div class="w-fit h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
-					<h1 class="font-semibold text-base sm:text-xl">${gym.name}</h1>
+				<div class="w-full h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
 					<a
 						class="flex w-fit flex-row hover:text-yellow-500"
 						href=${gym.mapUrl}
@@ -119,8 +118,7 @@
 						<a class="fixed sm:relative right-5 sm:right-0 w-fit" href=${gym.websiteUrl} target="_blank">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								width="18" height="18"
-								viewBox="0 0 24 24"
+								width="18" height="18" viewBox="0 0 24 24"
 								fill="none"
 								stroke="currentColor"
 								stroke-width="2"
@@ -136,7 +134,14 @@
 				</div>
 			</div>
 		`;
-		const infoWindow = new google.maps.InfoWindow({ content: infoWindowContent });
+		const headerHtml = document.createElement('h1');
+		headerHtml.className = 'mb-1 font-semibold text-base sm:text-xl';
+		headerHtml.textContent = gym.name;
+
+		const infoWindow = new google.maps.InfoWindow({
+			headerContent: headerHtml,
+			content: infoWindowContent,
+		});
 
 		marker.addListener('click', () => {
 			infoWindow.open(map, marker);
