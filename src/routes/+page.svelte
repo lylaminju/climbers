@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import { GymsViewMode } from '$lib/enums/GymsViewMode';
 	import { TravelModes } from '$lib/enums/TravelModes';
 	import BicyclingIcon from '$lib/icons/commutes/BicyclingIcon.svelte';
 	import DrivingIcon from '$lib/icons/commutes/DrivingIcon.svelte';
 	import TransitIcon from '$lib/icons/commutes/TransitIcon.svelte';
 	import WalkingIcon from '$lib/icons/commutes/WalkingIcon.svelte';
+	import ImagesIcon from '$lib/icons/ImagesIcon.svelte';
+	import MapIcon from '$lib/icons/MapIcon.svelte';
 	import type { ClimbingGym, ClimbingType } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
@@ -14,8 +17,10 @@
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import GymCardsSection from './GymCardsSection.svelte';
+	import MapSection from './MapSection.svelte';
 	import SortDropdown from './SortDropdown.svelte';
 
+	let gymsViewMode: GymsViewMode = $state(GymsViewMode.CARD);
 	let isMobile = $state(false);
 	function updateIsMobile() {
 		isMobile = window.innerWidth <= 640;
@@ -161,6 +166,10 @@
 			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`,
 		);
 	}
+
+	function handleViewMode(viewMode: GymsViewMode) {
+		gymsViewMode = viewMode;
+	}
 </script>
 
 <section class="mb-3 flex w-full flex-col gap-y-1 sm:mb-4 sm:flex-row sm:items-center sm:gap-x-3">
@@ -261,12 +270,32 @@
 		</Dropdown>
 		<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 	</div>
+	{#if gymsViewMode == GymsViewMode.CARD}
+		<Button
+			onclick={() => {
+				handleViewMode(GymsViewMode.MAP);
+			}}
+		>
+			<MapIcon styles="w-3 sm:w-5 stroke-white" />
+		</Button>
+	{:else if gymsViewMode == GymsViewMode.MAP}
+		<Button
+			onclick={() => {
+				handleViewMode(GymsViewMode.CARD);
+			}}
+		>
+			<ImagesIcon styles="w-3 sm:w-5 stroke-white" />
+		</Button>
+	{/if}
 </section>
-
-<GymCardsSection
-	{displayedGyms}
-	{isMobile}
-	{gymPlaceIds}
-	{toggleChildElementVisibility}
-	{handleDestination}
-/>
+{#if gymsViewMode == GymsViewMode.CARD}
+	<GymCardsSection
+		{displayedGyms}
+		{isMobile}
+		{gymPlaceIds}
+		{toggleChildElementVisibility}
+		{handleDestination}
+	/>
+{:else if gymsViewMode == GymsViewMode.MAP}
+	<MapSection {displayedGyms} />
+{/if}
