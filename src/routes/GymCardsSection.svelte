@@ -22,14 +22,16 @@
 			role="button"
 			tabindex="0"
 		>
-			{#if gymPlaceIds.includes(gym.placeId)}
-				<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
-					Remove a destination
-				</Tooltip>
-			{:else}
-				<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
-					Add a destination
-				</Tooltip>
+			{#if !isMobile}
+				{#if gymPlaceIds.includes(gym.placeId)}
+					<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+						Remove a destination
+					</Tooltip>
+				{:else}
+					<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+						Add a destination
+					</Tooltip>
+				{/if}
 			{/if}
 			<div class="gym-title p-2 text-center sm:p-3">
 				<button
