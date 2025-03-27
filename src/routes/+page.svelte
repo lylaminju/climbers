@@ -170,7 +170,7 @@
 	}
 </script>
 
-<section class="mb-3 flex w-full flex-col gap-y-2 sm:mb-4 sm:flex-row sm:items-center sm:gap-x-3">
+<section class="mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3">
 	<RoutesDiv {displayedGyms} {isMobile} {gymPlaceIds} {searchRoutes} />
 
 	<div class="flex w-full flex-row gap-2 sm:w-fit">
