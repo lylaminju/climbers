@@ -4,6 +4,7 @@
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import type { ClimbingType, GymBoard } from '$lib/types/types';
 	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
+	import { Tooltip } from 'flowbite-svelte';
 
 	const { displayedGyms, isMobile, gymPlaceIds, toggleChildElementVisibility, handleDestination } =
 		$props();
@@ -20,8 +21,18 @@
 			role="button"
 			tabindex="0"
 		>
+			{#if gymPlaceIds.includes(gym.placeId)}
+				<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+					Remove a destination
+				</Tooltip>
+			{:else}
+				<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+					Add a destination
+				</Tooltip>
+			{/if}
 			<div class="gym-title p-2 text-center sm:p-3">
 				<button
+					id="add-destination-{gym.id}"
 					class="absolute top-2 right-2 cursor-pointer sm:visible sm:z-10"
 					onclick={(event) => handleDestination(event, gym.placeId)}
 				>
