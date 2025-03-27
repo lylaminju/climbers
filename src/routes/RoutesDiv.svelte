@@ -7,6 +7,7 @@
 	import WalkingIcon from '$lib/icons/commutes/WalkingIcon.svelte';
 	import CurrentLocation from '$lib/icons/CurrentLocation.svelte';
 	import EllipsisVertical from '$lib/icons/EllipsisVertical.svelte';
+	import { Tooltip } from 'flowbite-svelte';
 
 	const { displayedGyms, isMobile, gymPlaceIds, searchRoutes } = $props();
 </script>
@@ -24,26 +25,33 @@
 		>
 			<DrivingIcon fillColor="#64748B" />
 		</button>
+		<Tooltip type="light">Driving</Tooltip>
+
 		<button
 			onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
 		>
 			<TransitIcon fillColor="#64748B" />
 		</button>
+		<Tooltip type="light">Transit</Tooltip>
+
 		<button
 			onclick={() => searchRoutes(TravelModes.BICYCLING)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
 		>
 			<BicyclingIcon fillColor="#64748B" />
 		</button>
+		<Tooltip type="light">Bicycling</Tooltip>
+
 		<button
 			onclick={() => searchRoutes(TravelModes.WALKING)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
 		>
 			<WalkingIcon fillColor="#64748B" />
 		</button>
+		<Tooltip type="light">Walking</Tooltip>
 	</div>
-	<div class="flex flex-col gap-y-1 sm:flex-row sm:items-center sm:gap-x-2">
+	<div class="flex flex-col gap-y-0.5 sm:flex-row sm:items-center sm:gap-x-2">
 		<div class="flex flex-row items-center gap-1">
 			<CurrentLocation />
 			<span>Your location</span>
