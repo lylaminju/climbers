@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import AddDestination from '$lib/icons/AddDestination.svelte';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
+	import MapPin from '$lib/icons/MapPin.svelte';
+	import MapPinPlus from '$lib/icons/MapPinPlus.svelte';
 	import type { ClimbingType, GymBoard } from '$lib/types/types';
 	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
 	import { Tooltip } from 'flowbite-svelte';
@@ -33,16 +34,14 @@
 			<div class="gym-title p-2 text-center sm:p-3">
 				<button
 					id="add-destination-{gym.id}"
-					class="absolute top-2 right-2 cursor-pointer sm:visible sm:z-10"
+					class="absolute top-2 right-2 w-[18px] cursor-pointer sm:visible sm:z-10 sm:w-[24px]"
 					onclick={(event) => handleDestination(event, gym.placeId)}
 				>
-					<AddDestination
-						styles="sm:w-[24px] w-[18px] 
-							{gymPlaceIds.includes(gym.placeId)
-							? 'stroke-blue-600 fill-blue-200 hover:stroke-blue-600 hover:fill-none'
-							: 'stroke-white-300 fill-none hover:stroke-blue-300'}
-						"
-					/>
+					{#if gymPlaceIds.includes(gym.placeId)}
+						<MapPin styles="w-full stroke-white fill-blue-600 hover:fill-none" />
+					{:else}
+						<MapPinPlus styles="w-full stroke-white fill-none hover:stroke-blue-300" />
+					{/if}
 				</button>
 				<img
 					class="mb-0.5 h-6 w-6 rounded-full bg-white sm:mb-0 sm:h-10 sm:w-10"
