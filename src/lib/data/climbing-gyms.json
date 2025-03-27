@@ -247,49 +247,6 @@
 			}
 		},
 		{
-			"id": 7,
-			"name": "VITAL Climbing Gym - Brooklyn",
-			"city": "new york",
-			"address": "221 N 14th St, Brooklyn, NY 11249",
-			"mapUrl": "https://maps.app.goo.gl/f9UsYukJSzX2HfND8",
-			"placeId": "ChIJqR_jAeRZwokRpmZBdYTeb9A",
-			"coordinates": {
-				"latitude": 40.72271689,
-				"longitude": -73.95477559
-			},
-			"publicTransport": {
-				"subway": {
-					"line": "G",
-					"station": "nassau ave"
-				},
-				"busOrTram": true
-			},
-			"websiteUrl": "https://www.vitalclimbinggym.com/brooklyn",
-			"price": {
-				"currency": "USD",
-				"amount": 35.0,
-				"tax": "4.5% NYC sales",
-				"sourceUrl": null
-			},
-			"iconUrl": "vital-climbing-gym-brooklyn.jpg",
-			"imageUrl": "vital-climbing-gym-brooklyn.webp",
-			"area": {
-				"unit": "sqft",
-				"value": 0
-			},
-			"climbingTypes": {
-				"boulder": true,
-				"topRope": false,
-				"lead": false,
-				"autoBelay": false
-			},
-			"boards": {
-				"moonBoard": false,
-				"kilterBoard": true,
-				"tensionBoard": false
-			}
-		},
-		{
 			"id": 8,
 			"name": "Boulderz Climbing - Etobicoke",
 			"city": "toronto",
