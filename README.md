@@ -4,7 +4,7 @@
 
 https://pmjuu.github.io/climbers
 
-![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.png)
+![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.jpg)
 
 ## Features
 
