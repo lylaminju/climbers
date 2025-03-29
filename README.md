@@ -2,7 +2,7 @@
 
 🧗 _Explore Climbing Gyms!_
 
-https://pmjuu.github.io/climbers
+https://climberz.day
 
 ![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.jpg)
 
