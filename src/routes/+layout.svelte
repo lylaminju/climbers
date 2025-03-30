@@ -11,13 +11,15 @@
 	style="background-image: url({base}/wall-paper.jpeg)"
 	class="relative flex flex-row items-start justify-between gap-3
 		{page.url.pathname === `${base}/` ? 'h-100 sm:h-[50vh]' : 'h-fit'} 
-		bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
+		mb-2.5 bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
 	"
 >
 	<div class="absolute inset-0 bg-black/20"></div>
-	<div
-		class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
-	></div>
+	{#if page.url.pathname === `${base}/`}
+		<div
+			class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
+		></div>
+	{/if}
 	<div class="z-1 sm:flex sm:h-full sm:flex-col sm:justify-center">
 		<h1
 			class="

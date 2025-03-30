@@ -171,4 +171,4 @@
 	});
 </script>
 
-<div bind:this={mapContainer} class="h-screen w-full"></div>
+<div bind:this={mapContainer} class="h-[93vh] w-full"></div>
