@@ -320,7 +320,7 @@
 				"boulder": true,
 				"topRope": false,
 				"lead": false,
-				"autoBelay": true
+				"autoBelay": false
 			},
 			"boards": {
 				"moonBoard": true,
@@ -392,7 +392,7 @@
 			"imageUrl": "up-the-bloc.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 11000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -708,7 +708,7 @@
 			"imageUrl": "rockhaus-climbing.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 2000
 			},
 			"climbingTypes": {
 				"boulder": true,
@@ -823,6 +823,123 @@
 			},
 			"iconUrl": "boulder-parc.jpg",
 			"imageUrl": "boulder-parc.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": true
+			}
+		},
+		{
+			"id": 23,
+			"name": "Hogtown Boulders",
+			"city": "toronto",
+			"address": "238 Lesmill Rd, North York",
+			"mapUrl": "https://maps.google.com/?cid=6026226115314071823",
+			"placeId": "ChIJxUpBrtTT1IkRDzl6O7l0oVM",
+			"coordinates": {
+				"latitude": 43.762178,
+				"longitude": -79.360133
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://hogtownboulders.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 28.0,
+				"tax": "HST",
+				"sourceUrl": "https://hogtownboulders.com/pricing/"
+			},
+			"iconUrl": "hogtown-boulders.jpg",
+			"imageUrl": "hogtown-boulders.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 12000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true,
+				"tensionBoard": true
+			}
+		},
+		{
+			"id": 24,
+			"name": "Gravity Climbing Gym - Hamilton",
+			"city": "hamilton",
+			"address": "70 Frid St #6, Hamilton",
+			"mapUrl": "https://maps.google.com/?cid=6010868790295768046",
+			"placeId": "ChIJv0a7QGabLIgR7qsPXVHlalM",
+			"coordinates": {
+				"latitude": 43.25821,
+				"longitude": -79.89336
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://gravityhamilton.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 19.47,
+				"tax": "HST",
+				"sourceUrl": "https://www.gravityhamilton.com/prices"
+			},
+			"iconUrl": "gravity-climbing-gym.png",
+			"imageUrl": "gravity-climbing-gym-hamilton.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 25,
+			"name": "Gravity Climbing Gym - Niagara",
+			"city": "st. catharines",
+			"address": "399 Vansickle Rd Unit 3, St. Catharines",
+			"mapUrl": "https://maps.google.com/?cid=3663214373834983136",
+			"placeId": "ChIJI8ju2WdR04kR4AaKgBBa1jI",
+			"coordinates": {
+				"latitude": 43.15082,
+				"longitude": -79.271573
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://gravityniagara.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 17.7,
+				"tax": "HST",
+				"sourceUrl": "https://www.gravityniagara.com/prices"
+			},
+			"iconUrl": "gravity-climbing-gym.png",
+			"imageUrl": "gravity-climbing-gym-niagara.jpg",
 			"area": {
 				"unit": "sqft",
 				"value": 0
