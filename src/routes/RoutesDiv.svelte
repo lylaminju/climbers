@@ -20,7 +20,7 @@
 >
 	<img src="{base}/google-map-icon.png" alt="Google Map Icon" class="hidden w-5 sm:inline" />
 	<div
-		class="grid w-fit grid-cols-2 divide-slate-300 rounded-lg border border-slate-300 sm:grid-cols-4 sm:divide-x"
+		class="grid w-fit min-w-fit grid-cols-2 divide-slate-300 rounded-lg border border-slate-300 sm:grid-cols-4 sm:divide-x"
 	>
 		<button
 			onclick={() => searchRoutes(TravelModes.DRIVING)}
@@ -54,7 +54,7 @@
 		</button>
 		<Tooltip type="light">Walking</Tooltip>
 	</div>
-	<div class="flex flex-col gap-y-0.5 sm:flex-row sm:items-center sm:gap-x-2">
+	<div class="flex flex-col gap-y-0.5 overflow-x-hidden sm:flex-row sm:items-center sm:gap-x-2">
 		<div class="flex flex-row items-center gap-1">
 			<CurrentLocation styles="w-4 sm:w-5" />
 			<span>Your location</span>
@@ -65,28 +65,29 @@
 		{:else}
 			<ChevronsRight styles="w-5" />
 		{/if}
-
-		<ul
-			class="no-scrollbar flex min-h-6 w-fit max-w-full flex-row items-center gap-1 overflow-x-scroll sm:min-w-0 sm:overflow-x-auto"
-		>
+		<div class="flex flex-row gap-1">
 			{#if isMobile || gymPlaceIds.length === 0}
 				<MapPin styles="w-4 sm:w-5" />
 			{/if}
-			{#if gymPlaceIds.length === 0}
-				<span class="text-slate-400">Add destinations</span>
-			{/if}
-			{#each displayedGyms as gym}
-				{#if gymPlaceIds.includes(gym.placeId)}
-					<li>
-						<img
-							class="h-6 w-6 min-w-6 rounded-full bg-white sm:h-8 sm:w-8 sm:min-w-8"
-							src="{base}/{gym.iconUrl}"
-							alt={gym.name}
-							title={gym.name}
-						/>
-					</li>
+			<ul
+				class="no-scrollbar flex min-h-6 w-fit flex-row items-center gap-1 overflow-x-scroll sm:min-w-0 sm:overflow-x-auto"
+			>
+				{#if gymPlaceIds.length === 0}
+					<span class="text-slate-400">Add destinations</span>
 				{/if}
-			{/each}
-		</ul>
+				{#each displayedGyms as gym}
+					{#if gymPlaceIds.includes(gym.placeId)}
+						<li>
+							<img
+								class="h-6 w-6 min-w-6 rounded-full bg-white sm:h-8 sm:w-8 sm:min-w-8"
+								src="{base}/{gym.iconUrl}"
+								alt={gym.name}
+								title={gym.name}
+							/>
+						</li>
+					{/if}
+				{/each}
+			</ul>
+		</div>
 	</div>
 </div>
