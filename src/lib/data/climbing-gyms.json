@@ -470,7 +470,7 @@
 			"imageUrl": "hub-climbing-mississauga.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 0
+				"value": 30000
 			},
 			"climbingTypes": {
 				"boulder": true,
