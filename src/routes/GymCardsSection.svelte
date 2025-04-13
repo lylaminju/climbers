@@ -38,6 +38,7 @@
 					id="add-destination-{gym.id}"
 					class="absolute top-2 right-2 w-[18px] cursor-pointer sm:visible sm:z-10 sm:w-[24px]"
 					onclick={(event) => handleDestination(event, gym.placeId)}
+					aria-label="Add or delete a destination"
 				>
 					{#if gymPlaceIds.includes(gym.placeId)}
 						<MapPin styles="w-full stroke-white fill-blue-600 hover:fill-none" />
@@ -55,9 +56,12 @@
 				</h2>
 				<p class="text-xs sm:text-xl sm:font-medium">{capitalizeWords(gym.city)}</p>
 			</div>
-			<button
-				class="gym-details no-scrollbar invisible overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
+			<div
+				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
+				onkeydown={() => !isMobile && window.open(gym.websiteUrl)}
+				role="link"
+				tabindex="0"
 			>
 				<a
 					class="flex w-fit flex-row hover:text-yellow-500"
@@ -125,7 +129,7 @@
 						<ExternalLinkIcon />
 					</a>
 				</div>
-			</button>
+			</div>
 		</div>
 	{/each}
 </section>

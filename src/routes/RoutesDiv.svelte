@@ -25,6 +25,7 @@
 		<button
 			onclick={() => searchRoutes(TravelModes.DRIVING)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
+			aria-label="Search driving routes"
 		>
 			<DrivingIcon fillColor="#64748B" />
 		</button>
@@ -33,6 +34,7 @@
 		<button
 			onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
+			aria-label="Search public transit routes"
 		>
 			<TransitIcon fillColor="#64748B" />
 		</button>
@@ -41,6 +43,7 @@
 		<button
 			onclick={() => searchRoutes(TravelModes.BICYCLING)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
+			aria-label="Search bicycling routes"
 		>
 			<BicyclingIcon fillColor="#64748B" />
 		</button>
@@ -49,6 +52,7 @@
 		<button
 			onclick={() => searchRoutes(TravelModes.WALKING)}
 			class="flex w-full cursor-pointer items-center justify-center px-2 py-1.5 hover:bg-slate-200 sm:px-3"
+			aria-label="Search walking routes"
 		>
 			<WalkingIcon fillColor="#64748B" />
 		</button>

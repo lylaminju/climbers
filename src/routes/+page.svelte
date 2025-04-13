@@ -223,6 +223,7 @@
 			onclick={() => {
 				handleViewMode(gymsViewMode === GymsViewMode.CARD ? GymsViewMode.MAP : GymsViewMode.CARD);
 			}}
+			aria-label={gymsViewMode}
 		>
 			{#if gymsViewMode === GymsViewMode.CARD}
 				<MapIcon styles="w-4 sm:w-5 stroke-white" />
