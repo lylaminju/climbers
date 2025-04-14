@@ -19,6 +19,10 @@ def export_to_json(db_path, json_path):
     gyms = []
     for row in rows:
         gym_dict = dict(zip(column_names, row))
+        # exclude US gym temporarily
+        if gym_dict["id"] == 7:
+            continue
+
         gyms.append({
             "id": gym_dict["id"],
             "name": gym_dict["name"],

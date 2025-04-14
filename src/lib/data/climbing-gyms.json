@@ -287,7 +287,7 @@
 		},
 		{
 			"id": 9,
-			"name": "Boulderz Climbing - Toronto",
+			"name": "Boulderz Climbing",
 			"city": "toronto",
 			"address": "1444, 16 Dupont St #16",
 			"mapUrl": "https://maps.app.goo.gl/UKfvwsXc7JJv41n17",
@@ -724,7 +724,7 @@
 		},
 		{
 			"id": 20,
-			"name": "Aspire Climbing - Milton",
+			"name": "Aspire Climbing",
 			"city": "milton",
 			"address": "104 Bronte St N #2, Milton",
 			"mapUrl": "https://maps.google.com/?cid=4717714019969836716",
@@ -763,7 +763,7 @@
 		},
 		{
 			"id": 21,
-			"name": "Aspire Climbing - Whitby",
+			"name": "Aspire Climbing",
 			"city": "whitby",
 			"address": "1400 Victoria St E Unit 4, Whitby",
 			"mapUrl": "https://maps.google.com/?cid=12960613451967261291",
@@ -880,7 +880,7 @@
 		},
 		{
 			"id": 24,
-			"name": "Gravity Climbing Gym - Hamilton",
+			"name": "Gravity Climbing Gym",
 			"city": "hamilton",
 			"address": "70 Frid St #6, Hamilton",
 			"mapUrl": "https://maps.google.com/?cid=6010868790295768046",
@@ -954,6 +954,747 @@
 				"moonBoard": false,
 				"kilterBoard": false,
 				"tensionBoard": true
+			}
+		},
+		{
+			"id": 26,
+			"name": "Climb Muskoka",
+			"city": "bracebridge",
+			"address": "24 Kirkhill Dr, Bracebridge",
+			"mapUrl": "https://maps.google.com/?cid=17848316881770210948",
+			"placeId": "ChIJL5DstsaJKk0RhGaFuKP1sfc",
+			"coordinates": {
+				"latitude": 45.006588,
+				"longitude": -79.316818
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://climbmuskoka.com/home",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.0,
+				"tax": "HST",
+				"sourceUrl": "https://climbmuskoka.com/rates-%26-membership"
+			},
+			"iconUrl": "climb-muskoka.jpg",
+			"imageUrl": "climb-muskoka.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 6400
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 27,
+			"name": "Climber's Rock",
+			"city": "burlington",
+			"address": "5155 Harvester Rd #1, Burlington",
+			"mapUrl": "https://maps.google.com/?cid=2319461579756390838",
+			"placeId": "ChIJ8-WU2uxgK4gRtsmLiwRiMCA",
+			"coordinates": {
+				"latitude": 43.382306,
+				"longitude": -79.763225
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.climbersrock.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 27.0,
+				"tax": "HST",
+				"sourceUrl": "https://climbersrock.com/daypass"
+			},
+			"iconUrl": "climbers-rock.jpg",
+			"imageUrl": "climbers-rock.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 16000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 28,
+			"name": "Climbers Corner",
+			"city": "collingwood",
+			"address": "95 Sandford Fleming Dr, Collingwood",
+			"mapUrl": "https://maps.google.com/?cid=10166931307108209095",
+			"placeId": "ChIJt2yRQwh8KogRx5H7NygyGI0",
+			"coordinates": {
+				"latitude": 44.492336,
+				"longitude": -80.185875
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.climberscorner.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 15.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.climberscorner.ca/prices"
+			},
+			"iconUrl": "climbers-corner.jpg",
+			"imageUrl": "climbers-corner.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 29,
+			"name": "The Core Climbing",
+			"city": "cambridge",
+			"address": "500 Jamieson Pkwy, Cambridge",
+			"mapUrl": "https://maps.google.com/?cid=9556874383999826374",
+			"placeId": "ChIJjTAmv4qIK4gRxvlWJZ7WoIQ",
+			"coordinates": {
+				"latitude": 43.418111,
+				"longitude": -80.296249
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.thecoreclimbing.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.thecoreclimbing.ca/prices"
+			},
+			"iconUrl": "the-core-climbing.jpg",
+			"imageUrl": "the-core-climbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 30,
+			"name": "Coyote Rock Gym",
+			"city": "ottawa",
+			"address": "1737B St. Laurent Blvd, Ottawa",
+			"mapUrl": "https://maps.google.com/?cid=11579188966709165756",
+			"placeId": "ChIJH5X-Kg0PzkwRvH7SGwSLsaA",
+			"coordinates": {
+				"latitude": 45.405552,
+				"longitude": -75.625581
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.coyoterockgym.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 20.0,
+				"tax": "HST",
+				"sourceUrl": "https://coyoterockgym.ca/hours/"
+			},
+			"iconUrl": "coyote-rock-gym.jpg",
+			"imageUrl": "coyote-rock-gym.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 17000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 31,
+			"name": "Grand River Rocks",
+			"city": "kitchener",
+			"address": "264 Victoria St N, Kitchener",
+			"mapUrl": "https://maps.google.com/?cid=2348860896468841762",
+			"placeId": "ChIJP7da18L0K4gRIrXUYIrUmCA",
+			"coordinates": {
+				"latitude": 43.457673,
+				"longitude": -80.486705
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.grandriverrocks.com/kitchener",
+			"price": {
+				"currency": "CAD",
+				"amount": 24.0,
+				"tax": "HST",
+				"sourceUrl": "https://grandriverrocks.com/kitchener/pricing/general-pricing/"
+			},
+			"iconUrl": "grand-river-rocks.png",
+			"imageUrl": "grand-river-rocks-kitchener.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 14000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 32,
+			"name": "Grand River Rocks",
+			"city": "waterloo",
+			"address": "80 Lodge St #1, Waterloo",
+			"mapUrl": "https://maps.google.com/?cid=10264273067930931984",
+			"placeId": "ChIJncS-C-jzK4gRENOhC_kFco4",
+			"coordinates": {
+				"latitude": 43.475331,
+				"longitude": -80.520245
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.grandriverrocks.com/waterloo",
+			"price": {
+				"currency": "CAD",
+				"amount": 24.0,
+				"tax": "HST",
+				"sourceUrl": "https://grandriverrocks.com/waterloo/pricing-2/general-pricing/"
+			},
+			"iconUrl": "grand-river-rocks.png",
+			"imageUrl": "grand-river-rocks-waterloo.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 33,
+			"name": "The Guelph Grotto",
+			"city": "guelph",
+			"address": "199 Victoria Rd S, Guelph",
+			"mapUrl": "https://maps.google.com/?cid=10107757373900380628",
+			"placeId": "ChIJvxA9HRubK4gR1NkqQ8f3RYw",
+			"coordinates": {
+				"latitude": 43.552127,
+				"longitude": -80.224612
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.guelphgrotto.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.guelphgrotto.com/pricing"
+			},
+			"iconUrl": "the-guelph-grotto.svg",
+			"imageUrl": "the-guelph-grotto.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 10000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 34,
+			"name": "J2 Bouldering",
+			"city": "london",
+			"address": "1828 Blue Heron Dr, London",
+			"mapUrl": "https://maps.google.com/?cid=10281127750806339763",
+			"placeId": "ChIJBZBQWQvvLogRswA5tTfnrY4",
+			"coordinates": {
+				"latitude": 43.004265,
+				"longitude": -81.338006
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.j2bouldering.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23.75,
+				"tax": "HST",
+				"sourceUrl": "https://www.j2bouldering.com/day-use-prices"
+			},
+			"iconUrl": "j2-bouldering.jpg",
+			"imageUrl": "j2-bouldering.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 35,
+			"name": "Junction Climbing Centre",
+			"city": "london",
+			"address": "1030 Elias St, London",
+			"mapUrl": "https://maps.google.com/?cid=9138661325306352964",
+			"placeId": "ChIJ4We-lIXtLogRRFV8gQ4M034",
+			"coordinates": {
+				"latitude": 42.998438,
+				"longitude": -81.217607
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://junctionclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23.75,
+				"tax": "HST",
+				"sourceUrl": "https://www.junctionclimbing.com/day-use-prices"
+			},
+			"iconUrl": "junction-climbing-centre.jpg",
+			"imageUrl": "junction-climbing-centre.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 36,
+			"name": "Maitland Valley Grotto",
+			"city": "goderich",
+			"address": "199 Anglesea St, Goderich",
+			"mapUrl": "https://maps.google.com/?cid=15240056692980631027",
+			"placeId": "ChIJ3886QlrDKIgR88XsJdGOf9M",
+			"coordinates": {
+				"latitude": 43.748798,
+				"longitude": -81.701996
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.maitlandvalleygrotto.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 15.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.maitlandvalleygrotto.com/pricing"
+			},
+			"iconUrl": "maitland-valley-grotto.jpg",
+			"imageUrl": "maitland-valley-grotto.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 2100
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 37,
+			"name": "Of Rock and Chalk",
+			"city": "newmarket",
+			"address": "482 Ontario St, Newmarket",
+			"mapUrl": "https://maps.google.com/?cid=13450626229998382873",
+			"placeId": "ChIJcTG9TQ_SKogRGe-arUo5qro",
+			"coordinates": {
+				"latitude": 44.057576,
+				"longitude": -79.45824
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.rockandchalk.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 25.0,
+				"tax": "HST",
+				"sourceUrl": "https://rockandchalk.com/prices"
+			},
+			"iconUrl": "of-rock-and-chalk.webp",
+			"imageUrl": "of-rock-and-chalk.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 38,
+			"name": "Pinnacle Indoor Climbing",
+			"city": "bowmanville",
+			"address": "330 Lake Rd, Bowmanville",
+			"mapUrl": "https://maps.google.com/?cid=10718526126173885511",
+			"placeId": "ChIJ55ccH88B1YkRR5RW-rjav5Q",
+			"coordinates": {
+				"latitude": 43.898359,
+				"longitude": -78.662064
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://pinnacleindoorclimbing.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 24.95,
+				"tax": "HST",
+				"sourceUrl": "https://pinnacleindoorclimbing.com/day-pass-10-visit-pass/"
+			},
+			"iconUrl": "pinnacle-indoor-climbing.jpg",
+			"imageUrl": "pinnacle-indoor-climbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 4000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 39,
+			"name": "Rock And Rope Climbing Centre",
+			"city": "peterborough",
+			"address": "280 Perry St Unit 16, Peterborough",
+			"mapUrl": "https://maps.google.com/?cid=18401995615868276642",
+			"placeId": "ChIJsebZieSM1YkRos8fwoMFYf8",
+			"coordinates": {
+				"latitude": 44.295389,
+				"longitude": -78.324488
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.rockandrope.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.rockandrope.com/rates.html"
+			},
+			"iconUrl": "rock-and-rope-climbing-centre.jpg",
+			"imageUrl": "rock-and-rope-climbing-centre.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 40,
+			"name": "Boiler Room Climbing Gym",
+			"city": "kingston",
+			"address": "993 Princess St Unit 12, Kingston",
+			"mapUrl": "https://maps.google.com/?cid=13552947553616779734",
+			"placeId": "ChIJ9wHbq7Kr0kwR1tnTUP69Fbw",
+			"coordinates": {
+				"latitude": 44.24414,
+				"longitude": -76.514163
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.boilerroom.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.boilerroom.ca/prices--memberships1.html"
+			},
+			"iconUrl": "boiler-room-climbing-gym.jpg",
+			"imageUrl": "boiler-room-climbing-gym-kingston.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 13500
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 41,
+			"name": "Boiler Room Climbing Gym",
+			"city": "belleville",
+			"address": "Unit 105, 40 Hanna Ct, Belleville",
+			"mapUrl": "https://maps.google.com/?cid=3150026659698310325",
+			"placeId": "ChIJoUQ_c34l1okRtfxTtI4ktys",
+			"coordinates": {
+				"latitude": 44.185596,
+				"longitude": -77.416832
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.boilerroom.ca/belleville.html",
+			"price": {
+				"currency": "CAD",
+				"amount": 21.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.boilerroom.ca/prices--memberships.html"
+			},
+			"iconUrl": "boiler-room-climbing-gym.jpg",
+			"imageUrl": "boiler-room-climbing-gym-belleville.png",
+			"area": {
+				"unit": "sqft",
+				"value": 5000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": false
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 42,
+			"name": "Ajax Rock Oasis",
+			"city": "ajax",
+			"address": "75 Centennial Road Located inside:, Ajax",
+			"mapUrl": "https://maps.google.com/?cid=7687231185103387915",
+			"placeId": "ChIJSZPcMtbf1IkRC31kvgiIrmo",
+			"coordinates": {
+				"latitude": 43.839242,
+				"longitude": -79.020926
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://ajaxrockoasis.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 17.5,
+				"tax": "HST",
+				"sourceUrl": "https://ajaxrockoasis.com/pricing/"
+			},
+			"iconUrl": "ajax-rock-oasis.jpg",
+			"imageUrl": "ajax-rock-oasis.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 0
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 43,
+			"name": "Toprock Climbing",
+			"city": "brampton",
+			"address": "284 Orenda Rd Unit 8, Brampton",
+			"mapUrl": "https://maps.google.com/?cid=13659266337760571602",
+			"placeId": "ChIJAQDATnI-K4gR0nCrQl12j70",
+			"coordinates": {
+				"latitude": 43.700479,
+				"longitude": -79.714008
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://toprockclimbing.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 23.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.toprockclimbing.ca/pricing-2"
+			},
+			"iconUrl": "toprock-climbing.jpg",
+			"imageUrl": "toprock-climbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 6000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": false,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 44,
+			"name": "Toronto Climbing Academy",
+			"city": "toronto",
+			"address": "11 Curity Ave Unit 3, East York",
+			"mapUrl": "https://maps.google.com/?cid=12130763627202776826",
+			"placeId": "ChIJf8FCVGzL1IkR-o6mVT8hWag",
+			"coordinates": {
+				"latitude": 43.709239,
+				"longitude": -79.314858
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "http://www.climbingacademy.com/",
+			"price": {
+				"currency": "CAD",
+				"amount": 31.0,
+				"tax": "HST",
+				"sourceUrl": "https://climbingacademy.com/en/info/i22/Pricing-&-Membership.html"
+			},
+			"iconUrl": "toronto-climbing-academy.jpg",
+			"imageUrl": "toronto-climbing-academy.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 14000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": true,
+				"lead": true,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": true,
+				"tensionBoard": false
 			}
 		}
 	]
