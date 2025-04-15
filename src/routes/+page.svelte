@@ -60,10 +60,10 @@
 		if (!isMobile) return;
 
 		const gymTitle: HTMLElement | null = document.querySelector(
-			`div#gym-card-${id.toString()} div.gym-title`,
+			`#gym-card-${id.toString()} .gym-title`,
 		);
 		const gymDetails: HTMLElement | null = document.querySelector(
-			`div#gym-card-${id.toString()} button.gym-details`,
+			`#gym-card-${id.toString()} .gym-details`,
 		);
 		if (gymTitle && gymDetails) {
 			gymTitle.style['visibility'] =
