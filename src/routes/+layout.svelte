@@ -69,7 +69,9 @@
 	{@render children()}
 </main>
 
-<AuthModal isOpen={showAuthModal} mode={authMode} onclose={closeAuthModal} />
+{#if showAuthModal}
+	<AuthModal mode={authMode} onclose={closeAuthModal} />
+{/if}
 
 <footer class="mt-5 bg-gray-200 p-3">
 	<p class="text-center text-xs text-gray-500 md:text-sm">
