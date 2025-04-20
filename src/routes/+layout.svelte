@@ -3,12 +3,39 @@
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { supabase } from '$lib/supabaseClient';
+	import type { Subscription, User } from '@supabase/supabase-js';
 	import { A, Dropdown, DropdownItem, Toast } from 'flowbite-svelte';
-	import { BarsOutline } from 'flowbite-svelte-icons';
+	import {
+		ArrowRightToBracketOutline,
+		BarsOutline,
+		UserCircleOutline,
+	} from 'flowbite-svelte-icons';
+	import { onDestroy, onMount } from 'svelte';
 	import '../app.css';
 	import AuthModal from '../lib/components/AuthModal.svelte';
 
 	let { children } = $props();
+
+	let user = $state<User | null>(null);
+	let listener: { subscription: Subscription } | undefined = undefined;
+
+	onMount(async () => {
+		// Initial fetch
+		const { data } = await supabase.auth.getUser();
+		user = data.user;
+
+		// Listen for auth state changes
+		const { data: listenerData } = supabase.auth.onAuthStateChange((event, session) => {
+			user = session?.user ?? null;
+		});
+
+		// Store the listener
+		listener = listenerData;
+	});
+
+	onDestroy(() => {
+		listener?.subscription.unsubscribe();
+	});
 
 	let showAuthModal = $state(false);
 	let authMode = $state<'sign-in' | 'sign-up'>('sign-in');
@@ -71,19 +98,39 @@
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
 		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
 			<DropdownItem><A href="{base}/find-partners">Find climbing partners</A></DropdownItem>
-			<DropdownItem><A href="{base}/my-page">My page</A></DropdownItem>
-			<DropdownItem><A onclick={() => openAuthModal('sign-in')}>Sign in</A></DropdownItem>
-			<DropdownItem><A onclick={() => openAuthModal('sign-up')}>Sign up</A></DropdownItem>
-			<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
+			{#if user}
+				<DropdownItem><A href="{base}/my-page">My page</A></DropdownItem>
+				<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
+			{:else}
+				<DropdownItem><A onclick={() => openAuthModal('sign-in')}>Sign in</A></DropdownItem>
+				<DropdownItem><A onclick={() => openAuthModal('sign-up')}>Sign up</A></DropdownItem>
+			{/if}
 		</Dropdown>
 
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
 			<li><A href="{base}/find-partners">Find climbing partners</A></li>
-			<li><A href="{base}/my-page">My page</A></li>
-			<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
-			<li><A onclick={() => openAuthModal('sign-up')}>Sign up</A></li>
-			<li><A onclick={handleSignOut}>Sign out</A></li>
+			{#if user}
+				<li>
+					<A href="{base}/my-page" title="My page" class="flex items-center gap-1">
+						<UserCircleOutline aria-label="My page" />
+						{user?.user_metadata?.username}
+					</A>
+				</li>
+				<li>
+					<button
+						class="flex items-center"
+						title="Sign out"
+						onclick={handleSignOut}
+						aria-label="Sign out"
+					>
+						<ArrowRightToBracketOutline color="var(--color-primary-600)" />
+					</button>
+				</li>
+			{:else}
+				<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
+				<li><A onclick={() => openAuthModal('sign-up')}>Sign up</A></li>
+			{/if}
 		</ul>
 	</nav>
 </header>
