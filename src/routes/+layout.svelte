@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
-	import { A, Dropdown, DropdownItem } from 'flowbite-svelte';
+	import { supabase } from '$lib/supabaseClient';
+	import { A, Dropdown, DropdownItem, Toast } from 'flowbite-svelte';
 	import { BarsOutline } from 'flowbite-svelte-icons';
 	import '../app.css';
 	import AuthModal from '../lib/components/AuthModal.svelte';
@@ -10,6 +12,7 @@
 
 	let showAuthModal = $state(false);
 	let authMode = $state<'sign-in' | 'sign-up'>('sign-in');
+	let showSignOutErrorToast = $state(false);
 
 	function openAuthModal(mode: 'sign-in' | 'sign-up') {
 		showAuthModal = true;
@@ -18,7 +21,26 @@
 	function closeAuthModal() {
 		showAuthModal = false;
 	}
+
+	async function handleSignOut() {
+		try {
+			await supabase.auth.signOut();
+			goto('/');
+		} catch (error) {
+			showSignOutErrorToast = true;
+			console.error('Error signing out:', error);
+		}
+	}
 </script>
+
+{#if showSignOutErrorToast}
+	<Toast
+		onclose={() => (showSignOutErrorToast = false)}
+		class="fixed top-4 right-4 z-50 rounded-md text-red-600"
+	>
+		Error signing out. Please try again.
+	</Toast>
+{/if}
 
 <header
 	style="background-image: url({base}/wall-paper.jpeg)"
@@ -52,7 +74,7 @@
 			<DropdownItem><A href="{base}/my-page">My page</A></DropdownItem>
 			<DropdownItem><A onclick={() => openAuthModal('sign-in')}>Sign in</A></DropdownItem>
 			<DropdownItem><A onclick={() => openAuthModal('sign-up')}>Sign up</A></DropdownItem>
-			<DropdownItem slot="footer">Sign out</DropdownItem>
+			<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
 		</Dropdown>
 
 		<!-- Desktop: horizontal menu list -->
@@ -61,6 +83,7 @@
 			<li><A href="{base}/my-page">My page</A></li>
 			<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
 			<li><A onclick={() => openAuthModal('sign-up')}>Sign up</A></li>
+			<li><A onclick={handleSignOut}>Sign out</A></li>
 		</ul>
 	</nav>
 </header>
