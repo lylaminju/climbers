@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase, supabaseAdmin } from '$lib/supabaseClient';
 	import { Button, Tooltip } from 'flowbite-svelte';
-	import { MapPinAltOutline, UserOutline } from 'flowbite-svelte-icons';
+	import { ClockOutline, MapPinAltOutline, UserOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let posts = $state<(Post & { username: string | null; gym: { name: string } })[]>([]);
@@ -51,7 +52,7 @@
 	}
 </script>
 
-<section class="flex flex-col gap-3">
+<section class="mx-auto flex w-full max-w-5xl flex-col gap-3">
 	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 		<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Find climbing partners</h1>
 
@@ -70,16 +71,26 @@
 	{/if}
 
 	{#if posts.length > 0}
-		<ol class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+		<ol class="grid grid-cols-1 gap-3 sm:grid-cols-2">
 			{#each posts as post}
-				<li class="flex flex-col gap-1 rounded-md bg-white p-2">
-					<h2 class="flex items-center text-lg font-bold">
-						<UserOutline class="mr-1 inline" />{post.username}
-					</h2>
-					<p class="flex items-center">
-						<MapPinAltOutline class="mr-1 inline" />{post.gym.name}
-					</p>
-					<p>{post.content}</p>
+				<li>
+					<a
+						href="{base}/find-partners/{post.post_id}"
+						class="hover:border-primary-300 flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-2 text-base sm:h-45 sm:max-h-45 sm:p-3 sm:text-xl"
+					>
+						<h2 class="flex items-center text-lg font-bold sm:text-2xl">
+							<UserOutline class="mr-1 inline" />{post.username}
+						</h2>
+						<p class="flex items-center">
+							<MapPinAltOutline class="mr-1 inline" />{post.gym.name}
+						</p>
+						<p class="flex items-center">
+							<ClockOutline class="mr-1 inline" />{post.available_time}
+						</p>
+						<p class="overflow-hidden text-ellipsis">
+							{post.content}
+						</p>
+					</a>
 				</li>
 			{/each}
 		</ol>
