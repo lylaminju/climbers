@@ -3,7 +3,12 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { Button } from 'flowbite-svelte';
-	import { LinkOutline, UserCircleOutline } from 'flowbite-svelte-icons';
+	import {
+		FilePenOutline,
+		LinkOutline,
+		TrashBinOutline,
+		UserCircleOutline,
+	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	onMount(() => {
@@ -22,9 +27,27 @@
 	}
 </script>
 
-<section class="mx-auto flex w-full max-w-5xl flex-col gap-3">
+<section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
 	<div class="mx-auto w-full space-y-6 rounded-xl bg-white p-6 shadow-md">
-		<h1 class="text-primary-800 mb-3 text-3xl font-bold sm:text-4xl">My Page</h1>
+		<div class="mb-3 flex items-center justify-between">
+			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">My Page</h1>
+			<div class="flex gap-4">
+				<Button
+					href="/my-page/update"
+					class="bg-primary-500 hover:bg-primary-600 transition"
+					aria-label="Update profile"
+				>
+					<FilePenOutline color="white" />
+				</Button>
+				<Button
+					onclick={handleDeleteProfile}
+					class="bg-red-100 transition hover:bg-red-200"
+					aria-label="Delete profile"
+				>
+					<TrashBinOutline color="red" />
+				</Button>
+			</div>
+		</div>
 
 		<div class="">
 			<h2 class="text-primary-700 mb-2 flex items-center gap-2 text-xl font-semibold sm:text-2xl">
@@ -109,18 +132,6 @@
 					</li>
 				{/if}
 			</ul>
-		</div>
-
-		<div class="flex gap-4 pt-4 text-base sm:text-xl">
-			<Button class="bg-primary-600 hover:bg-primary-700 flex-1 text-white transition">
-				Update profile
-			</Button>
-			<Button
-				onclick={handleDeleteProfile}
-				class="flex-1 bg-red-100 text-red-600 transition hover:bg-red-200"
-			>
-				Delete profile
-			</Button>
 		</div>
 	</div>
 </section>
