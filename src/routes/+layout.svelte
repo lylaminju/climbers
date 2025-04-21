@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { page } from '$app/state';
+	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import type { Subscription, User } from '@supabase/supabase-js';
+	import type { Subscription } from '@supabase/supabase-js';
 	import { A, Dropdown, DropdownItem, Toast } from 'flowbite-svelte';
 	import {
 		ArrowRightToBracketOutline,
@@ -16,17 +16,16 @@
 
 	let { children } = $props();
 
-	let user = $state<User | null>(null);
 	let listener: { subscription: Subscription } | undefined = undefined;
 
 	onMount(async () => {
 		// Initial fetch
 		const { data } = await supabase.auth.getUser();
-		user = data.user;
+		userStore.set(data.user);
 
 		// Listen for auth state changes
 		const { data: listenerData } = supabase.auth.onAuthStateChange((event, session) => {
-			user = session?.user ?? null;
+			userStore.set(session?.user ?? null);
 		});
 
 		// Store the listener
@@ -52,7 +51,6 @@
 	async function handleSignOut() {
 		try {
 			await supabase.auth.signOut();
-			goto('/');
 		} catch (error) {
 			showSignOutErrorToast = true;
 			console.error('Error signing out:', error);
@@ -103,7 +101,7 @@
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
 		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
 			<DropdownItem><A href="{base}/find-partners">Find climbing partners</A></DropdownItem>
-			{#if user}
+			{#if $userStore}
 				<DropdownItem><A href="{base}/my-page">My page</A></DropdownItem>
 				<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
 			{:else}
@@ -115,11 +113,11 @@
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
 			<li><A href="{base}/find-partners">Find climbing partners</A></li>
-			{#if user}
+			{#if $userStore}
 				<li>
 					<A href="{base}/my-page" title="My page" class="flex items-center gap-1">
 						<UserCircleOutline aria-label="My page" />
-						{user?.user_metadata?.username}
+						{$userStore.user_metadata?.username}
 					</A>
 				</li>
 				<li>
