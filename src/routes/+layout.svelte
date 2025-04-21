@@ -76,8 +76,11 @@
 		mb-2.5 bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
 	"
 >
+	<!-- Overlay a semi-transparent black layer over the header background image for better text readability -->
 	<div class="absolute inset-0 bg-black/20"></div>
+
 	{#if page.url.pathname === `${base}/`}
+		<!-- Show a gradient at the bottom of the header on the homepage for a smooth visual transition -->
 		<div
 			class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
 		></div>
@@ -91,7 +94,9 @@
 		>
 			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
-		<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">Explore Climbing Gyms!</p>
+		{#if page.url.pathname === `${base}/`}
+			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">Explore Climbing Gyms!</p>
+		{/if}
 	</div>
 	<nav class="relative z-1">
 		<!-- Mobile: hamburger icon + dropdown menu -->
