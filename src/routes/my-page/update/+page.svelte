@@ -4,7 +4,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
-	import { Button, Input, Label, Select } from 'flowbite-svelte';
+	import { Button, Input, Select } from 'flowbite-svelte';
 	import { CirclePlusOutline, LinkOutline, UserCircleOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
@@ -89,7 +89,7 @@
 </script>
 
 <section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
-	<div class="mx-auto w-full space-y-6 rounded-xl bg-white p-6 shadow-md">
+	<div class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 shadow-md sm:p-6">
 		<div class="mb-3 flex items-center justify-between">
 			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Update profile</h1>
 			<Button
@@ -107,10 +107,10 @@
 			<h2 class="text-primary-700 mb-2 flex items-center gap-2 text-xl font-semibold sm:text-2xl">
 				<UserCircleOutline size="lg" />Profile
 			</h2>
-			<ul class="flex flex-col gap-2 text-lg sm:text-xl">
+			<ul class="flex flex-col gap-2 text-lg sm:text-lg">
 				<li><span class="font-medium">Email:</span> {$userStore?.email}</li>
-				<li>
-					<Label for="username">Username:</Label>
+				<li class="flex flex-col gap-1">
+					<label for="username" class="font-medium">Username</label>
 					<Input
 						type="text"
 						id="username"
@@ -118,8 +118,8 @@
 						onchange={(e) => (username = (e.target as HTMLInputElement).value)}
 					/>
 				</li>
-				<li>
-					<Label for="home-gym">Climbing gym:</Label>
+				<li class="flex flex-col gap-1">
+					<label for="home-gym" class="font-medium">Climbing gym</label>
 					<Select
 						id="home-gym"
 						placeholder="Select a climbing gym"
@@ -128,18 +128,18 @@
 						onchange={(e) => (gymId = (e.target as HTMLSelectElement).value)}
 					/>
 				</li>
-				<li>
-					<Label for="bouldering-grade">Bouldering grade:</Label>
+				<li class="flex flex-col gap-1">
+					<label for="bouldering-grade" class="font-medium">Bouldering grade</label>
 					<Input
 						type="text"
 						id="bouldering-grade"
 						value={boulderingGrade}
-						placeholder="e.g. 'V5', '6A+', 'V7+"
+						placeholder="e.g. 'V5', '6A+', 'V7+'"
 						onchange={(e) => (boulderingGrade = (e.target as HTMLInputElement).value)}
 					/>
 				</li>
-				<li>
-					<Label for="sport-climbing-grade" class="font-medium">Sport climbing grade:</Label>
+				<li class="flex flex-col gap-1">
+					<label for="sport-climbing-grade" class="font-medium">Sport climbing grade</label>
 					<Input
 						type="text"
 						id="sport-climbing-grade"
@@ -156,8 +156,8 @@
 				<LinkOutline size="lg" />Contact Links
 			</h2>
 			<ul class="flex flex-col gap-2 text-sm sm:text-lg">
-				<li class="flex items-center gap-2">
-					<label for="whatsapp-link" class="flex w-32 items-center gap-2">
+				<li class="flex flex-col gap-1">
+					<label for="whatsapp-link" class="flex items-center gap-2 font-medium">
 						<!-- Whatsapp icon -->
 						<svg class="h-5 w-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
 							<path
@@ -173,12 +173,12 @@
 						onchange={(e) => (whatsappLink = (e.target as HTMLInputElement).value)}
 					/>
 				</li>
-				<li class="flex items-center gap-2">
-					<label for="instagram-link" class="flex w-32 items-center gap-2">
+				<li class="flex flex-col gap-1">
+					<label for="instagram-link" class="flex items-center gap-2 font-medium">
 						<!-- Instagram icon -->
 						<svg class="h-5 w-5 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
 							<path
-								d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 110 10.5 5.25 5.25 0 010-10.5zm0 1.5a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zm5.5 1.25a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"
+								d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 110 10.5 5.25 5.25 0 010-10.5zm0 1.5a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zm4.75-1a1 1 0 110 2 1 1 0 010-2z"
 							/>
 						</svg>
 						Instagram
@@ -190,8 +190,8 @@
 						onchange={(e) => (instagramLink = (e.target as HTMLInputElement).value)}
 					/>
 				</li>
-				<li class="flex items-center justify-between gap-2">
-					<label for="x-link" class="flex w-32 items-center gap-2">
+				<li class="flex flex-col gap-1">
+					<label for="x-link" class="flex items-center gap-2 font-medium">
 						<!-- X (Twitter) icon -->
 						<svg class="h-5 w-5 text-blue-500" fill="currentColor" viewBox="0 0 24 24">
 							<path
@@ -207,8 +207,8 @@
 						onchange={(e) => (xLink = (e.target as HTMLInputElement).value)}
 					/>
 				</li>
-				<li class="flex items-center gap-2">
-					<label for="other-link" class="flex w-32 items-center gap-2">
+				<li class="flex flex-col gap-1">
+					<label for="other-link" class="flex items-center gap-2 font-medium">
 						<CirclePlusOutline />
 						Other
 					</label>
