@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -14,17 +15,14 @@
 	import { onMount } from 'svelte';
 
 	let profile = $state<(Profile & { gym: { name: string } }) | null>(null);
+	let username = $derived(page.params.username);
 
 	onMount(async () => {
-		if (!$userStore) {
-			goto('/');
-		}
-
 		try {
 			const { data: profileData, error: profileError } = await supabase
 				.from('profile')
 				.select('*, gym(name)')
-				.eq('profile_id', $userStore?.id ?? '');
+				.eq('username', username);
 
 			if (profileError) {
 				throw new Error('Failed to load user profile.');
@@ -49,31 +47,39 @@
 <section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
 	<div class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 shadow-md sm:p-6">
 		<div class="mb-3 flex items-center justify-between">
-			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">My Page</h1>
-			<div class="flex gap-4">
-				<Button
-					href="/my-page/update"
-					class="bg-primary-500 hover:bg-primary-600 transition"
-					aria-label="Update profile"
-				>
-					<FilePenOutline color="white" />
-				</Button>
-				<Button
-					onclick={handleDeleteProfile}
-					class="bg-red-100 transition hover:bg-red-200"
-					aria-label="Delete profile"
-				>
-					<TrashBinOutline color="red" />
-				</Button>
-			</div>
+			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Profile</h1>
+			{#if $userStore?.id === profile?.profile_id}
+				<div class="flex gap-4">
+					<Button
+						size="xs"
+						href={`/profile/${username}/update`}
+						class="bg-primary-500 hover:bg-primary-600 transition"
+						aria-label="Update profile"
+						title="Update profile"
+					>
+						<FilePenOutline size="sm" color="white" />
+					</Button>
+					<Button
+						size="xs"
+						onclick={handleDeleteProfile}
+						class="bg-red-100 transition hover:bg-red-200"
+						aria-label="Delete profile"
+						title="Delete profile"
+					>
+						<TrashBinOutline size="sm" color="red" />
+					</Button>
+				</div>
+			{/if}
 		</div>
 
 		<div class="">
 			<h2 class="text-primary-700 mb-2 flex items-center gap-2 text-xl font-semibold sm:text-2xl">
-				<UserCircleOutline size="lg" />Profile
+				<UserCircleOutline size="lg" />Info
 			</h2>
 			<ul class="flex flex-col gap-2 text-lg sm:text-xl">
-				<li><span class="font-medium">Email:</span> {$userStore?.email}</li>
+				{#if $userStore?.id === profile?.profile_id}
+					<li><span class="font-medium">Email:</span> {$userStore?.email}</li>
+				{/if}
 				<li><span class="font-medium">Username:</span> {profile?.username}</li>
 				<li>
 					<span class="font-medium">Climbing gym:</span>

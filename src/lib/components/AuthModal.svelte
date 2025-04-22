@@ -49,7 +49,7 @@
 				onclose();
 			} else if (mode === 'sign-up') {
 				onclose();
-				goto('/my-page');
+				goto(`/profile/${username}`);
 			}
 		} catch (err) {
 			errorMsg = err instanceof Error ? err.message : 'Unknown error';

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const ProfileSchema = z.object({
-	user_id: z.string().uuid().optional(),
+	profile_id: z.string().uuid().optional(),
 	username: z.string().min(1).max(50),
 	gym_id: z.string().uuid().nullable().optional(),
 	bouldering_grade: z.string().max(10).nullable().optional(),

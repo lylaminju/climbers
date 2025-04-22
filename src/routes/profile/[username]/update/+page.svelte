@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/state';
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
-	import { Button, Input, Select } from 'flowbite-svelte';
+	import { Button, Helper, Input, Select } from 'flowbite-svelte';
 	import { CirclePlusOutline, LinkOutline, UserCircleOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
@@ -13,7 +14,7 @@
 	let isLoading = $state(false);
 	/* Profile data */
 	let username = $derived(profile?.username ?? '');
-	let gymId = $derived(profile?.gym_id ?? '');
+	let gymId = $derived(profile?.gym_id);
 	let boulderingGrade = $derived(profile?.bouldering_grade ?? '');
 	let sportClimbingGrade = $derived(profile?.sport_climbing_grade ?? '');
 	let whatsappLink = $derived(profile?.whatsapp_link ?? '');
@@ -22,7 +23,7 @@
 	let otherContactLinks = $derived(profile?.contact_links ?? '');
 
 	onMount(async () => {
-		if (!$userStore) {
+		if ($userStore?.user_metadata?.username !== page.params.username) {
 			goto('/');
 		}
 
@@ -30,7 +31,7 @@
 			const { data: profileData, error: profileError } = await supabase
 				.from('profile')
 				.select('*')
-				.eq('profile_id', $userStore?.id ?? '');
+				.eq('profile_id', $userStore?.id);
 
 			if (profileError) {
 				throw new Error('Failed to load user profile.');
@@ -60,7 +61,7 @@
 				.from('profile')
 				.update({
 					username: username,
-					gym_id: gymId,
+					gym_id: gymId === 'none' || gymId === '' ? null : gymId,
 					bouldering_grade: boulderingGrade,
 					sport_climbing_grade: sportClimbingGrade,
 					whatsapp_link: whatsappLink,
@@ -68,7 +69,7 @@
 					x_link: xLink,
 					contact_links: otherContactLinks,
 				})
-				.eq('profile_id', $userStore?.id ?? '');
+				.eq('profile_id', $userStore?.id);
 
 			const { error: userError } = await supabase.auth.updateUser({
 				data: {
@@ -79,7 +80,7 @@
 			if (error || userError) {
 				throw new Error('Failed to update user profile.');
 			}
-			goto('/my-page');
+			goto(`/profile/${username}`);
 		} catch (error) {
 			console.error('Error updating profile:', error);
 		} finally {
@@ -123,7 +124,9 @@
 					<Select
 						id="home-gym"
 						placeholder="Select a climbing gym"
-						items={gyms.map((gym) => ({ value: gym.gym_id, name: gym.name }))}
+						items={gyms
+							.map((gym) => ({ value: gym.gym_id, name: gym.name }))
+							.concat({ value: 'none', name: '-' })}
 						value={gymId}
 						onchange={(e) => (gymId = (e.target as HTMLSelectElement).value)}
 					/>
@@ -137,6 +140,9 @@
 						placeholder="e.g. 'V5', '6A+', 'V7+'"
 						onchange={(e) => (boulderingGrade = (e.target as HTMLInputElement).value)}
 					/>
+					{#if boulderingGrade.length > 10}
+						<Helper color="red">Please enter a grade under 10 characters</Helper>
+					{/if}
 				</li>
 				<li class="flex flex-col gap-1">
 					<label for="sport-climbing-grade" class="font-medium">Sport climbing grade</label>
@@ -147,6 +153,9 @@
 						placeholder="e.g. '5.11a'"
 						onchange={(e) => (sportClimbingGrade = (e.target as HTMLInputElement).value)}
 					/>
+					{#if sportClimbingGrade.length > 10}
+						<Helper color="red">Please enter a grade under 10 characters</Helper>
+					{/if}
 				</li>
 			</ul>
 		</div>

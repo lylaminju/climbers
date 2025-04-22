@@ -102,7 +102,9 @@
 		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
 			<DropdownItem><A href="{base}/find-partners">Find climbing partners</A></DropdownItem>
 			{#if $userStore}
-				<DropdownItem><A href="{base}/my-page">My page</A></DropdownItem>
+				<DropdownItem
+					><A href="{base}/profile/{$userStore?.user_metadata?.username}">My page</A></DropdownItem
+				>
 				<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
 			{:else}
 				<DropdownItem><A onclick={() => openAuthModal('sign-in')}>Sign in</A></DropdownItem>
@@ -115,7 +117,11 @@
 			<li><A href="{base}/find-partners">Find climbing partners</A></li>
 			{#if $userStore}
 				<li>
-					<A href="{base}/my-page" title="My page" class="flex items-center gap-1">
+					<A
+						href="{base}/profile/{$userStore?.user_metadata?.username}"
+						title="My page"
+						class="flex items-center gap-1"
+					>
 						<UserCircleOutline aria-label="My page" />
 						{$userStore.user_metadata?.username}
 					</A>
