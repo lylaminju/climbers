@@ -4,14 +4,24 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
-	import { Button, Dropdown, DropdownItem, Search } from 'flowbite-svelte';
-	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+	import {
+		Button,
+		Datepicker,
+		Dropdown,
+		DropdownItem,
+		Search,
+		Select,
+		Textarea,
+	} from 'flowbite-svelte';
+	import { ChevronDownOutline, MinusOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
-	let gyms: ClimbingGym[] = $state([]);
-	let selectedGymId: string = $state('');
-	let availableTime: string = $state('');
-	let content: string = $state('');
+	let gyms = $state<ClimbingGym[]>([]);
+	let selectedGymId = $state('');
+	let selectedDate = $state<Date | null>(null);
+	let selectedStartTime = $state('');
+	let selectedEndTime = $state('');
+	let content = $state('');
 	let isLoading = $state(false);
 	let errorMsg = $state('');
 
@@ -20,6 +30,12 @@
 	let filteredGyms = $derived(
 		gymSearchList.filter((gym) => gym.name.toLowerCase().includes(searchTerm.toLowerCase())),
 	);
+
+	// Generate time options for each hour (00:00, 01:00, ..., 23:00)
+	const timeOptions = Array.from({ length: 24 }, (_, i) => {
+		const time = `${i.toString().padStart(2, '0')}:00`;
+		return { value: time, name: time };
+	});
 
 	onMount(async () => {
 		try {
@@ -53,7 +69,6 @@
 			const postData: Post = {
 				user_id: $userStore.id,
 				gym_id: selectedGymId,
-				available_time: availableTime,
 				content,
 			};
 
@@ -63,15 +78,23 @@
 				throw new Error('Please fill in all fields correctly.');
 			}
 
-			const { error } = await supabase.from('post').insert([postData]);
+			const { error } = await supabase.rpc('create_post_with_availability', {
+				p_user_id: $userStore.id,
+				p_gym_id: selectedGymId,
+				p_content: content,
+				p_date: selectedDate,
+				p_start_time: selectedStartTime,
+				p_end_time: selectedEndTime,
+			});
 
 			if (error) {
-				throw new Error(error.message);
+				throw new Error('Failed to create post with availability.');
 			}
 
 			goto('/find-partners');
 		} catch (error) {
-			errorMsg = error instanceof Error ? error.message : 'Unknown error';
+			errorMsg = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+			console.error(error);
 		} finally {
 			isLoading = false;
 		}
@@ -79,7 +102,7 @@
 </script>
 
 <section class="mx-auto mt-8 flex max-w-lg flex-col gap-4">
-	<h1 class="text-2xl font-bold">Write a post</h1>
+	<h1 class="text-4xl font-bold">Let's find a climbing partner!</h1>
 
 	<form onsubmit={handleSubmit} class="flex flex-col gap-4">
 		<div>
@@ -108,32 +131,46 @@
 
 		<div>
 			<label for="available-time" class="mb-1 block font-medium">Available Time</label>
-			<input
-				id="available-time"
-				type="text"
-				class="w-full rounded border p-2"
-				bind:value={availableTime}
-				placeholder="e.g. Monday 10:00 - 12:00"
-				required
-			/>
+			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+				<Datepicker inputClass="min-w-70 w-full" bind:value={selectedDate} required />
+				<div class="flex items-center gap-1">
+					<Select
+						class="w-24"
+						items={timeOptions}
+						placeholder="--:--"
+						value=""
+						onchange={(e) => (selectedStartTime = (e.target as HTMLSelectElement).value)}
+						required
+					/>
+					<MinusOutline />
+					<Select
+						class="w-24"
+						items={timeOptions.filter((option) => option.value > selectedStartTime)}
+						placeholder="--:--"
+						value=""
+						onchange={(e) => (selectedEndTime = (e.target as HTMLSelectElement).value)}
+						required
+					/>
+				</div>
+			</div>
 		</div>
 
 		<div>
 			<label for="content" class="mb-1 block font-medium">Content</label>
-			<textarea
+			<Textarea
 				id="content"
 				class="min-h-[100px] w-full rounded border p-2"
 				bind:value={content}
 				placeholder="Write your message here..."
 				required
-			></textarea>
+			></Textarea>
 		</div>
 
 		{#if errorMsg}
 			<p class="text-red-600">{errorMsg}</p>
 		{/if}
 
-		<Button type="submit" class="w-full" disabled={isLoading}>
+		<Button type="submit" class="w-full sm:text-base" disabled={isLoading}>
 			{isLoading ? 'Posting...' : 'Post'}
 		</Button>
 	</form>
