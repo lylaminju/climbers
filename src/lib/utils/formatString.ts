@@ -19,3 +19,19 @@ function camelCaseToSpaceSeparatedWords(str: string) {
 export function formatCamelCase(str: string) {
 	return capitalizeFirstLetter(camelCaseToSpaceSeparatedWords(str));
 }
+
+/**
+ * Converts a time string 'HH:MM:SS' to 'h AM/PM' (e.g., '03:00:00' -> '3 AM', '15:00:00' -> '3 PM')
+ */
+export function formatTimeToAMPM(time: string) {
+	if (!time) return '';
+
+	const [hourStr] = time.split(':');
+	let hour = parseInt(hourStr, 10);
+	const ampm = hour >= 12 ? 'PM' : 'AM';
+	hour = hour % 12;
+
+	if (hour === 0) hour = 12;
+
+	return `${hour} ${ampm}`;
+}

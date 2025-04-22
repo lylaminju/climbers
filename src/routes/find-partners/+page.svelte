@@ -1,14 +1,22 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import type { Availability } from '$lib/schemas/availability';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
-	import { supabase, supabaseAdmin } from '$lib/supabaseClient';
+	import { supabase } from '$lib/supabaseClient';
+	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
 	import { Button, Tooltip } from 'flowbite-svelte';
 	import { ClockOutline, MapPinAltOutline, UserOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
-	let posts = $state<(Post & { username: string | null; gym: { name: string } })[]>([]);
+	let posts = $state<
+		(Post & {
+			profile: { username: string };
+			gym: { name: string; city: string };
+			user_availability: Availability[];
+		})[]
+	>([]);
 	let isLoading = $state(true);
 	let errorMessage = $state('');
 
@@ -16,31 +24,20 @@
 		try {
 			const { data, error } = await supabase
 				.from('post')
-				.select('*, gym(name)')
+				.select(
+					'*, profile(username), gym(name, city), user_availability(date, start_time, end_time)',
+				)
 				.order('created_at', { ascending: false });
 
 			if (error) {
 				throw new Error('Failed to load posts.');
 			}
 
-			// TODO: This is a temporary solution to get the username from the user metadata
-			const { data: usersData, error: usersError } = await supabaseAdmin.auth.admin.listUsers();
-			if (usersError) {
-				throw new Error('Failed to load users.');
-			}
-			if (usersData) {
-				posts =
-					data?.map((post) => ({
-						...post,
-						username:
-							usersData.users.find((user) => user.id === post.user_id)?.user_metadata?.username ??
-							null,
-					})) ?? [];
-			}
-
-			isLoading = false;
+			posts = data;
 		} catch (error) {
 			errorMessage = error instanceof Error ? error.message : 'Failed to load posts.';
+		} finally {
+			isLoading = false;
 		}
 	});
 
@@ -79,13 +76,19 @@
 						class="hover:border-primary-300 flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-2 text-base sm:h-45 sm:max-h-45 sm:p-3 sm:text-xl"
 					>
 						<h2 class="flex items-center text-lg font-bold sm:text-2xl">
-							<UserOutline class="mr-1 inline" />{post.username}
+							<UserOutline class="mr-1 inline" />{post.profile.username}
 						</h2>
 						<p class="flex items-center">
 							<MapPinAltOutline class="mr-1 inline" />{post.gym.name}
 						</p>
 						<p class="flex items-center">
-							<ClockOutline class="mr-1 inline" />{post.available_time}
+							<MapPinAltOutline class="mr-1 inline" />{capitalizeWords(post.gym.city)}
+						</p>
+						<p class="flex items-center">
+							<ClockOutline class="mr-1 inline" />
+							{post.user_availability[0]?.date}
+							{formatTimeToAMPM(post.user_availability[0]?.start_time)}
+							- {formatTimeToAMPM(post.user_availability[0]?.end_time)}
 						</p>
 						<p class="overflow-hidden text-ellipsis">
 							{post.content}
@@ -94,7 +97,7 @@
 				</li>
 			{/each}
 		</ol>
-	{:else}
+	{:else if !isLoading}
 		<p>No posts found.</p>
 	{/if}
 </section>
