@@ -1,0 +1,142 @@
+<script lang="ts">
+	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
+	import { page } from '$app/state';
+	import type { Availability } from '$lib/schemas/availability';
+	import type { Post } from '$lib/schemas/post';
+	import { userStore } from '$lib/stores/user';
+	import { supabase } from '$lib/supabaseClient';
+	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
+	import { Button } from 'flowbite-svelte';
+	import {
+		ClockOutline,
+		MapPinAltOutline,
+		TrashBinOutline,
+		UserOutline,
+	} from 'flowbite-svelte-icons';
+	import { onMount } from 'svelte';
+
+	let post = $state<
+		| (Post & {
+				profile: { username: string };
+				gym: { name: string; city: string };
+				user_availability: Availability[];
+		  })
+		| null
+	>(null);
+	let isLoading = $state(true);
+	let isDeleting = $state(false);
+	let errorMsg = $state('');
+	let deleteErrorMsg = $state('');
+
+	onMount(async () => {
+		try {
+			const post_id = page.params.post_id;
+			const { data, error } = await supabase
+				.from('post')
+				.select(
+					`*, profile(username), gym(name, city), user_availability(date, start_time, end_time)`,
+				)
+				.eq('post_id', post_id)
+				.single();
+			if (error) {
+				throw new Error('Failed to load post.');
+			}
+
+			post = data;
+		} catch (error) {
+			errorMsg = error instanceof Error ? error.message : 'Failed to load post.';
+		} finally {
+			isLoading = false;
+		}
+	});
+
+	async function deletePost() {
+		if (!post?.post_id) return;
+
+		try {
+			// Only allow the poster to delete
+			if ($userStore?.id !== post.user_id) {
+				throw new Error('You are not authorized to delete this post.');
+			}
+			if (!confirm('Are you sure you want to delete this post? This action cannot be undone.'))
+				return;
+
+			isDeleting = true;
+
+			const { error } = await supabase.from('post').delete().eq('post_id', post.post_id);
+			if (error) {
+				throw new Error('Failed to delete post.');
+			}
+			goto('/find-partners');
+		} catch (error) {
+			deleteErrorMsg = error instanceof Error ? error.message : 'Failed to delete post.';
+		} finally {
+			isDeleting = false;
+		}
+	}
+</script>
+
+<section class="mx-auto flex max-w-3xl flex-col gap-4">
+	{#if isLoading}
+		<p>Loading...</p>
+	{:else if errorMsg}
+		<p class="text-red-600">{errorMsg}</p>
+	{:else if post}
+		<div
+			class="flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
+		>
+			<div class="mb-2 flex items-center justify-between">
+				<h1 class="flex items-center text-2xl font-bold sm:text-3xl">
+					<UserOutline size="xl" class="mr-2" />
+					<a
+						href={`${base}/profile/${post?.profile?.username}`}
+						class="overflow-x-scroll underline"
+					>
+						{post?.profile?.username}
+					</a>
+				</h1>
+				<!-- Delete Button: Only show if current user is the poster -->
+				{#if $userStore?.id === post?.user_id}
+					<Button
+						size="xs"
+						class="bg-red-200 transition hover:bg-red-300"
+						onclick={deletePost}
+						disabled={isDeleting}
+					>
+						{#if isDeleting}
+							Deleting...
+						{:else}
+							<TrashBinOutline size="sm" color="red" />
+						{/if}
+					</Button>
+					{#if deleteErrorMsg}
+						<p class="text-red-600">{deleteErrorMsg}</p>
+					{/if}
+				{/if}
+			</div>
+
+			<p class="flex items-center">
+				<MapPinAltOutline class="mr-2" />
+				<span class="overflow-x-scroll">{post?.gym?.name}</span>
+			</p>
+			<p class="flex items-center">
+				<MapPinAltOutline class="mr-2" />
+				<span class="overflow-x-scroll">{capitalizeWords(post?.gym?.city || '')}</span>
+			</p>
+			<p class="flex items-center">
+				<ClockOutline class="mr-2" />
+				{post?.user_availability?.[0]?.date}&nbsp;
+				{formatTimeToAMPM(post?.user_availability?.[0]?.start_time)}
+				- {formatTimeToAMPM(post?.user_availability?.[0]?.end_time)}
+			</p>
+			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
+
+			{#if $userStore?.id !== post.user_id}
+				<Button class="mt-4 w-full sm:text-base">Request to join</Button>
+			{/if}
+		</div>
+	{:else}
+		<p>Post not found.</p>
+	{/if}
+</section>

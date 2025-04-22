@@ -33,5 +33,5 @@ export function formatTimeToAMPM(time: string) {
 
 	if (hour === 0) hour = 12;
 
-	return `${hour} ${ampm}`;
+	return `${hour}${ampm}`;
 }
