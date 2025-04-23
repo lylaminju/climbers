@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { ClimbingGymSchema } from '$lib/types/types';
+
 export const ProfileSchema = z.object({
 	profile_id: z.string().uuid().optional(),
 	username: z.string().min(1).max(50),
@@ -14,6 +16,7 @@ export const ProfileSchema = z.object({
 	created_at: z.coerce.date().optional(),
 	updated_at: z.coerce.date().optional(),
 	deleted_at: z.coerce.date().nullable().optional(),
+	gym: ClimbingGymSchema.pick({ name: true, city: true }).nullable().optional(),
 });
 
 export type Profile = z.infer<typeof ProfileSchema>;

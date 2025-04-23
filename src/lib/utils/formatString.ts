@@ -23,7 +23,7 @@ export function formatCamelCase(str: string) {
 /**
  * Converts a time string 'HH:MM:SS' to 'h AM/PM' (e.g., '03:00:00' -> '3 AM', '15:00:00' -> '3 PM')
  */
-export function formatTimeToAMPM(time: string) {
+export function formatTimeToAMPM(time: string | null | undefined) {
 	if (!time) return '';
 
 	const [hourStr] = time.split(':');

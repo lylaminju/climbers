@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
-	import { page } from '$app/state';
-	import type { Availability } from '$lib/schemas/availability';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -14,42 +12,18 @@
 		TrashBinOutline,
 		UserOutline,
 	} from 'flowbite-svelte-icons';
-	import { onMount } from 'svelte';
 
-	let post = $state<
-		| (Post & {
-				profile: { username: string };
-				gym: { name: string; city: string };
-				user_availability: Availability[];
-		  })
-		| null
-	>(null);
-	let isLoading = $state(true);
+	type Props = {
+		data: {
+			post: Post | null;
+		};
+	};
+	const { data }: Props = $props();
+	const post = $derived(data?.post);
+	let isLoading = $state(false);
 	let isDeleting = $state(false);
 	let errorMsg = $state('');
 	let deleteErrorMsg = $state('');
-
-	onMount(async () => {
-		try {
-			const post_id = page.params.post_id;
-			const { data, error } = await supabase
-				.from('post')
-				.select(
-					`*, profile(username), gym(name, city), user_availability(date, start_time, end_time)`,
-				)
-				.eq('post_id', post_id)
-				.single();
-			if (error) {
-				throw new Error('Failed to load post.');
-			}
-
-			post = data;
-		} catch (error) {
-			errorMsg = error instanceof Error ? error.message : 'Failed to load post.';
-		} finally {
-			isLoading = false;
-		}
-	});
 
 	async function deletePost() {
 		if (!post?.post_id) return;

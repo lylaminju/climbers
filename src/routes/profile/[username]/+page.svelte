@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/state';
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -12,27 +11,14 @@
 		TrashBinOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
-	import { onMount } from 'svelte';
 
-	let profile = $state<(Profile & { gym: { name: string } }) | null>(null);
-	let username = $derived(page.params.username);
-
-	onMount(async () => {
-		try {
-			const { data: profileData, error: profileError } = await supabase
-				.from('profile')
-				.select('*, gym(name)')
-				.eq('username', username);
-
-			if (profileError) {
-				throw new Error('Failed to load user profile.');
-			}
-
-			profile = profileData[0];
-		} catch (error) {
-			console.error('Error loading profile:', error);
-		}
-	});
+	type Props = {
+		data: {
+			profile: Profile | null;
+		};
+	};
+	const { data }: Props = $props();
+	const profile = $derived(data?.profile);
 
 	async function handleDeleteProfile() {
 		try {
@@ -52,7 +38,7 @@
 				<div class="flex gap-4">
 					<Button
 						size="xs"
-						href={`/profile/${username}/update`}
+						href={`/profile/${profile?.username}/update`}
 						class="bg-primary-500 hover:bg-primary-600 transition"
 						aria-label="Update profile"
 						title="Update profile"
