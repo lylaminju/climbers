@@ -15,12 +15,12 @@
 	/* Profile data */
 	let username = $derived(profile?.username ?? '');
 	let gymId = $derived(profile?.gym_id);
-	let boulderingGrade = $derived(profile?.bouldering_grade ?? '');
-	let sportClimbingGrade = $derived(profile?.sport_climbing_grade ?? '');
-	let whatsappLink = $derived(profile?.whatsapp_link ?? '');
-	let instagramLink = $derived(profile?.instagram_link ?? '');
-	let xLink = $derived(profile?.x_link ?? '');
-	let otherContactLinks = $derived(profile?.contact_links ?? '');
+	let boulderingGrade = $derived(profile?.bouldering_grade ?? null);
+	let sportClimbingGrade = $derived(profile?.sport_climbing_grade ?? null);
+	let whatsappLink = $derived(profile?.whatsapp_link ?? null);
+	let instagramLink = $derived(profile?.instagram_link ?? null);
+	let xLink = $derived(profile?.x_link ?? null);
+	let otherContactLinks = $derived(profile?.contact_links ?? null);
 
 	onMount(async () => {
 		if ($userStore?.user_metadata?.username !== page.params.username) {
@@ -31,7 +31,8 @@
 			const { data: profileData, error: profileError } = await supabase
 				.from('profile')
 				.select('*')
-				.eq('profile_id', $userStore?.id);
+				.eq('profile_id', $userStore?.id)
+				.single();
 
 			if (profileError) {
 				throw new Error('Failed to load user profile.');
@@ -46,7 +47,7 @@
 				throw new Error('Failed to load gyms.');
 			}
 
-			profile = profileData[0];
+			profile = profileData;
 			gyms = gymsData;
 		} catch (error) {
 			console.error('Error loading gyms:', error);
@@ -140,7 +141,7 @@
 						placeholder="e.g. 'V5', '6A+', 'V7+'"
 						onchange={(e) => (boulderingGrade = (e.target as HTMLInputElement).value)}
 					/>
-					{#if boulderingGrade.length > 10}
+					{#if boulderingGrade && boulderingGrade.length > 10}
 						<Helper color="red">Please enter a grade under 10 characters</Helper>
 					{/if}
 				</li>
@@ -153,7 +154,7 @@
 						placeholder="e.g. '5.11a'"
 						onchange={(e) => (sportClimbingGrade = (e.target as HTMLInputElement).value)}
 					/>
-					{#if sportClimbingGrade.length > 10}
+					{#if sportClimbingGrade && sportClimbingGrade.length > 10}
 						<Helper color="red">Please enter a grade under 10 characters</Helper>
 					{/if}
 				</li>
