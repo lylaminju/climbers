@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { CloseButton } from 'flowbite-svelte';
+	import { Button, CloseButton, Input } from 'flowbite-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { supabase } from '../supabaseClient';
 
@@ -20,10 +20,11 @@
 		}
 	});
 
-	let { mode = 'sign-in', onclose } = $props<{
+	interface Props {
 		mode?: 'sign-in' | 'sign-up';
 		onclose: () => void;
-	}>();
+	}
+	let { mode = 'sign-in', onclose }: Props = $props();
 
 	let username = $state('');
 	let email = $state('');
@@ -44,7 +45,7 @@
 							options: { data: { username } },
 						});
 			if (error) {
-				errorMsg = error.message;
+				throw error;
 			} else if (mode === 'sign-in') {
 				onclose();
 			} else if (mode === 'sign-up') {
@@ -81,49 +82,27 @@
 				{mode === 'sign-in' ? 'Welcome Back!' : 'Create Your Account'}
 			</h2>
 		</div>
-		<form onsubmit={handleAuth}>
+		<form onsubmit={handleAuth} class="space-y-4">
 			{#if mode === 'sign-up'}
-				<div class="mb-4">
-					<label for="username" class="mb-1 block text-gray-700">Username</label>
-					<input
-						id="username"
-						class="w-full rounded border border-gray-300 px-3 py-2 focus:ring focus:outline-none"
-						type="text"
-						bind:value={username}
-						required
-					/>
+				<div>
+					<label for="username" class="mb-1 block">Username</label>
+					<Input id="username" type="text" bind:value={username} required />
 				</div>
 			{/if}
-			<div class="mb-4">
-				<label for="email" class="mb-1 block text-gray-700">Email</label>
-				<input
-					id="email"
-					class="w-full rounded border border-gray-300 px-3 py-2 focus:ring focus:outline-none"
-					type="email"
-					bind:value={email}
-					required
-				/>
+			<div>
+				<label for="email" class="mb-1 block">Email</label>
+				<Input id="email" type="email" bind:value={email} required />
 			</div>
-			<div class="mb-4">
-				<label for="password" class="mb-1 block text-gray-700">Password</label>
-				<input
-					id="password"
-					class="w-full rounded border border-gray-300 px-3 py-2 focus:ring focus:outline-none"
-					type="password"
-					bind:value={password}
-					required
-				/>
+			<div>
+				<label for="password" class="mb-1 block">Password</label>
+				<Input id="password" type="password" bind:value={password} required />
 			</div>
 			{#if errorMsg}
-				<div class="mb-2 text-sm text-red-600">{errorMsg}</div>
+				<div class="text-sm text-red-600">{errorMsg}</div>
 			{/if}
-			<button
-				class="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700 disabled:opacity-60"
-				type="submit"
-				disabled={isLoading}
-			>
+			<Button class="mt-2 w-full" type="submit" disabled={isLoading}>
 				{isLoading ? 'Loading...' : mode === 'sign-in' ? 'Sign In' : 'Sign Up'}
-			</button>
+			</Button>
 		</form>
 	</div>
 </div>
