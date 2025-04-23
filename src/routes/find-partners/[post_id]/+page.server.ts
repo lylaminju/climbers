@@ -21,3 +21,5 @@ export const load: PageServerLoad = async ({ params }) => {
 		return { post: null };
 	}
 };
+
+export const prerender = 'auto';
