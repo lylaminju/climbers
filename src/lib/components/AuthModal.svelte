@@ -50,7 +50,7 @@
 				onclose();
 			} else if (mode === 'sign-up') {
 				onclose();
-				goto(`/profile/${username}`);
+				goto(`/check-email`);
 			}
 		} catch (err) {
 			errorMsg = err instanceof Error ? err.message : 'Unknown error';
