@@ -864,7 +864,7 @@
 			"imageUrl": "hogtown-boulders.jpg",
 			"area": {
 				"unit": "sqft",
-				"value": 12000
+				"value": 4000
 			},
 			"climbingTypes": {
 				"boulder": true,
