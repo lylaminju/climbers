@@ -12,7 +12,7 @@ export const PostSchema = z.object({
 	created_at: z.coerce.date().optional(),
 	updated_at: z.coerce.date().optional(),
 	deleted_at: z.coerce.date().optional().nullable(),
-	profile: ProfileSchema.pick({ username: true }).nullable().optional(),
+	profile: ProfileSchema.pick({ username: true, email: true }).nullable().optional(),
 	gym: ClimbingGymSchema.pick({ name: true, city: true }).nullable().optional(),
 	user_availability: AvailabilityTimeSchema.array().nullable().optional(),
 });

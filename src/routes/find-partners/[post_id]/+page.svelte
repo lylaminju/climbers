@@ -5,13 +5,14 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
-	import { Button } from 'flowbite-svelte';
+	import { Button, Modal } from 'flowbite-svelte';
 	import {
 		ClockOutline,
 		MapPinAltOutline,
 		TrashBinOutline,
 		UserOutline,
 	} from 'flowbite-svelte-icons';
+	import RequestForm from './RequestForm.svelte';
 
 	type Props = {
 		data: {
@@ -24,6 +25,7 @@
 	let isDeleting = $state(false);
 	let errorMsg = $state('');
 	let deleteErrorMsg = $state('');
+	let showModal = $state(false);
 
 	async function deletePost() {
 		if (!post?.post_id) return;
@@ -107,9 +109,20 @@
 			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
 
 			{#if $userStore?.id !== post.user_id}
-				<Button class="mt-4 w-full sm:text-base">Request to join</Button>
+				<Button class="mt-4 w-full sm:text-base" onclick={() => (showModal = true)}>
+					Request to Join
+				</Button>
 			{/if}
 		</div>
+		{#if showModal}
+			<Modal size="xs" bind:open={showModal} outsideclose>
+				<RequestForm
+					userAvailability={post?.user_availability}
+					postId={post?.post_id}
+					posterEmail={post?.profile?.email}
+				/>
+			</Modal>
+		{/if}
 	{:else}
 		<p>Post not found.</p>
 	{/if}

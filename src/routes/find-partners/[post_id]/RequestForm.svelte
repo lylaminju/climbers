@@ -1,0 +1,61 @@
+<script lang="ts">
+	import TimeSelect from '$lib/components/TimeSelect.svelte';
+	import { userStore } from '$lib/stores/user';
+	import { Button, Input, Textarea } from 'flowbite-svelte';
+	import Confirmation from './Confirmation.svelte';
+
+	let { userAvailability, postId, posterEmail } = $props();
+
+	let name = $state('');
+	let email = $state('');
+	let startTime = $state(userAvailability?.[0]?.start_time);
+	let endTime = $state(userAvailability?.[0]?.end_time);
+	let message = $state('');
+	let showRequestForm = $state(true);
+
+	async function handleSubmit() {
+		showRequestForm = false;
+	}
+</script>
+
+{#if showRequestForm}
+	<form onsubmit={handleSubmit} class="space-y-4">
+		<h2 class="text-xl font-bold sm:text-2xl">Request to Join</h2>
+		{#if !$userStore?.id}
+			<div>
+				<label for="name" class="mb-1 block">Display Name</label>
+				<Input id="name" type="text" bind:value={name} required />
+			</div>
+			<div>
+				<label for="email" class="mb-1 block">Email</label>
+				<Input id="email" type="email" bind:value={email} required />
+			</div>
+		{/if}
+		<div>
+			<label for="time-range">Time</label>
+			<div class="flex items-center gap-3">
+				<span>{userAvailability?.[0]?.date}</span>
+				<TimeSelect id="time-range" {startTime} {endTime} />
+			</div>
+		</div>
+		<div>
+			<label for="message" class="mb-1 block">Message</label>
+			<Textarea id="message" bind:value={message} />
+		</div>
+
+		<Button class="mt-2 w-full" type="submit">Proceed</Button>
+	</form>
+{:else}
+	<Confirmation
+		formData={{
+			name,
+			email,
+			date: userAvailability?.[0]?.date,
+			startTime,
+			endTime,
+			message,
+			postId,
+			posterEmail,
+		}}
+	/>
+{/if}
