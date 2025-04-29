@@ -23,7 +23,10 @@
 	function updateIsMobile() {
 		isMobile = window.innerWidth <= 640;
 	}
-	let userCoordinates = $state({ latitude: 43.6519307, longitude: -79.3847546 }); // Toronto City Hall
+	let userCoordinates = $state({
+		latitude: 43.6519307,
+		longitude: -79.3847546,
+	}); // Toronto City Hall
 
 	onMount(() => {
 		// Set initial value
@@ -67,9 +70,13 @@
 		);
 		if (gymTitle && gymDetails) {
 			gymTitle.style['visibility'] =
-				getComputedStyle(gymTitle).visibility == 'visible' ? 'hidden' : 'visible';
+				getComputedStyle(gymTitle).visibility == 'visible'
+					? 'hidden'
+					: 'visible';
 			gymDetails.style['visibility'] =
-				getComputedStyle(gymDetails).visibility == 'hidden' ? 'visible' : 'hidden';
+				getComputedStyle(gymDetails).visibility == 'hidden'
+					? 'visible'
+					: 'hidden';
 		} else {
 			console.log('gymTitle or gymDetails not found');
 		}
@@ -79,9 +86,13 @@
 	const uniqueCities = [...new Set(data.gyms.map((gym) => gym.city))].sort();
 
 	let searchTerm = $state('');
-	const cities = $state(uniqueCities.map((city) => ({ name: city, checked: false })));
+	const cities = $state(
+		uniqueCities.map((city) => ({ name: city, checked: false })),
+	);
 	let filteredCities = $derived(
-		cities.filter((city) => city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')),
+		cities.filter((city) =>
+			city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? ''),
+		),
 	);
 
 	const climbingType: ClimbingType = $state({
@@ -97,17 +108,23 @@
 	}
 	let displayedGyms = $derived.by(() => {
 		const filteredGyms = data.gyms.filter((gym) => {
-			const matchesCity = cities.some((city) => city.checked && city.name === gym.city);
+			const matchesCity = cities.some(
+				(city) => city.checked && city.name === gym.city,
+			);
 			const hasCityFilter = cities.some((city) => city.checked);
 
-			const matchesClimbingTypes = Object.entries(climbingType).every(([type, isSelected]) => {
-				if (isSelected) {
-					return gym.climbingTypes[type as keyof ClimbingType] === true;
-				}
-				// Unselected types are excluded
-				return true;
-			});
-			const hasClimbingFilter = Object.values(climbingType).some((isSelected) => isSelected);
+			const matchesClimbingTypes = Object.entries(climbingType).every(
+				([type, isSelected]) => {
+					if (isSelected) {
+						return gym.climbingTypes[type as keyof ClimbingType] === true;
+					}
+					// Unselected types are excluded
+					return true;
+				},
+			);
+			const hasClimbingFilter = Object.values(climbingType).some(
+				(isSelected) => isSelected,
+			);
 
 			return (
 				(!hasCityFilter || matchesCity) && // Pass if no city filter or city matches
@@ -136,9 +153,15 @@
 				case 'largest':
 					return b.area.value - a.area.value;
 				case 'cheapest':
-					return toUSD(a.price.amount, a.price.currency) - toUSD(b.price.amount, b.price.currency);
+					return (
+						toUSD(a.price.amount, a.price.currency) -
+						toUSD(b.price.amount, b.price.currency)
+					);
 				case 'expensive':
-					return toUSD(b.price.amount, b.price.currency) - toUSD(a.price.amount, a.price.currency);
+					return (
+						toUSD(b.price.amount, b.price.currency) -
+						toUSD(a.price.amount, a.price.currency)
+					);
 				default:
 					return 0;
 			}
@@ -170,7 +193,9 @@
 	}
 </script>
 
-<section class="mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3">
+<section
+	class="mt-4 mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3"
+>
 	<RoutesDiv {displayedGyms} {isMobile} {gymPlaceIds} {searchRoutes} />
 
 	<div class="flex w-full flex-row gap-2 sm:w-fit">
@@ -185,7 +210,9 @@
 							.map(([type]) => formatCamelCase(type))
 							.join(', ')}
 			{/if}
-			<ChevronDownOutline class="ms-0 h-6 w-6 text-white sm:ms-2 dark:text-white" />
+			<ChevronDownOutline
+				class="ms-0 h-6 w-6 text-white sm:ms-2 dark:text-white"
+			/>
 		</Button>
 		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
 			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
@@ -203,7 +230,9 @@
 		</Dropdown>
 
 		<Button class="dropdown-btn">
-			Cities<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
+			Cities<ChevronDownOutline
+				class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
+			/>
 		</Button>
 		<Dropdown class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50">
 			<div slot="header" class="p-3">
@@ -211,7 +240,9 @@
 			</div>
 			{#each filteredCities as city (city.name)}
 				<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-					<Checkbox bind:checked={city.checked}>{capitalizeWords(city.name)}</Checkbox>
+					<Checkbox bind:checked={city.checked}
+						>{capitalizeWords(city.name)}</Checkbox
+					>
 				</li>
 			{/each}
 		</Dropdown>
@@ -221,7 +252,11 @@
 		<Button
 			class="px-2.5 py-1 sm:px-4"
 			onclick={() => {
-				handleViewMode(gymsViewMode === GymsViewMode.CARD ? GymsViewMode.MAP : GymsViewMode.CARD);
+				handleViewMode(
+					gymsViewMode === GymsViewMode.CARD
+						? GymsViewMode.MAP
+						: GymsViewMode.CARD,
+				);
 			}}
 			aria-label={gymsViewMode}
 		>

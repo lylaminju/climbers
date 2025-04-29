@@ -58,6 +58,8 @@
 			console.error('Error signing out:', error);
 		}
 	}
+
+	let isHomepage = $derived(page.url.pathname === '/');
 </script>
 
 {#if showSignOutErrorToast}
@@ -70,18 +72,18 @@
 {/if}
 
 <header
-	style="background-image: url({base}/wall-paper.jpeg)"
-	class="relative flex flex-row items-start justify-between gap-3
-		{page.url.pathname === `${base}/`
-		? 'h-100 min-h-100 sm:h-[50vh] sm:min-h-[50vh]'
-		: 'h-fit'} 
-		mb-2.5 bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
+	style={isHomepage ? 'background-image: url(/wall-paper.jpeg)' : ''}
+	class="relative flex flex-row justify-between gap-3
+		{isHomepage
+		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
+		: 'h-fit items-center sm:pt-3'} 
+		bg-cover bg-top px-3 py-3 sm:px-6
 	"
 >
-	<!-- Overlay a semi-transparent black layer over the header background image for better text readability in mobile -->
-	<div class="absolute inset-0 bg-black/20"></div>
+	{#if isHomepage}
+		<!-- Overlay a semi-transparent black layer over the header background image for better text readability in mobile -->
+		<div class="absolute inset-0 bg-black/20"></div>
 
-	{#if page.url.pathname === `${base}/`}
 		<!-- Show a gradient at the bottom of the header on the homepage for a smooth visual transition in mobile -->
 		<div
 			class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
@@ -90,13 +92,15 @@
 	<div class="z-1 sm:flex sm:h-full sm:flex-col sm:justify-center">
 		<h1
 			class="
-				{page.url.pathname === `${base}/` ? 'sm:text-6xl' : 'sm:text-5xl'}
-				font-fugaz text-4xl font-bold text-gray-900 text-white
+				{isHomepage
+				? 'text-4xl text-white sm:text-6xl'
+				: 'text-primary-900 text-2xl sm:text-3xl'}
+				font-fugaz font-bold
 			"
 		>
 			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
-		{#if page.url.pathname === `${base}/`}
+		{#if isHomepage}
 			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">
 				Explore Climbing Gyms!
 			</p>

@@ -7,7 +7,11 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
 	import { Button, Tooltip } from 'flowbite-svelte';
-	import { ClockOutline, MapPinAltOutline, UserOutline } from 'flowbite-svelte-icons';
+	import {
+		ClockOutline,
+		MapPinAltOutline,
+		UserOutline,
+	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let posts = $state<
@@ -36,7 +40,9 @@
 			posts = data;
 		} catch (error) {
 			errorMessage =
-				error instanceof Error ? error.message : 'Unable to load posts. Please try again.';
+				error instanceof Error
+					? error.message
+					: 'Unable to load posts. Please try again.';
 		} finally {
 			isLoading = false;
 		}
@@ -50,11 +56,22 @@
 	}
 </script>
 
-<section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
-	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-		<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Find climbing partners</h1>
+<section class="mx-auto flex w-full flex-col items-center gap-3">
+	<div
+		style="background-image: url(/decor/various-climbers.jpeg)"
+		class="h-23 w-screen bg-cover sm:h-62 sm:bg-contain sm:bg-repeat-x"
+	></div>
 
-		<Button onclick={writePost} disabled={!$userStore} class="text-base">Write a post</Button>
+	<div
+		class="flex w-full flex-col gap-3 text-center sm:w-3xl sm:flex-row sm:items-center sm:justify-between"
+	>
+		<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">
+			Find climbing partners
+		</h1>
+
+		<Button onclick={writePost} disabled={!$userStore} class="text-base">
+			Write a post
+		</Button>
 		{#if !$userStore}
 			<Tooltip type="light">You must be signed in to write a post</Tooltip>
 		{/if}
@@ -69,7 +86,7 @@
 	{/if}
 
 	{#if posts.length > 0}
-		<ol class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+		<ol class="grid grid-cols-1 gap-3 sm:w-3xl sm:grid-cols-2">
 			{#each posts as post}
 				<li>
 					<a
@@ -83,7 +100,8 @@
 							<MapPinAltOutline class="mr-1 inline" />{post.gym.name}
 						</p>
 						<p class="flex items-center">
-							<MapPinAltOutline class="mr-1 inline" />{capitalizeWords(post.gym.city)}
+							<MapPinAltOutline class="mr-1 inline" />
+							{capitalizeWords(post.gym.city)}
 						</p>
 						<p class="flex items-center">
 							<ClockOutline class="mr-1 inline" />
