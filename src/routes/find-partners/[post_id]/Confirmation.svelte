@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { supabase } from '$lib/supabaseClient';
+	import { requestToJoinTemplate } from '$lib/utils/emailTemplates';
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
 	import { Button } from 'flowbite-svelte';
 
-	let { formData } = $props();
+	const { formData } = $props();
 
 	let isSending = $state(false);
 	let errorMsg = $state('');
@@ -11,10 +12,11 @@
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
 		isSending = true;
+		errorMsg = '';
 
-		try {
-			// INSERT INTO join_request
-			const { data, error } = await supabase.from('join_request').insert({
+		const { data, error: insertError } = await supabase
+			.from('join_request')
+			.insert({
 				post_id: formData?.postId,
 				profile_id: formData?.profileId,
 				guest_name: formData?.name,
@@ -23,18 +25,41 @@
 				start_time: formData?.startTime,
 				end_time: formData?.endTime,
 				message: formData?.message,
-			});
+			})
+			.select();
 
-			if (error) {
-				throw new Error('Failed to request');
+		const joinRequestId = data?.[0]?.join_request_id;
+
+		try {
+			if (insertError) {
+				throw new Error('Failed to create join request');
 			}
 
-			await sendRequestEmail(formData?.posterEmail, formData?.name, formData?.postId);
+			const posterEmail = formData?.posterEmail;
+
+			if (!posterEmail) {
+				throw new Error('Failed to get a poster email');
+			}
+
+			const { error: emailError } = await sendRequestEmail(
+				posterEmail,
+				formData?.name,
+				formData?.postId,
+			);
+
+			if (emailError) {
+				throw new Error(emailError);
+			}
 
 			window.location.href = `/find-partners/${formData?.postId}`;
 		} catch (err) {
 			console.error(err);
 			errorMsg = err instanceof Error ? err.message : 'Unknown error';
+
+			// rollback join_request insertion if it was created
+			if (joinRequestId) {
+				await supabase.from('join_request').delete().eq('join_request_id', joinRequestId);
+			}
 		} finally {
 			isSending = false;
 		}
@@ -45,19 +70,15 @@
 			const requestBody = JSON.stringify({
 				email,
 				subject: '[ClimberzDay] Request to Join',
-				html: `
-					<h1>Request to join</h1>
-					<p>A climber <b>${senderName}</b> sent a request to join your climbing.</p>
-					<a href="http://localhost:5173/find-partners/${postId}">View Post</a>
-				`,
+				html: requestToJoinTemplate(senderName, formData?.message, postId),
 			});
 			const response = await fetch('/find-partners/[post_id]/request-email', {
 				method: 'POST',
 				body: requestBody,
 			});
-			const data = await response.json();
+			return await response.json();
 		} catch (error) {
-			throw new Error('Failed to send request email.');
+			throw new Error('Failed preparing email');
 		}
 	}
 </script>

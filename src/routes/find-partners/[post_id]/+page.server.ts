@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		const { data, error } = await supabase
 			.from('post')
 			.select(
-				`*, profile(username), gym(name, city), user_availability(date, start_time, end_time)`,
+				`*, profile(username, email), gym(name, city), user_availability(date, start_time, end_time)`,
 			)
 			.eq('post_id', (params as { post_id: string }).post_id)
 			.single();

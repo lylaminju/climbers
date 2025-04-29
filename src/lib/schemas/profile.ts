@@ -4,6 +4,7 @@ import { ClimbingGymSchema } from '$lib/types/types';
 
 export const ProfileSchema = z.object({
 	profile_id: z.string().uuid().optional(),
+	email: z.string().email(),
 	username: z.string().min(1).max(50),
 	gym_id: z.string().uuid().nullable().optional(),
 	bouldering_grade: z.string().max(10).nullable().optional(),
