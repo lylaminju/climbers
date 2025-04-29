@@ -24,9 +24,11 @@
 		userStore.set(data.user);
 
 		// Listen for auth state changes
-		const { data: listenerData } = supabase.auth.onAuthStateChange((event, session) => {
-			userStore.set(session?.user ?? null);
-		});
+		const { data: listenerData } = supabase.auth.onAuthStateChange(
+			(event, session) => {
+				userStore.set(session?.user ?? null);
+			},
+		);
 
 		// Store the listener
 		listener = listenerData;
@@ -70,15 +72,17 @@
 <header
 	style="background-image: url({base}/wall-paper.jpeg)"
 	class="relative flex flex-row items-start justify-between gap-3
-		{page.url.pathname === `${base}/` ? 'h-100 sm:h-[50vh]' : 'h-fit'} 
+		{page.url.pathname === `${base}/`
+		? 'h-100 min-h-100 sm:h-[50vh] sm:min-h-[50vh]'
+		: 'h-fit'} 
 		mb-2.5 bg-cover bg-top px-3 py-4 sm:mb-4 sm:px-6 sm:pt-6
 	"
 >
-	<!-- Overlay a semi-transparent black layer over the header background image for better text readability -->
+	<!-- Overlay a semi-transparent black layer over the header background image for better text readability in mobile -->
 	<div class="absolute inset-0 bg-black/20"></div>
 
 	{#if page.url.pathname === `${base}/`}
-		<!-- Show a gradient at the bottom of the header on the homepage for a smooth visual transition -->
+		<!-- Show a gradient at the bottom of the header on the homepage for a smooth visual transition in mobile -->
 		<div
 			class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
 		></div>
@@ -93,22 +97,34 @@
 			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
 		{#if page.url.pathname === `${base}/`}
-			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">Explore Climbing Gyms!</p>
+			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">
+				Explore Climbing Gyms!
+			</p>
 		{/if}
 	</div>
 	<nav class="relative z-1">
 		<!-- Mobile: hamburger icon + dropdown menu -->
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
 		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
-			<DropdownItem><A href="{base}/find-partners">Find climbing partners</A></DropdownItem>
+			<DropdownItem>
+				<A href="{base}/find-partners">Find climbing partners</A>
+			</DropdownItem>
 			{#if $userStore}
-				<DropdownItem
-					><A href="{base}/profile/{$userStore?.user_metadata?.username}">My page</A></DropdownItem
-				>
-				<DropdownItem slot="footer" onclick={handleSignOut}>Sign out</DropdownItem>
+				<DropdownItem>
+					<A href="{base}/profile/{$userStore?.user_metadata?.username}">
+						My page
+					</A>
+				</DropdownItem>
+				<DropdownItem slot="footer" onclick={handleSignOut}>
+					Sign out
+				</DropdownItem>
 			{:else}
-				<DropdownItem><A onclick={() => openAuthModal('sign-in')}>Sign in</A></DropdownItem>
-				<DropdownItem><A onclick={() => openAuthModal('sign-up')}>Sign up</A></DropdownItem>
+				<DropdownItem>
+					<A onclick={() => openAuthModal('sign-in')}>Sign in</A>
+				</DropdownItem>
+				<DropdownItem>
+					<A onclick={() => openAuthModal('sign-up')}>Sign up</A>
+				</DropdownItem>
 			{/if}
 		</Dropdown>
 
@@ -144,7 +160,7 @@
 	</nav>
 </header>
 
-<main class="flex-grow px-3 sm:px-6">
+<main class="h-full min-h-fit grow px-3 sm:px-6">
 	{@render children()}
 </main>
 

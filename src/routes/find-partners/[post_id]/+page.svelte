@@ -35,25 +35,34 @@
 			if ($userStore?.id !== post.user_id) {
 				throw new Error('You are not authorized to delete this post.');
 			}
-			if (!confirm('Are you sure you want to delete this post? This action cannot be undone.'))
+			if (
+				!confirm(
+					'Are you sure you want to delete this post? This action cannot be undone.',
+				)
+			) {
 				return;
+			}
 
 			isDeleting = true;
 
-			const { error } = await supabase.from('post').delete().eq('post_id', post.post_id);
+			const { error } = await supabase
+				.from('post')
+				.delete()
+				.eq('post_id', post.post_id);
 			if (error) {
 				throw new Error('Failed to delete post.');
 			}
 			goto('/find-partners');
 		} catch (error) {
-			deleteErrorMsg = error instanceof Error ? error.message : 'Failed to delete post.';
+			deleteErrorMsg =
+				error instanceof Error ? error.message : 'Failed to delete post.';
 		} finally {
 			isDeleting = false;
 		}
 	}
 </script>
 
-<section class="mx-auto flex max-w-3xl flex-col gap-4">
+<section class="mx-auto flex h-full max-w-3xl flex-col justify-between">
 	{#if isLoading}
 		<p>Loading...</p>
 	{:else if errorMsg}
@@ -98,7 +107,9 @@
 			</p>
 			<p class="flex items-center">
 				<MapPinAltOutline class="mr-2" />
-				<span class="overflow-x-scroll">{capitalizeWords(post?.gym?.city || '')}</span>
+				<span class="overflow-x-scroll">
+					{capitalizeWords(post?.gym?.city || '')}
+				</span>
 			</p>
 			<p class="flex items-center">
 				<ClockOutline class="mr-2" />
@@ -109,7 +120,10 @@
 			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
 
 			{#if $userStore?.id !== post.user_id}
-				<Button class="mt-4 w-full sm:text-base" onclick={() => (showModal = true)}>
+				<Button
+					class="mt-4 w-full sm:text-base"
+					onclick={() => (showModal = true)}
+				>
 					Request to Join
 				</Button>
 			{/if}
@@ -126,4 +140,9 @@
 	{:else}
 		<p>Post not found.</p>
 	{/if}
+	<img
+		class="w-full max-w-3xl"
+		src="/decor/climber-line-illust-woman.png"
+		alt="Climber illustration"
+	/>
 </section>
