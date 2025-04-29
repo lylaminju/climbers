@@ -34,6 +34,12 @@ body {
 	background-color: #f0f0f0;
 }
 
+/* --- Set Full Height for HTML and Body --- */
+html,
+body {
+	height: 100%;
+}
+
 button {
 	cursor: pointer;
 
