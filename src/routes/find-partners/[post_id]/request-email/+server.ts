@@ -1,6 +1,6 @@
 export async function POST({ request }: { request: Request }) {
 	try {
-		const emailSendUrl = `${import.meta.env.VITE_BASE_URL}/functions/v1/resend`;
+		const emailSendUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/resend`;
 		const body = await request.json();
 		const response = await fetch(emailSendUrl, {
 			method: 'POST',
