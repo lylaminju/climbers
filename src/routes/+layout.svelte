@@ -3,7 +3,13 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { Subscription } from '@supabase/supabase-js';
-	import { A, Dropdown, DropdownItem, Toast } from 'flowbite-svelte';
+	import {
+		A,
+		Dropdown,
+		DropdownDivider,
+		DropdownItem,
+		Toast,
+	} from 'flowbite-svelte';
 	import {
 		ArrowRightToBracketOutline,
 		BarsOutline,
@@ -60,6 +66,7 @@
 	}
 
 	let isHomepage = $derived(page.url.pathname === '/');
+	let dropdownOpen = $state(false);
 </script>
 
 {#if showSignOutErrorToast}
@@ -109,14 +116,32 @@
 	<nav class="relative z-1">
 		<!-- Mobile: hamburger icon + dropdown menu -->
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
-		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
+		<Dropdown
+			triggeredBy=".mobile-menu-trigger"
+			class="w-25 sm:hidden"
+			bind:open={dropdownOpen}
+		>
 			<DropdownItem>
-				<A href="/find-partners">Find climbing partners</A>
+				<A href="/find-partners" onclick={() => (dropdownOpen = false)}>
+					Find climbing partners
+				</A>
 			</DropdownItem>
+			<DropdownDivider />
 			{#if $userStore}
 				<DropdownItem>
-					<A href="/profile/{$userStore?.user_metadata?.username}">My page</A>
+					<A
+						href="/profile/{$userStore?.user_metadata?.username}"
+						onclick={() => (dropdownOpen = false)}
+					>
+						My page
+					</A>
 				</DropdownItem>
+				<DropdownItem>
+					<A href="/notifications" onclick={() => (dropdownOpen = false)}>
+						Notifications
+					</A>
+				</DropdownItem>
+				<DropdownDivider />
 				<DropdownItem slot="footer" onclick={handleSignOut}>
 					Sign out
 				</DropdownItem>
