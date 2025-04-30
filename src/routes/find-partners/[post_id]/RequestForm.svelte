@@ -6,21 +6,22 @@
 
 	let { userAvailability, postId, posterEmail } = $props();
 
-	let name = $state('');
-	let email = $state('');
+	let name = $state($userStore?.user_metadata?.username || '');
+	let email = $state($userStore?.email || '');
 	let startTime = $state(userAvailability?.[0]?.start_time);
 	let endTime = $state(userAvailability?.[0]?.end_time);
 	let message = $state('');
 	let showRequestForm = $state(true);
 
 	let formData = $derived({
+		postId,
+		requestProfileId: $userStore?.id,
 		name,
 		email,
 		date: userAvailability?.[0]?.date,
 		startTime,
 		endTime,
 		message,
-		postId,
 		posterEmail,
 	});
 

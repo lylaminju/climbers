@@ -18,7 +18,7 @@
 			.from('join_request')
 			.insert({
 				post_id: formData?.postId,
-				profile_id: formData?.profileId,
+				request_profile_id: formData?.requestProfileId,
 				guest_name: formData?.name,
 				guest_email: formData?.email,
 				date: formData?.date,

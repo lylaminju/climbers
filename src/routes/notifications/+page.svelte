@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
+	import { A } from 'flowbite-svelte';
 	import {
 		ArrowUpRightFromSquareOutline,
 		ClockOutline,
@@ -13,17 +16,17 @@
 
 	onMount(async () => {
 		try {
-			const { data: user, error: userError } = await supabase.auth.getUser();
-			if (userError) {
-				throw new Error('Failed to get current user.');
+			if (!$userStore?.id) {
+				goto('/');
+				return;
 			}
 
 			const { data, error } = await supabase
 				.from('join_request')
 				.select(
-					'*, post!inner(*, profile(username), gym(name), user_availability(date, start_time, end_time))',
+					'*, post!inner(*, gym(name), user_availability(date, start_time, end_time)), profile(username)',
 				)
-				.eq('post.profile_id', user?.user.id)
+				.eq('post.profile_id', $userStore.id)
 				.is('post.deleted_at', null)
 				.order('created_at', { ascending: false });
 			if (error) {
@@ -39,8 +42,8 @@
 </script>
 
 <section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
-	<h1 class="text-3xl font-bold">Notifications</h1>
-	<h2 class="text-xl font-bold">Join Requests</h2>
+	<h1 class="text-primary-600 text-3xl font-bold">Notifications</h1>
+	<h2 class="text-xl font-bold">Pending Join Requests</h2>
 	{#if !joinRequests}
 		<p>Error loading join requests.</p>
 	{:else if joinRequests?.length > 0}
@@ -52,9 +55,16 @@
 					</span>
 					<div class="flex items-center gap-2">
 						<UserCircleOutline />
-						{joinRequest.request_profile_id
-							? joinRequest.profile?.username
-							: `${joinRequest.guest_name} (guest)`}
+						{#if joinRequest.request_profile_id}
+							<A
+								href={`/profile/${joinRequest.profile?.username}`}
+								class="underline"
+							>
+								{joinRequest.profile?.username}
+							</A>
+						{:else}
+							{joinRequest.guest_name} (guest)
+						{/if}
 					</div>
 					<div class="flex items-center gap-2">
 						<ClockOutline />
