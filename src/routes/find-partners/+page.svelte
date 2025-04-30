@@ -32,7 +32,8 @@
 				.select(
 					'*, profile(username), gym(name, city), user_availability(date, start_time, end_time)',
 				)
-				.order('created_at', { ascending: false });
+				.order('created_at', { ascending: false })
+				.is('deleted_at', null);
 
 			if (error) {
 				throw new Error('Failed to load posts.');
@@ -63,7 +64,9 @@
 		class="h-23 w-screen bg-cover sm:h-62 sm:bg-contain sm:bg-repeat-x"
 	></div>
 
-	<div class="flex w-full flex-row items-center justify-between gap-3 sm:w-3xl">
+	<div
+		class="flex w-full flex-row items-center justify-between gap-3 sm:mt-2 sm:w-3xl"
+	>
 		<h1 class="text-primary-800 text-2xl font-bold sm:text-4xl">
 			Find climbing partners
 		</h1>
@@ -82,7 +85,7 @@
 			class="inline text-base sm:hidden"
 			size="xs"
 		>
-			<PenOutline size="sm" />
+			<PenOutline size="md" />
 		</Button>
 		{#if !$userStore}
 			<Tooltip type="light">You must be signed in to write a post</Tooltip>

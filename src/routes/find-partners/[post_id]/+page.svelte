@@ -23,31 +23,30 @@
 	const post = $derived(data?.post);
 	let isLoading = $state(false);
 	let isDeleting = $state(false);
-	let errorMsg = $state('');
 	let deleteErrorMsg = $state<string | null>(null);
 	let showModal = $state(false);
 
 	async function deletePost() {
-		if (!post?.post_id) return;
-
 		try {
+			if (!post?.post_id) {
+				throw new Error('Post not found.');
+			}
 			// Only allow the poster to delete
 			if ($userStore?.id !== post.user_id) {
 				throw new Error('You are not authorized to delete this post.');
 			}
-			if (
-				!confirm(
-					'Are you sure you want to delete this post? This action cannot be undone.',
-				)
-			) {
+			isDeleting = true;
+
+			const confirmDelete = confirm(
+				'Are you sure you want to delete this post?\nThis action cannot be undone.',
+			);
+			if (!confirmDelete) {
 				return;
 			}
 
-			isDeleting = true;
-
 			const { error } = await supabase
 				.from('post')
-				.delete()
+				.update({ deleted_at: new Date() })
 				.eq('post_id', post.post_id);
 			if (error) {
 				throw new Error('Failed to delete post.');
@@ -55,7 +54,7 @@
 			goto('/find-partners');
 		} catch (error) {
 			deleteErrorMsg =
-				error instanceof Error ? error.message : 'Failed to delete post.';
+				error instanceof Error ? error.message : 'Unknown error occurred.';
 		} finally {
 			isDeleting = false;
 		}
@@ -65,8 +64,6 @@
 <section class="mx-auto flex h-full max-w-3xl flex-col justify-between">
 	{#if isLoading}
 		<p>Loading...</p>
-	{:else if errorMsg}
-		<p class="text-red-600">{errorMsg}</p>
 	{:else if post}
 		<div
 			class="flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
@@ -77,7 +74,7 @@
 				</Toast>
 			{/if}
 			<div class="mb-2 flex items-center justify-between">
-				<h1 class="flex items-center text-2xl font-bold sm:text-3xl">
+				<h1 class="flex items-center text-xl font-bold sm:text-2xl">
 					<UserOutline size="xl" class="mr-2" />
 					<a
 						href={`${base}/profile/${post?.profile?.username}`}
