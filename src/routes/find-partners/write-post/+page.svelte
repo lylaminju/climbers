@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { PostSchema, type Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -10,17 +11,16 @@
 		Dropdown,
 		DropdownItem,
 		Search,
-		Select,
 		Textarea,
 	} from 'flowbite-svelte';
-	import { ChevronDownOutline, MinusOutline } from 'flowbite-svelte-icons';
+	import { ChevronDownOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let gyms = $state<ClimbingGym[]>([]);
 	let selectedGymId = $state('');
 	let selectedDate = $state<Date | null>(null);
-	let selectedStartTime = $state('');
-	let selectedEndTime = $state('');
+	let startTime = $state('');
+	let endTime = $state('');
 	let content = $state('');
 	let isLoading = $state(false);
 	let errorMsg = $state('');
@@ -88,8 +88,8 @@
 				p_gym_id: selectedGymId,
 				p_content: content,
 				p_date: selectedDate,
-				p_start_time: selectedStartTime,
-				p_end_time: selectedEndTime,
+				p_start_time: startTime,
+				p_end_time: endTime,
 			});
 
 			if (error) {
@@ -151,29 +151,7 @@
 					bind:value={selectedDate}
 					required
 				/>
-				<div class="flex items-center gap-1">
-					<Select
-						class="w-24"
-						items={timeOptions}
-						placeholder="--:--"
-						value=""
-						onchange={(e) =>
-							(selectedStartTime = (e.target as HTMLSelectElement).value)}
-						required
-					/>
-					<MinusOutline />
-					<Select
-						class="w-24"
-						items={timeOptions.filter(
-							(option) => option.value > selectedStartTime,
-						)}
-						placeholder="--:--"
-						value=""
-						onchange={(e) =>
-							(selectedEndTime = (e.target as HTMLSelectElement).value)}
-						required
-					/>
-				</div>
+				<TimeSelect bind:startTime bind:endTime />
 			</div>
 		</div>
 

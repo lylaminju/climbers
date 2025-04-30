@@ -13,6 +13,17 @@
 	let message = $state('');
 	let showRequestForm = $state(true);
 
+	let formData = $derived({
+		name,
+		email,
+		date: userAvailability?.[0]?.date,
+		startTime,
+		endTime,
+		message,
+		postId,
+		posterEmail,
+	});
+
 	async function handleSubmit() {
 		showRequestForm = false;
 	}
@@ -35,7 +46,7 @@
 			<label for="time-range">Time</label>
 			<div class="flex items-center gap-3">
 				<span>{userAvailability?.[0]?.date}</span>
-				<TimeSelect id="time-range" {startTime} {endTime} />
+				<TimeSelect bind:startTime bind:endTime />
 			</div>
 		</div>
 		<div>
@@ -46,16 +57,5 @@
 		<Button class="mt-2 w-full" type="submit">Proceed</Button>
 	</form>
 {:else}
-	<Confirmation
-		formData={{
-			name,
-			email,
-			date: userAvailability?.[0]?.date,
-			startTime,
-			endTime,
-			message,
-			postId,
-			posterEmail,
-		}}
-	/>
+	<Confirmation {formData} />
 {/if}

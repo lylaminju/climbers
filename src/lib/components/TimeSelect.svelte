@@ -16,7 +16,7 @@
 		},
 	);
 
-	let { id, startTime, endTime } = $props();
+	let { startTime = $bindable(), endTime = $bindable() } = $props();
 </script>
 
 <div class="flex items-center gap-1">
@@ -25,7 +25,6 @@
 		items={timeOptions}
 		placeholder="--:--"
 		bind:value={startTime}
-		onchange={(e) => (startTime = (e.target as HTMLSelectElement).value)}
 		required
 	/>
 	<MinusOutline />
@@ -34,7 +33,6 @@
 		items={timeOptions.filter((option) => option.value > startTime)}
 		placeholder="--:--"
 		bind:value={endTime}
-		onchange={(e) => (endTime = (e.target as HTMLSelectElement).value)}
 		required
 	/>
 </div>
