@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -8,6 +7,7 @@
 	import {
 		ArrowRightToBracketOutline,
 		BarsOutline,
+		BellOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
 	import { onDestroy, onMount } from 'svelte';
@@ -98,7 +98,7 @@
 				font-fugaz font-bold
 			"
 		>
-			<a href="{base}/" data-sveltekit-reload>ClimberzDay</a>
+			<a href="/" data-sveltekit-reload>ClimberzDay</a>
 		</h1>
 		{#if isHomepage}
 			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">
@@ -111,13 +111,11 @@
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
 		<Dropdown triggeredBy=".mobile-menu-trigger" class="w-25 sm:hidden">
 			<DropdownItem>
-				<A href="{base}/find-partners">Find climbing partners</A>
+				<A href="/find-partners">Find climbing partners</A>
 			</DropdownItem>
 			{#if $userStore}
 				<DropdownItem>
-					<A href="{base}/profile/{$userStore?.user_metadata?.username}">
-						My page
-					</A>
+					<A href="/profile/{$userStore?.user_metadata?.username}">My page</A>
 				</DropdownItem>
 				<DropdownItem slot="footer" onclick={handleSignOut}>
 					Sign out
@@ -134,17 +132,22 @@
 
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
-			<li><A href="{base}/find-partners">Find climbing partners</A></li>
+			<li><A href="/find-partners">Find climbing partners</A></li>
 			{#if $userStore}
 				<li>
 					<A
-						href="{base}/profile/{$userStore?.user_metadata?.username}"
+						href="/profile/{$userStore?.user_metadata?.username}"
 						title="My page"
 						class="flex items-center gap-1"
 					>
-						<UserCircleOutline aria-label="My page" />
+						<UserCircleOutline size="lg" aria-label="My page" />
 						{$userStore.user_metadata?.username}
 					</A>
+				</li>
+				<li>
+					<a href="/notifications" aria-label="Notifications">
+						<BellOutline size="lg" color="var(--color-primary-600)" />
+					</a>
 				</li>
 				<li>
 					<button
@@ -153,7 +156,10 @@
 						onclick={handleSignOut}
 						aria-label="Sign out"
 					>
-						<ArrowRightToBracketOutline color="var(--color-primary-600)" />
+						<ArrowRightToBracketOutline
+							size="lg"
+							color="var(--color-primary-600)"
+						/>
 					</button>
 				</li>
 			{:else}
