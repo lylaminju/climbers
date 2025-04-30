@@ -38,3 +38,23 @@ export function formatTimeToAMPM(time: string | null | undefined) {
 
 	return `${displayHour}:${minute} ${ampm}`;
 }
+
+/**
+ * Formats a date to 'MMM DD' format (e.g., 'Apr 15')
+ * @param dateString - Date in 'YYYY-MM-DD' format
+ * @returns Formatted date string in 'MMM DD' format, or undefined if invalid
+ */
+export function formatShortDate(dateString: string) {
+	try {
+		const date = new Date(dateString);
+		if (isNaN(date.getTime())) throw new Error('Invalid date');
+
+		const month = date.toLocaleString('en-US', { month: 'short' });
+		const day = date.getDate().toString().padStart(2, '0');
+
+		return `${month} ${day}`;
+	} catch (error) {
+		console.error('Error formatting date:', error);
+		return undefined;
+	}
+}
