@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import type { JoinRequest } from '$lib/schemas/joinRequest';
+	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { Spinner } from 'flowbite-svelte';
@@ -8,7 +8,7 @@
 	import JoinRequestListElement from './JoinRequestListElement.svelte';
 
 	let isLoading = $state(true);
-	let joinRequests = $state<null | JoinRequest[]>(null);
+	let joinRequests = $state<JoinRequestWithPost[] | null>(null);
 	let pendingJoinRequests = $derived(
 		joinRequests?.filter((r) => r.status === 'pending'),
 	);

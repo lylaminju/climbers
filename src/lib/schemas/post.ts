@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import { ClimbingGymSchema } from '$lib/types/types';
 import { AvailabilityTimeSchema } from './availability';
+import { JoinRequestSchema } from './joinRequest';
 import { ProfileSchema } from './profile';
 
 export const PostSchema = z.object({
@@ -17,6 +18,7 @@ export const PostSchema = z.object({
 		.optional(),
 	gym: ClimbingGymSchema.pick({ name: true, city: true }).nullable().optional(),
 	user_availability: AvailabilityTimeSchema.array().nullable().optional(),
+	join_request: JoinRequestSchema.array().nullable().optional(),
 });
 
 export type Post = z.infer<typeof PostSchema>;

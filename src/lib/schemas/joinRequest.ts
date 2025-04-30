@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
+import type { Post } from './post';
 import { ProfileSchema } from './profile';
-import { PostSchema } from './post';
 
 export const JoinRequestSchema = z.object({
 	join_request_id: z.string().uuid(),
@@ -20,7 +20,8 @@ export const JoinRequestSchema = z.object({
 	status: z.enum(['pending', 'accepted', 'declined']).default('pending'), // Constrained to valid statuses
 	created_at: z.string(),
 	profile: ProfileSchema.pick({ username: true }).nullable().optional(),
-	post: PostSchema.pick({ post_id: true, gym: true, user_availability: true }),
 });
 
 export type JoinRequest = z.infer<typeof JoinRequestSchema>;
+
+export type JoinRequestWithPost = JoinRequest & { post: Post };

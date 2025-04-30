@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { JoinRequest } from '$lib/schemas/joinRequest';
+	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import { supabase } from '$lib/supabaseClient';
 	import {
 		capitalizeWords,
-		formatTimeToAMPM,
 		formatShortDate,
+		formatTimeToAMPM,
 	} from '$lib/utils/formatString';
 	import { A, Badge, Button } from 'flowbite-svelte';
 	import {
@@ -14,7 +14,7 @@
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
 
-	let { joinRequest }: { joinRequest: JoinRequest } = $props();
+	let { joinRequest }: { joinRequest: JoinRequestWithPost } = $props();
 	const isPending = $derived(joinRequest.status === 'pending');
 	let isUpdating = $state(false);
 	let updateErrorMsg = $state('');

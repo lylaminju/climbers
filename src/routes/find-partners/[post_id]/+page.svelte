@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
-	import { Button, Modal, Toast } from 'flowbite-svelte';
+	import { Button, Modal, Spinner, Toast } from 'flowbite-svelte';
 	import {
 		ClockOutline,
 		MapPinAltOutline,
 		TrashBinOutline,
 		UserOutline,
 	} from 'flowbite-svelte-icons';
+	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
 
 	type Props = {
@@ -63,7 +65,7 @@
 
 <section class="mx-auto flex h-full max-w-3xl flex-col justify-between">
 	{#if isLoading}
-		<p>Loading...</p>
+		<Spinner />
 	{:else if post}
 		<div
 			class="relative flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
@@ -98,21 +100,23 @@
 				</Button>
 			{/if}
 
-			<p class="flex items-center">
-				<MapPinAltOutline class="mr-2" />
+			<p class="flex items-center gap-2">
+				<MapPinAltOutline />
 				<span class="overflow-x-scroll">{post?.gym?.name}</span>
 			</p>
-			<p class="flex items-center">
-				<MapPinAltOutline class="mr-2" />
+			<p class="flex items-center gap-2">
+				<MapPinAltOutline />
 				<span class="overflow-x-scroll">
 					{capitalizeWords(post?.gym?.city || '')}
 				</span>
 			</p>
-			<p class="flex items-center">
-				<ClockOutline class="mr-2" />
-				{post?.user_availability?.[0]?.date}&nbsp;
-				{formatTimeToAMPM(post?.user_availability?.[0]?.start_time)}
-				- {formatTimeToAMPM(post?.user_availability?.[0]?.end_time)}
+			<p class="flex items-center gap-2">
+				<ClockOutline />
+				<span class="overflow-x-auto whitespace-nowrap">
+					{post?.user_availability?.[0]?.date}&nbsp;
+					{formatTimeToAMPM(post?.user_availability?.[0]?.start_time)}
+					- {formatTimeToAMPM(post?.user_availability?.[0]?.end_time)}
+				</span>
 			</p>
 			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
 
@@ -125,6 +129,13 @@
 				</Button>
 			{/if}
 		</div>
+
+		<Attendees
+			joinRequests={(
+				post?.join_request as JoinRequestWithPost[] | null
+			)?.filter((r) => r.status === 'accepted')}
+		/>
+
 		{#if showModal}
 			<Modal size="xs" bind:open={showModal} outsideclose>
 				<RequestForm
