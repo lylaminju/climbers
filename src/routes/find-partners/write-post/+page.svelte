@@ -28,7 +28,9 @@
 	let searchTerm = $state('');
 	const gymSearchList = $derived(gyms);
 	let filteredGyms = $derived(
-		gymSearchList.filter((gym) => gym.name.toLowerCase().includes(searchTerm.toLowerCase())),
+		gymSearchList.filter((gym) =>
+			gym.name.toLowerCase().includes(searchTerm.toLowerCase()),
+		),
 	);
 
 	// Generate time options for each hour (00:00, 01:00, ..., 23:00)
@@ -44,14 +46,18 @@
 				return;
 			}
 
-			const { data, error } = await supabase.from('gym').select('*').order('name');
+			const { data, error } = await supabase
+				.from('gym')
+				.select('*')
+				.order('name');
 			if (error) {
 				throw new Error('Failed to load gyms.');
 			}
 
 			gyms = data ?? [];
 		} catch (error) {
-			errorMsg = error instanceof Error ? error.message : 'Failed to load gyms.';
+			errorMsg =
+				error instanceof Error ? error.message : 'Failed to load gyms.';
 		}
 	});
 
@@ -67,11 +73,10 @@
 			isLoading = true;
 
 			const postData: Post = {
-				user_id: $userStore.id,
+				profile_id: $userStore.id,
 				gym_id: selectedGymId,
 				content,
 			};
-
 			const validation = PostSchema.safeParse(postData);
 
 			if (!validation.success) {
@@ -79,7 +84,7 @@
 			}
 
 			const { error } = await supabase.rpc('create_post_with_availability', {
-				p_user_id: $userStore.id,
+				p_profile_id: $userStore.id,
 				p_gym_id: selectedGymId,
 				p_content: content,
 				p_date: selectedDate,
@@ -93,7 +98,10 @@
 
 			goto('/find-partners');
 		} catch (error) {
-			errorMsg = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+			errorMsg =
+				error instanceof Error
+					? error.message
+					: 'Something went wrong. Please try again.';
 			console.error(error);
 		} finally {
 			isLoading = false;
@@ -108,8 +116,12 @@
 		<div>
 			<label for="gym" class="mb-1 block font-medium">Select a gym</label>
 			<Button class="dropdown-btn">
-				{selectedGymId ? gyms.find((gym) => gym.gym_id === selectedGymId)?.name : 'Climbing gyms'}
-				<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
+				{selectedGymId
+					? gyms.find((gym) => gym.gym_id === selectedGymId)?.name
+					: 'Climbing gyms'}
+				<ChevronDownOutline
+					class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
+				/>
 			</Button>
 			<Dropdown class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50">
 				<div slot="header" class="p-3">
@@ -130,25 +142,35 @@
 		</div>
 
 		<div>
-			<label for="available-time" class="mb-1 block font-medium">Available Time</label>
+			<label for="available-time" class="mb-1 block font-medium">
+				Available Time
+			</label>
 			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-				<Datepicker inputClass="min-w-70 w-full" bind:value={selectedDate} required />
+				<Datepicker
+					inputClass="min-w-70 w-full"
+					bind:value={selectedDate}
+					required
+				/>
 				<div class="flex items-center gap-1">
 					<Select
 						class="w-24"
 						items={timeOptions}
 						placeholder="--:--"
 						value=""
-						onchange={(e) => (selectedStartTime = (e.target as HTMLSelectElement).value)}
+						onchange={(e) =>
+							(selectedStartTime = (e.target as HTMLSelectElement).value)}
 						required
 					/>
 					<MinusOutline />
 					<Select
 						class="w-24"
-						items={timeOptions.filter((option) => option.value > selectedStartTime)}
+						items={timeOptions.filter(
+							(option) => option.value > selectedStartTime,
+						)}
 						placeholder="--:--"
 						value=""
-						onchange={(e) => (selectedEndTime = (e.target as HTMLSelectElement).value)}
+						onchange={(e) =>
+							(selectedEndTime = (e.target as HTMLSelectElement).value)}
 						required
 					/>
 				</div>

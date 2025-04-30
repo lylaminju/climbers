@@ -32,7 +32,7 @@
 				throw new Error('Post not found.');
 			}
 			// Only allow the poster to delete
-			if ($userStore?.id !== post.user_id) {
+			if ($userStore?.id !== post.profile_id) {
 				throw new Error('You are not authorized to delete this post.');
 			}
 			isDeleting = true;
@@ -83,7 +83,7 @@
 				</a>
 			</h1>
 			<!-- Delete Button: Only show if current user is the poster -->
-			{#if $userStore?.id === post?.user_id}
+			{#if $userStore?.id === post?.profile_id}
 				<Button
 					size="xs"
 					class="absolute top-3 right-3 bg-red-200 transition hover:bg-red-300"
@@ -116,7 +116,7 @@
 			</p>
 			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
 
-			{#if $userStore?.id !== post.user_id}
+			{#if $userStore?.id !== post?.profile_id}
 				<Button
 					class="mt-4 w-full sm:text-base"
 					onclick={() => (showModal = true)}
