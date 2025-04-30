@@ -10,6 +10,7 @@
 	import {
 		ClockOutline,
 		MapPinAltOutline,
+		PenOutline,
 		UserOutline,
 	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
@@ -62,15 +63,26 @@
 		class="h-23 w-screen bg-cover sm:h-62 sm:bg-contain sm:bg-repeat-x"
 	></div>
 
-	<div
-		class="flex w-full flex-col gap-3 text-center sm:w-3xl sm:flex-row sm:items-center sm:justify-between"
-	>
-		<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">
+	<div class="flex w-full flex-row items-center justify-between gap-3 sm:w-3xl">
+		<h1 class="text-primary-800 text-2xl font-bold sm:text-4xl">
 			Find climbing partners
 		</h1>
 
-		<Button onclick={writePost} disabled={!$userStore} class="text-base">
+		<!-- Responsive: desktop shows text button, mobile shows icon button -->
+		<Button
+			onclick={writePost}
+			disabled={!$userStore}
+			class="hidden text-base sm:block"
+		>
 			Write a post
+		</Button>
+		<Button
+			onclick={writePost}
+			disabled={!$userStore}
+			class="inline text-base sm:hidden"
+			size="xs"
+		>
+			<PenOutline size="sm" />
 		</Button>
 		{#if !$userStore}
 			<Tooltip type="light">You must be signed in to write a post</Tooltip>
@@ -86,7 +98,7 @@
 	{/if}
 
 	{#if posts.length > 0}
-		<ol class="grid grid-cols-1 gap-3 sm:w-3xl sm:grid-cols-2">
+		<ol class="grid w-full grid-cols-1 gap-3 sm:w-3xl sm:grid-cols-2">
 			{#each posts as post}
 				<li>
 					<a
