@@ -66,39 +66,37 @@
 		<p>Loading...</p>
 	{:else if post}
 		<div
-			class="flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
+			class="relative flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
 		>
 			{#if deleteErrorMsg}
 				<Toast color="red" class="absolute top-0 right-0 z-2">
 					{deleteErrorMsg}
 				</Toast>
 			{/if}
-			<div class="mb-2 flex items-center justify-between">
-				<h1 class="flex items-center text-xl font-bold sm:text-2xl">
-					<UserOutline size="xl" class="mr-2" />
-					<a
-						href={`${base}/profile/${post?.profile?.username}`}
-						class="overflow-x-scroll underline"
-					>
-						{post?.profile?.username}
-					</a>
-				</h1>
-				<!-- Delete Button: Only show if current user is the poster -->
-				{#if $userStore?.id === post?.user_id}
-					<Button
-						size="xs"
-						class="bg-red-200 transition hover:bg-red-300"
-						onclick={deletePost}
-						disabled={isDeleting}
-					>
-						{#if isDeleting}
-							Deleting...
-						{:else}
-							<TrashBinOutline size="sm" color="red" />
-						{/if}
-					</Button>
-				{/if}
-			</div>
+			<h1 class="flex items-center text-xl font-bold sm:text-2xl">
+				<UserOutline size="lg" class="mr-2" />
+				<a
+					href={`${base}/profile/${post?.profile?.username}`}
+					class="overflow-x-scroll underline"
+				>
+					{post?.profile?.username}
+				</a>
+			</h1>
+			<!-- Delete Button: Only show if current user is the poster -->
+			{#if $userStore?.id === post?.user_id}
+				<Button
+					size="xs"
+					class="absolute top-3 right-3 bg-red-200 transition hover:bg-red-300"
+					onclick={deletePost}
+					disabled={isDeleting}
+				>
+					{#if isDeleting}
+						Deleting...
+					{:else}
+						<TrashBinOutline size="sm" color="red" />
+					{/if}
+				</Button>
+			{/if}
 
 			<p class="flex items-center">
 				<MapPinAltOutline class="mr-2" />
