@@ -5,7 +5,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
-	import { Button, Modal } from 'flowbite-svelte';
+	import { Button, Modal, Toast } from 'flowbite-svelte';
 	import {
 		ClockOutline,
 		MapPinAltOutline,
@@ -24,7 +24,7 @@
 	let isLoading = $state(false);
 	let isDeleting = $state(false);
 	let errorMsg = $state('');
-	let deleteErrorMsg = $state('');
+	let deleteErrorMsg = $state<string | null>(null);
 	let showModal = $state(false);
 
 	async function deletePost() {
@@ -71,6 +71,11 @@
 		<div
 			class="flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
 		>
+			{#if deleteErrorMsg}
+				<Toast color="red" class="absolute top-0 right-0 z-2">
+					{deleteErrorMsg}
+				</Toast>
+			{/if}
 			<div class="mb-2 flex items-center justify-between">
 				<h1 class="flex items-center text-2xl font-bold sm:text-3xl">
 					<UserOutline size="xl" class="mr-2" />
@@ -95,9 +100,6 @@
 							<TrashBinOutline size="sm" color="red" />
 						{/if}
 					</Button>
-					{#if deleteErrorMsg}
-						<p class="text-red-600">{deleteErrorMsg}</p>
-					{/if}
 				{/if}
 			</div>
 
