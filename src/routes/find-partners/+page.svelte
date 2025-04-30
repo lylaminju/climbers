@@ -108,7 +108,7 @@
 						href="{base}/find-partners/{post.post_id}"
 						class="hover:border-primary-300 flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-2 text-base sm:h-54 sm:max-h-54 sm:p-3 sm:text-xl"
 					>
-						<h2 class="flex items-center text-lg font-bold sm:text-2xl">
+						<h2 class="flex items-center text-lg font-bold sm:text-xl">
 							<UserOutline class="mr-1 inline" />{post.profile.username}
 						</h2>
 						<p class="flex items-center">

@@ -41,31 +41,38 @@
 				throw new Error('Failed to get a poster email');
 			}
 
-			const { error: emailError } = await sendRequestEmail(
+			const { statusCode, message, name } = await sendRequestEmail(
 				posterEmail,
 				formData?.name,
 				formData?.postId,
 			);
 
-			if (emailError) {
-				throw new Error(emailError);
+			if (statusCode !== undefined) {
+				throw new Error(`${statusCode} ${name}: ${message}`);
 			}
 
 			window.location.href = `/find-partners/${formData?.postId}`;
-		} catch (err) {
-			console.error(err);
-			errorMsg = err instanceof Error ? err.message : 'Unknown error';
+		} catch (error) {
+			console.error(error);
+			errorMsg = 'Failed to send an email';
 
 			// rollback join_request insertion if it was created
 			if (joinRequestId) {
-				await supabase.from('join_request').delete().eq('join_request_id', joinRequestId);
+				await supabase
+					.from('join_request')
+					.delete()
+					.eq('join_request_id', joinRequestId);
 			}
 		} finally {
 			isSending = false;
 		}
 	}
 
-	async function sendRequestEmail(email: string, senderName: string, postId: string) {
+	async function sendRequestEmail(
+		email: string,
+		senderName: string,
+		postId: string,
+	) {
 		try {
 			const requestBody = JSON.stringify({
 				email,
@@ -97,7 +104,8 @@
 		<li>
 			<span class="font-medium">Time:</span>
 			{formData?.date}&nbsp;
-			{formatTimeToAMPM(formData?.startTime)} - {formatTimeToAMPM(formData?.endTime)}
+			{formatTimeToAMPM(formData?.startTime)} -
+			{formatTimeToAMPM(formData?.endTime)}
 		</li>
 		<li class="flex flex-col">
 			<span class="font-medium">Message:</span>

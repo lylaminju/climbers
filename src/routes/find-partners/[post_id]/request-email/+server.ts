@@ -11,13 +11,12 @@ export async function POST({ request }: { request: Request }) {
 		});
 		const data = await response.json();
 
-		return new Response(JSON.stringify(data), {
-			status: 200,
-		});
+		return new Response(JSON.stringify(data));
 	} catch (error) {
 		console.error(error);
-		return new Response(JSON.stringify({ error: 'Failed to send an email' }), {
-			status: 500,
-		});
+		return new Response(
+			JSON.stringify({ error: 'Unknown error sending email' }),
+			{ status: 500 },
+		);
 	}
 }
