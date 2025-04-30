@@ -2,11 +2,19 @@
 	import { Select } from 'flowbite-svelte';
 	import { MinusOutline } from 'flowbite-svelte-icons';
 
-	// Generate time options for each hour (00:00, 01:00, ..., 23:00)
-	const timeOptions = Array.from({ length: 24 }, (_, i) => {
-		const time = `${i.toString().padStart(2, '0')}:00`;
-		return { value: `${time}:00`, name: time };
-	});
+	// Generate time options for each half hour from 07:00 to 23:30
+	const START_HOUR = 7;
+	const END_HOUR = 23;
+	const timeOptions: { value: string; name: string }[] = Array.from(
+		{ length: (END_HOUR - START_HOUR + 1) * 2 }, // Total slots: hours * 2 (for 0 and 30 minutes)
+		(_, i) => {
+			const hour = START_HOUR + Math.floor(i / 2);
+			const minute = i % 2 === 0 ? '00' : '30';
+			const time = `${hour.toString().padStart(2, '0')}:${minute}`;
+
+			return { value: `${time}:00`, name: time };
+		},
+	);
 
 	let { id, startTime, endTime } = $props();
 </script>
