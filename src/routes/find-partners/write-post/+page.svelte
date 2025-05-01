@@ -1,19 +1,12 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import GymDropdown from '$lib/components/GymDropdown.svelte';
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { PostSchema, type Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
-	import {
-		Button,
-		Datepicker,
-		Dropdown,
-		DropdownItem,
-		Search,
-		Textarea,
-	} from 'flowbite-svelte';
-	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { Button, Datepicker, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	let gyms = $state<ClimbingGym[]>([]);
@@ -24,14 +17,6 @@
 	let content = $state('');
 	let isLoading = $state(false);
 	let errorMsg = $state('');
-
-	let searchTerm = $state('');
-	const gymSearchList = $derived(gyms);
-	let filteredGyms = $derived(
-		gymSearchList.filter((gym) =>
-			gym.name.toLowerCase().includes(searchTerm.toLowerCase()),
-		),
-	);
 
 	onMount(async () => {
 		try {
@@ -96,8 +81,6 @@
 			isLoading = false;
 		}
 	}
-
-	let selectDropdownOpen = $state(false);
 </script>
 
 <section class="mx-auto mt-8 flex max-w-lg flex-col gap-4">
@@ -106,34 +89,7 @@
 	<form onsubmit={handleSubmit} class="flex flex-col gap-4">
 		<div>
 			<label for="gym" class="mb-1 block font-medium">Select a gym</label>
-			<Button class="dropdown-btn">
-				{selectedGymId
-					? gyms.find((gym) => gym.gym_id === selectedGymId)?.name
-					: 'Climbing gyms'}
-				<ChevronDownOutline
-					class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
-				/>
-			</Button>
-			<Dropdown
-				class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50"
-				bind:open={selectDropdownOpen}
-			>
-				<div slot="header" class="p-3">
-					<Search size="md" bind:value={searchTerm} />
-				</div>
-				{#each filteredGyms as gym}
-					<DropdownItem
-						onclick={() => {
-							selectedGymId = gym.gym_id;
-							selectDropdownOpen = false;
-						}}
-						class="flex flex-row justify-between gap-2"
-					>
-						<span>{gym.name}</span>
-						<span class="text-gray-500">{gym.city}</span>
-					</DropdownItem>
-				{/each}
-			</Dropdown>
+			<GymDropdown {gyms} bind:selectedGymId />
 		</div>
 
 		<div>
