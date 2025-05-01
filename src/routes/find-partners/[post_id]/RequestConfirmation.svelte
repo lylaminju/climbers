@@ -79,7 +79,7 @@
 				subject: '[ClimberzDay] Request to Join',
 				html: requestToJoinTemplate(senderName, formData?.message, postId),
 			});
-			const response = await fetch('/find-partners/[post_id]/request-email', {
+			const response = await fetch('/email', {
 				method: 'POST',
 				body: requestBody,
 			});
