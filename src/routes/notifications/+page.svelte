@@ -43,7 +43,7 @@
 						user_availability(date, start_time, end_time),
 						profile(username)
 					),
-					profile(username)
+					profile(username, email)
 				`,
 				)
 				.eq('post.profile_id', user.user?.id)

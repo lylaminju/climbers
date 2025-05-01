@@ -6,8 +6,8 @@
 
 	let { userAvailability, postId, posterEmail } = $props();
 
-	let name = $state($userStore?.user_metadata?.username || '');
-	let email = $state($userStore?.email || '');
+	let guestName = $state(null);
+	let guestEmail = $state(null);
 	let startTime = $state(userAvailability?.[0]?.start_time);
 	let endTime = $state(userAvailability?.[0]?.end_time);
 	let message = $state('');
@@ -16,8 +16,8 @@
 	let formData = $derived({
 		postId,
 		requestProfileId: $userStore?.id,
-		name,
-		email,
+		guestName,
+		guestEmail,
 		date: userAvailability?.[0]?.date,
 		startTime,
 		endTime,
@@ -36,11 +36,11 @@
 		{#if !$userStore?.id}
 			<div>
 				<label for="name" class="mb-1 block">Display Name</label>
-				<Input id="name" type="text" bind:value={name} required />
+				<Input id="name" type="text" bind:value={guestName} required />
 			</div>
 			<div>
 				<label for="email" class="mb-1 block">Email</label>
-				<Input id="email" type="email" bind:value={email} required />
+				<Input id="email" type="email" bind:value={guestEmail} required />
 			</div>
 		{/if}
 		<div>

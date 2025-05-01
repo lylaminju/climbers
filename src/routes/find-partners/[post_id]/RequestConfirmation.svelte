@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { requestToJoinTemplate } from '$lib/utils/emailTemplates';
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
@@ -9,6 +10,8 @@
 
 	let isSending = $state(false);
 	let errorMsg = $state('');
+	let userName = $derived($userStore?.user_metadata?.username || '');
+	let userEmail = $derived($userStore?.email || '');
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -20,8 +23,8 @@
 			.insert({
 				post_id: formData?.postId,
 				request_profile_id: formData?.requestProfileId,
-				guest_name: formData?.name,
-				guest_email: formData?.email,
+				guest_name: formData?.guestName,
+				guest_email: formData?.guestEmail,
 				date: formData?.date,
 				start_time: formData?.startTime,
 				end_time: formData?.endTime,
@@ -43,7 +46,7 @@
 			}
 
 			const emailHtml = requestToJoinTemplate(
-				formData?.name,
+				formData?.guestName ?? userName,
 				formData?.message,
 				formData?.postId,
 			);
@@ -80,11 +83,11 @@
 	<ul class="flex flex-col gap-2 text-lg sm:text-xl">
 		<li>
 			<span class="font-medium">Username:</span>
-			{formData?.name}
+			{formData?.guestName ?? userName}
 		</li>
 		<li>
 			<span class="font-medium">Email:</span>
-			{formData?.email}
+			{formData?.guestEmail ?? userEmail}
 		</li>
 		<li>
 			<span class="font-medium">Time:</span>
