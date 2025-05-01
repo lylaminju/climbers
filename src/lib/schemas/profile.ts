@@ -9,7 +9,7 @@ export const ProfileSchema = z.object({
 	gym_id: z.string().uuid().nullable().optional(),
 	bouldering_grade: z.string().max(10).nullable().optional(),
 	sport_climbing_grade: z.string().max(10).nullable().optional(),
-	whatsapp_link: z.string().url().nullable().optional(),
+	phone_number: z.string().nullable().optional(),
 	instagram_link: z.string().url().nullable().optional(),
 	x_link: z.string().url().nullable().optional(),
 	contact_links: z.string().url().nullable().optional(),
