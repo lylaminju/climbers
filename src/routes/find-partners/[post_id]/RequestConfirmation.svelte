@@ -33,7 +33,7 @@
 
 		try {
 			if (insertError) {
-				throw new Error('Failed to create join request');
+				throw new Error('Failed to insert join_request');
 			}
 
 			const posterEmail = formData?.posterEmail;
@@ -60,7 +60,7 @@
 			window.location.href = `/find-partners/${formData?.postId}`;
 		} catch (error) {
 			console.error(error);
-			errorMsg = 'Failed to send an email';
+			errorMsg = 'Failed to send a request';
 
 			// rollback join_request insertion if it was created
 			if (joinRequestId) {
