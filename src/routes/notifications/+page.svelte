@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -86,3 +87,4 @@
 		{/if}
 	{/if}
 </section>
+<ClimberLineIllust />

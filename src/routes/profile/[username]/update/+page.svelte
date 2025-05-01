@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
 	import GymDropdown from '$lib/components/GymDropdown.svelte';
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
 	import WhatsApp from '$lib/icons/sns/WhatsApp.svelte';
@@ -238,3 +239,4 @@
 		{/if}
 	</div>
 </section>
+<ClimberLineIllust />

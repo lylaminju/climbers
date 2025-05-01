@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
 	import WhatsApp from '$lib/icons/sns/WhatsApp.svelte';
 	import XTwitter from '$lib/icons/sns/XTwitter.svelte';
@@ -152,3 +153,4 @@
 		</div>
 	</div>
 </section>
+<ClimberLineIllust />
