@@ -97,20 +97,20 @@
 		></div>
 	{/if}
 	<div class="z-1 sm:flex sm:h-full sm:flex-col sm:justify-center">
-		<h1
-			class="
-				{isHomepage
-				? 'text-4xl text-white sm:text-6xl'
-				: 'text-primary-900 text-2xl sm:text-3xl'}
-				font-fugaz font-bold
-			"
-		>
-			<a href="/" data-sveltekit-reload>ClimberzDay</a>
-		</h1>
 		{#if isHomepage}
+			<h1 class="font-fugaz text-4xl font-bold text-white sm:text-6xl">
+				<a href="/" data-sveltekit-reload>ClimberzDay</a>
+			</h1>
 			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">
 				Explore Climbing Gyms!
 			</p>
+		{:else}
+			<h1 class="text-primary-900 font-fugaz text-2xl font-bold sm:text-3xl">
+				<a href="/" data-sveltekit-reload class="flex items-center gap-2">
+					ClimberzDay
+					<img src="/logo.png" alt="ClimberzDay Logo" class="w-15" />
+				</a>
+			</h1>
 		{/if}
 	</div>
 	<nav class="relative z-1">
