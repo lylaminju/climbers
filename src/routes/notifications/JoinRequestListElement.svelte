@@ -21,7 +21,7 @@
 	let isUpdating = $state(false);
 	let updateErrorMsg = $state('');
 
-	async function handleAcceptDecline(
+	async function handleRequest(
 		type: 'accepted' | 'declined',
 		joinRequestId: string,
 	) {
@@ -45,15 +45,26 @@
 			if (!recipientEmail) {
 				throw new Error('Failed to get a recipient email');
 			}
-			await sendEmail(
+
+			const { statusCode, message, name } = await sendEmail(
 				recipientEmail,
 				type,
 				'Thank you for joining!', // TODO: Get message from user
 				joinRequest.post_id,
 			);
 
+			if (statusCode !== undefined) {
+				throw new Error(`${statusCode} ${name}: ${message}`);
+			}
+
 			window.location.href = '/notifications';
 		} catch (error) {
+			// rollback if failed
+			await supabase
+				.from('join_request')
+				.update({ status: 'pending' })
+				.eq('join_request_id', joinRequestId);
+
 			console.error('Error updating join request status -', error);
 			const action = type === 'accepted' ? 'accept' : 'decline';
 			updateErrorMsg = `Failed to ${action} join request.`;
@@ -149,8 +160,7 @@
 				class="w-full"
 				size="sm"
 				disabled={isUpdating}
-				onclick={() =>
-					handleAcceptDecline('accepted', joinRequest.join_request_id)}
+				onclick={() => handleRequest('accepted', joinRequest.join_request_id)}
 			>
 				Accept
 			</Button>
@@ -158,8 +168,7 @@
 				class="w-full"
 				size="sm"
 				disabled={isUpdating}
-				onclick={() =>
-					handleAcceptDecline('declined', joinRequest.join_request_id)}
+				onclick={() => handleRequest('declined', joinRequest.join_request_id)}
 			>
 				Decline
 			</Button>
