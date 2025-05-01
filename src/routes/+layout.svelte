@@ -106,9 +106,13 @@
 			</p>
 		{:else}
 			<h1 class="text-primary-900 font-fugaz text-2xl font-bold sm:text-3xl">
-				<a href="/" data-sveltekit-reload class="flex items-center gap-2">
+				<a
+					href="/"
+					data-sveltekit-reload
+					class="flex items-center gap-1 sm:gap-2"
+				>
 					ClimberzDay
-					<img src="/logo.png" alt="ClimberzDay Logo" class="w-15" />
+					<img src="/logo.png" alt="ClimberzDay Logo" class="w-13 sm:w-15" />
 				</a>
 			</h1>
 		{/if}
