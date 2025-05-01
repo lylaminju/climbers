@@ -77,7 +77,7 @@
 	</div>
 	<p>"{joinRequest.message}"</p>
 	<div
-		class="relative h-fit rounded-xl border border-gray-300 px-1.5 py-1 text-base text-gray-700"
+		class="relative mt-2 h-fit rounded-xl border border-gray-300 px-1.5 py-1 text-base text-gray-700"
 	>
 		<a
 			href={`/find-partners/${joinRequest.post.post_id}`}

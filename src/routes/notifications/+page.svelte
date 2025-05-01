@@ -4,6 +4,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { Spinner } from 'flowbite-svelte';
+	import { InboxOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import JoinRequestListElement from './JoinRequestListElement.svelte';
 
@@ -55,29 +56,29 @@
 	});
 </script>
 
-<section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
-	<h1 class="text-primary-600 text-3xl font-bold">Notifications</h1>
+<section class="mx-auto flex w-full max-w-3xl flex-col items-center gap-3">
+	<h1 class="text-primary-600 w-full text-3xl font-bold">Notifications</h1>
 	{#if isLoading}
 		<Spinner />
 	{:else}
-		<h2 class="text-xl font-bold">Pending Join Requests</h2>
+		<h2 class="w-full text-xl font-bold">Pending Join Requests</h2>
 		{#if !pendingJoinRequests}
 			<p class="text-red-600">Error loading join requests.</p>
 		{:else if pendingJoinRequests?.length > 0}
-			<ul class="space-y-3">
+			<ul class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
 				{#each pendingJoinRequests as joinRequest}
 					<JoinRequestListElement {joinRequest} />
 				{/each}
 			</ul>
 		{:else}
-			<p class="text-gray-500">No pending join requests found.</p>
+			<InboxOutline class="text-gray-400" />
 		{/if}
 
-		<h2 class="text-xl font-bold">Handled Join Requests</h2>
+		<h2 class="w-full text-xl font-bold">Handled Join Requests</h2>
 		{#if handledJoinRequests?.length === 0}
-			<p class="text-gray-500">No accepted or declined join requests found.</p>
+			<InboxOutline class="text-gray-400" />
 		{:else if handledJoinRequests && handledJoinRequests?.length > 0}
-			<ul class="space-y-3">
+			<ul class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
 				{#each handledJoinRequests as joinRequest}
 					<JoinRequestListElement {joinRequest} />
 				{/each}
