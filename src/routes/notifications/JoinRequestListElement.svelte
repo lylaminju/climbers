@@ -25,8 +25,17 @@
 		type: 'accepted' | 'declined',
 		joinRequestId: string,
 	) {
+		const action = type === 'accepted' ? 'accept' : 'decline';
+
 		try {
 			isUpdating = true;
+
+			const confirmHandle = confirm(
+				`Are you sure you want to ${action} this join request?`,
+			);
+			if (!confirmHandle) {
+				return;
+			}
 
 			const { error } = await supabase
 				.from('join_request')
@@ -71,7 +80,6 @@
 				.eq('join_request_id', joinRequestId);
 
 			console.error('Error updating join request status -', error);
-			const action = type === 'accepted' ? 'accept' : 'decline';
 			updateErrorMsg = `Failed to ${action} join request.`;
 		} finally {
 			isUpdating = false;
