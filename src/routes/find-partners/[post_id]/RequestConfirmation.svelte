@@ -2,6 +2,7 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { requestToJoinTemplate } from '$lib/utils/emailTemplates';
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
+	import { sendEmail } from '$lib/utils/sendEmail';
 	import { Button } from 'flowbite-svelte';
 
 	const { formData } = $props();
@@ -41,10 +42,15 @@
 				throw new Error('Failed to get a poster email');
 			}
 
-			const { statusCode, message, name } = await sendRequestEmail(
-				posterEmail,
+			const emailHtml = requestToJoinTemplate(
 				formData?.name,
+				formData?.message,
 				formData?.postId,
+			);
+			const { statusCode, message, name } = await sendEmail(
+				posterEmail,
+				'[ClimberzDay] Request to Join',
+				emailHtml,
 			);
 
 			if (statusCode !== undefined) {
@@ -65,27 +71,6 @@
 			}
 		} finally {
 			isSending = false;
-		}
-	}
-
-	async function sendRequestEmail(
-		email: string,
-		senderName: string,
-		postId: string,
-	) {
-		try {
-			const requestBody = JSON.stringify({
-				email,
-				subject: '[ClimberzDay] Request to Join',
-				html: requestToJoinTemplate(senderName, formData?.message, postId),
-			});
-			const response = await fetch('/email', {
-				method: 'POST',
-				body: requestBody,
-			});
-			return await response.json();
-		} catch (error) {
-			throw new Error('Failed preparing email');
 		}
 	}
 </script>

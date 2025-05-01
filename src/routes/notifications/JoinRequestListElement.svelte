@@ -8,6 +8,7 @@
 		formatShortDate,
 		formatTimeToAMPM,
 	} from '$lib/utils/formatString';
+	import { sendEmail } from '$lib/utils/sendEmail';
 	import { A, Badge, Button } from 'flowbite-svelte';
 	import {
 		ArrowUpRightFromSquareOutline,
@@ -46,11 +47,16 @@
 				throw new Error('Failed to get a recipient email');
 			}
 
-			const { statusCode, message, name } = await sendEmail(
-				recipientEmail,
+			const emailHtml = requestHandledTemplate(
 				type,
+				joinRequest.profile?.username ?? 'Post author',
 				'Thank you for joining!', // TODO: Get message from user
 				joinRequest.post_id,
+			);
+			const { statusCode, message, name } = await sendEmail(
+				recipientEmail,
+				`[ClimberzDay] Join Request is ${type}`,
+				emailHtml,
 			);
 
 			if (statusCode !== undefined) {
@@ -70,33 +76,6 @@
 			updateErrorMsg = `Failed to ${action} join request.`;
 		} finally {
 			isUpdating = false;
-		}
-	}
-
-	async function sendEmail(
-		recipientEmail: string,
-		type: 'accepted' | 'declined',
-		message: string,
-		postId: string,
-	) {
-		try {
-			const requestBody = JSON.stringify({
-				email: recipientEmail,
-				subject: `Join Request is ${type}`,
-				html: requestHandledTemplate(
-					type,
-					$userStore?.user_metadata?.username ?? 'Post author',
-					message,
-					postId,
-				),
-			});
-			const response = await fetch('/email', {
-				method: 'POST',
-				body: requestBody,
-			});
-			return await response.json();
-		} catch (error) {
-			throw new Error('Failed preparing email');
 		}
 	}
 </script>
