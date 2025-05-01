@@ -4,11 +4,11 @@ import type { Post } from './post';
 import { ProfileSchema } from './profile';
 
 export const JoinRequestSchema = z.object({
-	join_request_id: z.string().uuid(),
-	post_id: z.string().uuid(), // Required, references post(post_id)
-	request_profile_id: z.string().uuid().nullable(), // Nullable for guests
-	guest_name: z.string().max(50).nullable(), // Nullable for non-guests
-	guest_email: z.string().email().max(255).nullable(), // Nullable for non-guests
+	join_request_id: z.string().uuid('Invalid join request ID'),
+	post_id: z.string().uuid('Invalid post ID'),
+	request_profile_id: z.string().uuid().nullable().optional(), // Nullable for guests
+	guest_name: z.string().max(50).nullable().optional(), // Nullable for non-guests
+	guest_email: z.string().email().max(255).nullable().optional(), // Nullable for non-guests
 	date: z.coerce.date(), // e.g., '2025-04-21'
 	start_time: z
 		.string()
