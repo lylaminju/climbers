@@ -2,7 +2,7 @@
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { userStore } from '$lib/stores/user';
 	import { Button, Input, Textarea } from 'flowbite-svelte';
-	import Confirmation from './Confirmation.svelte';
+	import RequestConfirmation from './RequestConfirmation.svelte';
 
 	let { userAvailability, postId, posterEmail } = $props();
 
@@ -58,5 +58,5 @@
 		<Button class="mt-2 w-full" type="submit">Proceed</Button>
 	</form>
 {:else}
-	<Confirmation {formData} />
+	<RequestConfirmation {formData} />
 {/if}
