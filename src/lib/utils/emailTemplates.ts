@@ -30,14 +30,19 @@ export function requestHandledTemplate(
 	message: string,
 	postId: string,
 ) {
+	const defaultMessage =
+		type === 'accepted'
+			? 'We hope you enjoy climbing!'
+			: 'We hope you can join us next time';
+
 	return `
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td align="center">
                     ${LogoImageElement}
-                    <h1 style="font-size:24px;">Your join request is ${type}!</h1>
+                    <h1 style="font-size:24px;">Your join request is ${type}</h1>
                     <p style="font-size:18px;"><b>${senderName}</b> ${type} your request</p>
-                    <p style="font-size:18px;">Message: "${message}"</p>
+                    <p style="font-size:18px;">${defaultMessage}</p>
                     <a href="${baseUrl}/find-partners/${postId}" style="font-size:18px;">View Post</a>
                 </td>
             </tr>
