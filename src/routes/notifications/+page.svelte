@@ -15,9 +15,7 @@
 		joinRequests?.filter((r) => r.status === 'pending'),
 	);
 	let handledJoinRequests = $derived(
-		joinRequests?.filter(
-			(r) => r.status === 'accepted' || r.status === 'declined',
-		),
+		joinRequests?.filter((r) => r.status !== 'pending'),
 	);
 
 	// Redirect to homepage if user is not logged in after loading ends
@@ -38,7 +36,15 @@
 			const { data, error } = await supabase
 				.from('join_request')
 				.select(
-					'*, post!inner(*, gym(name), user_availability(date, start_time, end_time)), profile(username)',
+					`*,
+					post!inner(
+						*,
+						gym(name),
+						user_availability(date, start_time, end_time),
+						profile(username)
+					),
+					profile(username)
+				`,
 				)
 				.eq('post.profile_id', user.user?.id)
 				.is('post.deleted_at', null)

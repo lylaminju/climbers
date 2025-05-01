@@ -57,8 +57,8 @@
 
 			const emailHtml = requestHandledTemplate(
 				type,
-				joinRequest.profile?.username ?? 'Post author',
-				'Thanks for your request!', // TODO: Get message from user
+				joinRequest.post?.profile?.username ?? 'Post author',
+				'Thanks for the request!', // TODO: Get message from user
 				joinRequest.post_id,
 			);
 			const { statusCode, message, name } = await sendEmail(
