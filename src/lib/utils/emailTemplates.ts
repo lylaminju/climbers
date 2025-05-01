@@ -15,8 +15,8 @@ export function requestToJoinTemplate(
                     <h1 style="font-size:24px;">You have a new join request!</h1>
                     <p style="font-size:18px;">A climber <b>${senderName}</b> sent a request to join your climbing</p>
                     <p style="font-size:18px;">Message: "${message}"</p>
+                    <a href="${baseUrl}/notifications" style="font-size:18px;">Notifications page</a><br/>
                     <a href="${baseUrl}/find-partners/${postId}" style="font-size:18px;">View Post</a>
-                    <a href="${baseUrl}/notifications" style="font-size:18px;">View Notifications</a>
                 </td>
             </tr>
         </table>
