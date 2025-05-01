@@ -33,7 +33,7 @@ export function requestHandledTemplate(
         <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
                 <td align="center">
-                    <img src="${LOGO_URL}" alt="ClimberzDay Logo" width="270" draggable="false" style="display:block;" />
+                    <img src="${LOGO_URL}" alt="ClimberzDay Logo" width="250" draggable="false" style="display:block;" />
                     <h1 style="font-size:24px;">Your join request is ${type}!</h1>
                     <p style="font-size:18px;"><b>${senderName}</b> ${type} your request</p>
                     <p style="font-size:18px;">Message: "${message}"</p>

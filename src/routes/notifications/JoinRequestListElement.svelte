@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
-	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { requestHandledTemplate } from '$lib/utils/emailTemplates';
 	import {
@@ -50,7 +49,7 @@
 			const emailHtml = requestHandledTemplate(
 				type,
 				joinRequest.profile?.username ?? 'Post author',
-				'Thank you for joining!', // TODO: Get message from user
+				'Thanks for your request!', // TODO: Get message from user
 				joinRequest.post_id,
 			);
 			const { statusCode, message, name } = await sendEmail(

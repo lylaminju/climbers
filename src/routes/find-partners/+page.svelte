@@ -106,7 +106,7 @@
 				<li>
 					<a
 						href="{base}/find-partners/{post.post_id}"
-						class="hover:border-primary-300 flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-2 text-base sm:h-54 sm:max-h-54 sm:p-3 sm:text-xl"
+						class="hover:bg-primary-50 flex h-fit flex-col gap-1 rounded-xl bg-white p-2 text-base sm:p-3 sm:text-xl"
 					>
 						<h2 class="flex items-center text-lg font-bold sm:text-xl">
 							<UserOutline class="mr-1 inline" />{post.profile.username}
@@ -124,7 +124,9 @@
 							{formatTimeToAMPM(post.user_availability[0]?.start_time)}
 							- {formatTimeToAMPM(post.user_availability[0]?.end_time)}
 						</p>
-						<p class="overflow-hidden text-ellipsis whitespace-pre">
+						<p
+							class="overflow-hidden text-sm text-ellipsis whitespace-nowrap sm:mt-1 sm:text-lg"
+						>
 							{post.content}
 						</p>
 					</a>
