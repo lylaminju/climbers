@@ -118,7 +118,7 @@
 		<BarsOutline class="mobile-menu-trigger sm:hidden" aria-label="Open menu" />
 		<Dropdown
 			triggeredBy=".mobile-menu-trigger"
-			class="w-25 sm:hidden"
+			class="w-fit sm:hidden"
 			bind:open={dropdownOpen}
 		>
 			<DropdownItem>
