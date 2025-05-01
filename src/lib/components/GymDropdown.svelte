@@ -22,11 +22,14 @@
 	let selectDropdownOpen = $state(false);
 </script>
 
-<Button class="dropdown-btn">
+<Button
+	color="light"
+	class="bg-primary-50 flex justify-between px-2.5 py-2 font-normal whitespace-nowrap"
+>
 	{selectedGymId
 		? gyms.find((gym) => gym.gym_id === selectedGymId)?.name
 		: 'Climbing gyms'}
-	<ChevronDownOutline class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white" />
+	<ChevronDownOutline class="ms-1 h-6 w-6 sm:ms-2" />
 </Button>
 <Dropdown
 	class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50"
