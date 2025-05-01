@@ -33,19 +33,8 @@
 		),
 	);
 
-	// Generate time options for each hour (00:00, 01:00, ..., 23:00)
-	const timeOptions = Array.from({ length: 24 }, (_, i) => {
-		const time = `${i.toString().padStart(2, '0')}:00`;
-		return { value: time, name: time };
-	});
-
 	onMount(async () => {
 		try {
-			if (!$userStore) {
-				goto('/');
-				return;
-			}
-
 			const { data, error } = await supabase
 				.from('gym')
 				.select('*')
@@ -107,6 +96,8 @@
 			isLoading = false;
 		}
 	}
+
+	let selectDropdownOpen = $state(false);
 </script>
 
 <section class="mx-auto mt-8 flex max-w-lg flex-col gap-4">
@@ -123,7 +114,10 @@
 					class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
 				/>
 			</Button>
-			<Dropdown class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50">
+			<Dropdown
+				class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50"
+				bind:open={selectDropdownOpen}
+			>
 				<div slot="header" class="p-3">
 					<Search size="md" bind:value={searchTerm} />
 				</div>
@@ -131,6 +125,7 @@
 					<DropdownItem
 						onclick={() => {
 							selectedGymId = gym.gym_id;
+							selectDropdownOpen = false;
 						}}
 						class="flex flex-row justify-between gap-2"
 					>
@@ -163,14 +158,18 @@
 				bind:value={content}
 				placeholder="Write your message here..."
 				required
-			></Textarea>
+			/>
 		</div>
 
 		{#if errorMsg}
 			<p class="text-red-600">{errorMsg}</p>
 		{/if}
 
-		<Button type="submit" class="w-full sm:text-base" disabled={isLoading}>
+		<Button
+			type="submit"
+			class="w-full sm:text-base"
+			disabled={!$userStore || isLoading}
+		>
 			{isLoading ? 'Posting...' : 'Post'}
 		</Button>
 	</form>

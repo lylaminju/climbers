@@ -6,7 +6,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
-	import { Button, Tooltip } from 'flowbite-svelte';
+	import { Button, Spinner, Tooltip } from 'flowbite-svelte';
 	import {
 		ClockOutline,
 		MapPinAltOutline,
@@ -97,7 +97,7 @@
 	{/if}
 
 	{#if isLoading}
-		<p>Loading...</p>
+		<Spinner />
 	{/if}
 
 	{#if posts.length > 0}
