@@ -19,7 +19,9 @@ export const JoinRequestSchema = z.object({
 	message: z.string().optional(), // TEXT, nullable in DB
 	status: z.enum(['pending', 'accepted', 'declined']).default('pending'), // Constrained to valid statuses
 	created_at: z.string(),
-	profile: ProfileSchema.pick({ username: true }).nullable().optional(),
+	profile: ProfileSchema.pick({ username: true, email: true })
+		.nullable()
+		.optional(),
 });
 
 export type JoinRequest = z.infer<typeof JoinRequestSchema>;

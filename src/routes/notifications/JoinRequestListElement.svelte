@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
+	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
+	import { requestHandledTemplate } from '$lib/utils/emailTemplates';
 	import {
 		capitalizeWords,
 		formatShortDate,
@@ -25,6 +27,7 @@
 	) {
 		try {
 			isUpdating = true;
+
 			const { error } = await supabase
 				.from('join_request')
 				.update({ status: type })
@@ -33,6 +36,22 @@
 			if (error) {
 				throw error;
 			}
+
+			// send email
+			const recipientEmail = joinRequest.request_profile_id
+				? joinRequest.profile?.email
+				: joinRequest.guest_email;
+
+			if (!recipientEmail) {
+				throw new Error('Failed to get a recipient email');
+			}
+			await sendEmail(
+				recipientEmail,
+				type,
+				'Thank you for joining!', // TODO: Get message from user
+				joinRequest.post_id,
+			);
+
 			window.location.href = '/notifications';
 		} catch (error) {
 			console.error('Error updating join request status -', error);
@@ -40,6 +59,33 @@
 			updateErrorMsg = `Failed to ${action} join request.`;
 		} finally {
 			isUpdating = false;
+		}
+	}
+
+	async function sendEmail(
+		recipientEmail: string,
+		type: 'accepted' | 'declined',
+		message: string,
+		postId: string,
+	) {
+		try {
+			const requestBody = JSON.stringify({
+				email: recipientEmail,
+				subject: `Join Request is ${type}`,
+				html: requestHandledTemplate(
+					type,
+					$userStore?.user_metadata?.username ?? 'Post author',
+					message,
+					postId,
+				),
+			});
+			const response = await fetch('/email', {
+				method: 'POST',
+				body: requestBody,
+			});
+			return await response.json();
+		} catch (error) {
+			throw new Error('Failed preparing email');
 		}
 	}
 </script>
@@ -91,7 +137,6 @@
 		</div>
 		<div class="flex items-center gap-1">
 			<ClockOutline size="sm" />
-
 			{joinRequest.post.user_availability?.[0]?.date}&nbsp;
 			{formatTimeToAMPM(joinRequest.post.user_availability?.[0]?.start_time)}
 			-
