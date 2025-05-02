@@ -89,10 +89,13 @@
 
 <li class="relative h-fit space-y-1 rounded-xl bg-white px-4 pt-3 pb-4">
 	<span
-		class="absolute top-3 right-3 flex flex-col gap-1 text-right text-xs text-gray-500 sm:text-sm"
+		class="absolute top-3 right-3 flex flex-col items-end gap-1 text-right text-xs text-gray-500 sm:text-sm"
 	>
 		{#if !isPending}
-			<Badge color={joinRequest.status === 'accepted' ? 'green' : 'yellow'}>
+			<Badge
+				color={joinRequest.status === 'accepted' ? 'green' : 'yellow'}
+				class="w-fit"
+			>
 				{capitalizeWords(joinRequest.status)}
 			</Badge>
 		{/if}
