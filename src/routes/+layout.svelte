@@ -15,6 +15,7 @@
 		BarsOutline,
 		BellOutline,
 		UserCircleOutline,
+		UsersGroupOutline,
 	} from 'flowbite-svelte-icons';
 	import { onDestroy, onMount } from 'svelte';
 	import '../app.css';
@@ -90,6 +91,7 @@
 
 	let isHomepage = $derived(page.url.pathname === '/');
 	let dropdownOpen = $state(false);
+	let username = $derived($userStore?.user_metadata?.username);
 </script>
 
 {#if showSignOutErrorToast}
@@ -149,22 +151,43 @@
 			bind:open={dropdownOpen}
 		>
 			<DropdownItem>
-				<A href="/find-partners" onclick={() => (dropdownOpen = false)}>
-					Find climbing partners
+				<A
+					href="/find-partners"
+					onclick={() => (dropdownOpen = false)}
+					class="flex items-center gap-1 whitespace-nowrap"
+				>
+					<UsersGroupOutline size="sm" />
+					Climbing partners
 				</A>
 			</DropdownItem>
 			<DropdownDivider />
 			{#if $userStore}
 				<DropdownItem>
 					<A
-						href="/profile/{$userStore?.user_metadata?.username}"
+						href={`/profile/${username}`}
 						onclick={() => (dropdownOpen = false)}
+						title="My page"
+						class="flex items-center gap-1 whitespace-nowrap"
 					>
-						My page
+						<UserCircleOutline size="sm" />
+						{username}
 					</A>
 				</DropdownItem>
 				<DropdownItem>
-					<A href="/notifications" onclick={() => (dropdownOpen = false)}>
+					<A
+						href="/notifications"
+						onclick={() => (dropdownOpen = false)}
+						class="flex items-center gap-1 whitespace-nowrap"
+					>
+						<span class="relative w-fit">
+							<BellOutline size="sm" color="var(--color-primary-600)" />
+							{#if hasPendingJoinRequests}
+								<span
+									class="ring-primary-600 absolute top-1 right-1.5 block h-1 w-1 rounded-full bg-red-500 ring-1"
+									style="transform: translate(40%,-40%);"
+								></span>
+							{/if}
+						</span>
 						Notifications
 					</A>
 				</DropdownItem>
@@ -184,20 +207,25 @@
 
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
-			<li><A href="/find-partners">Find climbing partners</A></li>
+			<li>
+				<A href="/find-partners" class="flex items-center gap-1">
+					<UsersGroupOutline size="lg" />
+					Climbing partners
+				</A>
+			</li>
 			{#if $userStore}
 				<li>
 					<A
-						href="/profile/{$userStore?.user_metadata?.username}"
+						href={`/profile/${username}`}
 						title="My page"
 						class="flex items-center gap-1"
 					>
-						<UserCircleOutline size="lg" aria-label="My page" />
-						{$userStore.user_metadata?.username}
+						<UserCircleOutline size="lg" />
+						{username}
 					</A>
 				</li>
 				<li>
-					<a href="/notifications" aria-label="Notifications">
+					<a href="/notifications" title="Notifications">
 						<span class="relative">
 							<BellOutline size="lg" color="var(--color-primary-600)" />
 							{#if hasPendingJoinRequests}
@@ -214,7 +242,6 @@
 						class="flex items-center"
 						title="Sign out"
 						onclick={handleSignOut}
-						aria-label="Sign out"
 					>
 						<ArrowRightToBracketOutline
 							size="lg"
