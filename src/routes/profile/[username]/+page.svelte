@@ -4,6 +4,7 @@
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
 	import WhatsApp from '$lib/icons/sns/WhatsApp.svelte';
 	import XTwitter from '$lib/icons/sns/XTwitter.svelte';
+	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -15,14 +16,18 @@
 		TrashBinOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
+	import MyRequests from './MyRequests.svelte';
 
 	type Props = {
 		data: {
 			profile: Profile | null;
+			joinRequests: JoinRequestWithPost[] | null;
 		};
 	};
 	const { data }: Props = $props();
 	const profile = $derived(data?.profile);
+	const joinRequests = $derived(data?.joinRequests);
+	let isProfileOwner = $derived($userStore?.id === profile?.profile_id);
 
 	async function handleDeleteProfile() {
 		try {
@@ -36,11 +41,11 @@
 
 <section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
 	<div
-		class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 pt-3 shadow-md sm:p-6 sm:pt-5"
+		class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 pt-3 sm:p-6 sm:pt-5"
 	>
 		<div class="mb-3 flex items-center justify-between">
 			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Profile</h1>
-			{#if $userStore?.id === profile?.profile_id}
+			{#if isProfileOwner}
 				<div class="flex gap-3 sm:gap-4">
 					<Button
 						size="xs"
@@ -71,7 +76,7 @@
 				<UserCircleOutline size="lg" />Info
 			</h2>
 			<ul class="flex flex-col gap-2 text-lg sm:text-xl">
-				{#if $userStore?.id === profile?.profile_id}
+				{#if isProfileOwner}
 					<li><span class="font-medium">Email:</span> {$userStore?.email}</li>
 				{/if}
 				<li><span class="font-medium">Username:</span> {profile?.username}</li>
@@ -152,5 +157,9 @@
 			</ul>
 		</div>
 	</div>
+
+	{#if isProfileOwner}
+		<MyRequests {joinRequests} />
+	{/if}
 </section>
 <ClimberLineIllust />

@@ -32,8 +32,8 @@ export function requestHandledTemplate(
 ) {
 	const defaultMessage =
 		type === 'accepted'
-			? 'We hope you enjoy climbing!'
-			: 'We hope you can join us next time';
+			? 'Hope you enjoy climbing!'
+			: 'Hope you can join us next time';
 
 	return `
         <table width="100%" cellpadding="0" cellspacing="0" border="0">

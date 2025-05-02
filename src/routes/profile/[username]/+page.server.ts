@@ -14,10 +14,28 @@ export const load: PageServerLoad = async ({ params }) => {
 			throw new Error('Failed to load user profile.');
 		}
 
-		return { profile: ProfileSchema.parse(data) };
+		const { data: joinRequests, error: joinRequestsError } = await supabase
+			.from('join_request')
+			.select(
+				`*,
+				post!inner(
+					*,
+					gym(name),
+					user_availability(date, start_time, end_time),
+					profile(username)
+				)`,
+			)
+			.eq('request_profile_id', data.profile_id)
+			.order('created_at', { ascending: false });
+
+		if (joinRequestsError) {
+			throw new Error('Failed to load join requests.');
+		}
+
+		return { profile: ProfileSchema.parse(data), joinRequests: joinRequests };
 	} catch (error) {
-		console.error('Error loading profile:', error);
-		return { profile: null };
+		console.error('Error loading profile and join requests\n', error);
+		return { profile: null, joinRequests: null };
 	}
 };
 
