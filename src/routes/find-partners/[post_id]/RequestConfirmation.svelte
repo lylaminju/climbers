@@ -5,6 +5,12 @@
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
 	import { sendEmail } from '$lib/utils/sendEmail';
 	import { Button } from 'flowbite-svelte';
+	import {
+		ClockOutline,
+		EnvelopeOutline,
+		MessageDotsOutline,
+		UserCircleOutline,
+	} from 'flowbite-svelte-icons';
 
 	const { formData } = $props();
 
@@ -81,23 +87,27 @@
 <form onsubmit={handleSubmit} class="flex flex-col gap-3">
 	<h2 class="text-xl font-bold sm:text-2xl">Confirm your request</h2>
 	<ul class="flex flex-col gap-2 text-lg sm:text-xl">
-		<li>
-			<span class="font-medium">Username:</span>
-			{formData?.guestName ?? userName}
+		<li class="flex items-center gap-2">
+			<UserCircleOutline />
+			<span class="whitespace-nowrap">{formData?.guestName ?? userName}</span>
 		</li>
-		<li>
-			<span class="font-medium">Email:</span>
-			{formData?.guestEmail ?? userEmail}
+		<li class="flex items-center gap-2">
+			<EnvelopeOutline />
+			<span class="whitespace-nowrap">{formData?.guestEmail ?? userEmail}</span>
 		</li>
-		<li>
-			<span class="font-medium">Time:</span>
-			{formData?.date}&nbsp;
-			{formatTimeToAMPM(formData?.startTime)} -
-			{formatTimeToAMPM(formData?.endTime)}
+		<li class="flex items-center gap-2">
+			<ClockOutline />
+			<span class="whitespace-nowrap">{formData?.date}&nbsp;</span>
+			<span class="whitespace-nowrap">
+				{formatTimeToAMPM(formData?.startTime)} -
+				{formatTimeToAMPM(formData?.endTime)}
+			</span>
 		</li>
-		<li class="flex flex-col">
-			<span class="font-medium">Message:</span>
-			<p>{formData?.message}</p>
+		<li class="flex items-center gap-2">
+			<MessageDotsOutline />
+			<span class="w-full max-w-full min-w-0 break-words whitespace-pre-wrap">
+				{formData?.message}
+			</span>
 		</li>
 	</ul>
 	<Button class="mt-3 w-full" type="submit" disabled={isSending}>

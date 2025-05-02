@@ -46,13 +46,16 @@
 		<div>
 			<label for="time-range">Time</label>
 			<div class="flex items-center gap-3">
-				<span>{userAvailability?.[0]?.date}</span>
-				<TimeSelect bind:startTime bind:endTime />
+				<span class="whitespace-nowrap">{userAvailability?.[0]?.date}</span>
+				<TimeSelect bind:startTime bind:endTime style="w-21 sm:w-24" />
 			</div>
 		</div>
 		<div>
-			<label for="message" class="mb-1 block">Message</label>
-			<Textarea id="message" bind:value={message} />
+			<label for="message" class="mb-1 block">
+				Message
+				<span class="text-xs text-gray-500">(optional)</span>
+			</label>
+			<Textarea id="message" bind:value={message} class="min-h-[100px]" />
 		</div>
 
 		<Button class="mt-2 w-full" type="submit">Proceed</Button>

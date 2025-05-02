@@ -16,20 +16,25 @@
 		},
 	);
 
-	let { startTime = $bindable(), endTime = $bindable() } = $props();
+	let {
+		startTime = $bindable(),
+		endTime = $bindable(),
+		style = 'w-24',
+	} = $props();
+	const styles = `${style} text-sm sm:text-base text-primary-600 py-2`;
 </script>
 
 <div class="flex items-center gap-1">
 	<Select
-		class="w-24"
+		class={styles}
 		items={timeOptions}
 		placeholder="--:--"
 		bind:value={startTime}
 		required
 	/>
-	<MinusOutline />
+	<MinusOutline size="sm" />
 	<Select
-		class="w-24"
+		class={styles}
 		items={timeOptions.filter((option) => option.value > startTime)}
 		placeholder="--:--"
 		bind:value={endTime}
