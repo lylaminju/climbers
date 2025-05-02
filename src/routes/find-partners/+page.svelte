@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import ClimbersWallpaper from '$lib/components/ClimbersWallpaper.svelte';
 	import type { Availability } from '$lib/schemas/availability';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
@@ -37,7 +38,7 @@
 					gym(name, city), 
 					user_availability(date, start_time, end_time), 
 					join_requests:join_request!post_id(status)
-					`
+					`,
 				)
 				.order('created_at', { ascending: false })
 				.is('deleted_at', null);
@@ -49,7 +50,7 @@
 			posts = data.map((post) => ({
 				...post,
 				acceptedJoinRequestsCount: post.join_requests.filter(
-					(request: { status: string }) => request.status === 'accepted'
+					(request: { status: string }) => request.status === 'accepted',
 				).length,
 			}));
 		} catch (error) {
@@ -65,10 +66,7 @@
 </script>
 
 <section class="mx-auto flex w-full flex-col items-center gap-3">
-	<div
-		style="background-image: url(/decor/various-climbers.jpeg)"
-		class="h-23 w-screen bg-cover sm:h-62 sm:bg-contain sm:bg-repeat-x"
-	></div>
+	<ClimbersWallpaper />
 
 	<div
 		class="flex w-full flex-row items-center justify-between gap-3 sm:mt-2 sm:w-3xl"

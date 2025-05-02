@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import ClimbersWallpaper from '$lib/components/ClimbersWallpaper.svelte';
 	import GymDropdown from '$lib/components/GymDropdown.svelte';
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { PostSchema, type Post } from '$lib/schemas/post';
@@ -83,50 +84,56 @@
 	}
 </script>
 
-<section class="mx-auto mt-8 flex max-w-lg flex-col gap-4">
-	<h1 class="text-4xl font-bold">Let's find a climbing partner!</h1>
+<section class="mx-auto flex w-full flex-col items-center gap-3">
+	<ClimbersWallpaper />
 
-	<form onsubmit={handleSubmit} class="flex flex-col gap-4">
-		<div>
-			<label for="gym" class="mb-1 block font-medium">Select a gym</label>
-			<GymDropdown {gyms} bind:selectedGymId />
-		</div>
+	<div class="flex w-full flex-col items-center gap-4 sm:mt-2 sm:w-lg">
+		<h1 class="text-2xl font-bold sm:text-4xl">
+			Let's find a climbing partner!
+		</h1>
 
-		<div>
-			<label for="available-time" class="mb-1 block font-medium">
-				Available Time
-			</label>
-			<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-				<Datepicker
-					inputClass="min-w-70 w-full"
-					bind:value={selectedDate}
+		<form onsubmit={handleSubmit} class="flex w-full flex-col gap-4">
+			<div>
+				<label for="gym" class="mb-1 block font-medium">Select a gym</label>
+				<GymDropdown {gyms} bind:selectedGymId />
+			</div>
+
+			<div>
+				<label for="available-time" class="mb-1 block font-medium">
+					Available Time
+				</label>
+				<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+					<Datepicker
+						inputClass="min-w-70 w-full"
+						bind:value={selectedDate}
+						required
+					/>
+					<TimeSelect bind:startTime bind:endTime />
+				</div>
+			</div>
+
+			<div>
+				<label for="content" class="mb-1 block font-medium">Content</label>
+				<Textarea
+					id="content"
+					class="min-h-[200px] w-full rounded border p-2"
+					bind:value={content}
+					placeholder="Write your message here..."
 					required
 				/>
-				<TimeSelect bind:startTime bind:endTime />
 			</div>
-		</div>
 
-		<div>
-			<label for="content" class="mb-1 block font-medium">Content</label>
-			<Textarea
-				id="content"
-				class="min-h-[100px] w-full rounded border p-2"
-				bind:value={content}
-				placeholder="Write your message here..."
-				required
-			/>
-		</div>
+			{#if errorMsg}
+				<p class="text-red-600">{errorMsg}</p>
+			{/if}
 
-		{#if errorMsg}
-			<p class="text-red-600">{errorMsg}</p>
-		{/if}
-
-		<Button
-			type="submit"
-			class="w-full sm:text-base"
-			disabled={!$userStore || isLoading}
-		>
-			{isLoading ? 'Posting...' : 'Post'}
-		</Button>
-	</form>
+			<Button
+				type="submit"
+				class="w-full sm:text-base"
+				disabled={!$userStore || isLoading}
+			>
+				{isLoading ? 'Posting...' : 'Post'}
+			</Button>
+		</form>
+	</div>
 </section>
