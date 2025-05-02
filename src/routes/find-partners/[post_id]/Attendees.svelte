@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import { formatTimeToAMPM } from '$lib/utils/formatString';
+	import { Badge } from 'flowbite-svelte';
 	import { ClockOutline, UserCircleOutline } from 'flowbite-svelte-icons';
 
 	type Props = {
@@ -19,9 +20,15 @@
 				<li class="rounded-lg bg-white p-2 text-base sm:p-3 sm:text-lg">
 					<div class="flex items-center gap-1">
 						<UserCircleOutline />
-						<span class="overflow-x-scroll whitespace-nowrap">
-							{joinRequest.profile?.username ??
-								`${joinRequest.guest_name} (guest)`}
+						<span
+							class="flex items-center gap-1 overflow-x-scroll whitespace-nowrap"
+						>
+							{#if joinRequest.profile}
+								{joinRequest.profile.username}
+							{:else}
+								{joinRequest.guest_name}
+								<Badge color="dark">guest</Badge>
+							{/if}
 						</span>
 					</div>
 					<div class="flex items-center gap-1 text-sm sm:text-base">

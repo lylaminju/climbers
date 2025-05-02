@@ -11,11 +11,15 @@ export const load: PageServerLoad = async ({ params }) => {
 				profile(username, email),
 				gym(name, city),
 				user_availability(date, start_time, end_time),
-				join_request(*)
-				`,
+				join_request(
+					*,
+					profile(username, email)
+				)
+				`
 			)
 			.eq('post_id', (params as { post_id: string }).post_id)
 			.single();
+
 		if (error) {
 			throw new Error('Failed to load post.');
 		}
