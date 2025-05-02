@@ -109,7 +109,7 @@
 		{isHomepage
 		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
 		: 'h-fit items-center sm:pt-3'} 
-		bg-cover bg-top px-3 py-3 sm:px-6
+		bg-cover bg-top px-4 py-4 sm:px-6
 	"
 >
 	{#if isHomepage}
@@ -157,7 +157,7 @@
 					class="flex items-center gap-1 whitespace-nowrap"
 				>
 					<UsersGroupOutline size="sm" />
-					Climbing partners
+					Climbing meetups
 				</A>
 			</DropdownItem>
 			<DropdownDivider />
@@ -210,7 +210,7 @@
 			<li>
 				<A href="/find-partners" class="flex items-center gap-1">
 					<UsersGroupOutline size="lg" />
-					Climbing partners
+					Climbing meetups
 				</A>
 			</li>
 			{#if $userStore}
@@ -257,7 +257,7 @@
 	</nav>
 </header>
 
-<main class="h-full min-h-fit grow px-3 sm:px-6">
+<main class="h-full min-h-fit grow px-4 sm:px-6">
 	{@render children()}
 </main>
 
