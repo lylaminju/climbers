@@ -23,16 +23,19 @@
 	let { children } = $props();
 
 	let listener: { subscription: Subscription } | undefined = undefined;
+	let hasPendingJoinRequests = $state(false);
 
 	onMount(async () => {
 		// Initial fetch
 		const { data } = await supabase.auth.getUser();
 		userStore.set(data.user);
+		checkPendingJoinRequests();
 
 		// Listen for auth state changes
 		const { data: listenerData } = supabase.auth.onAuthStateChange(
 			(event, session) => {
 				userStore.set(session?.user ?? null);
+				checkPendingJoinRequests();
 			},
 		);
 
@@ -43,6 +46,26 @@
 	onDestroy(() => {
 		listener?.subscription.unsubscribe();
 	});
+
+	async function checkPendingJoinRequests() {
+		try {
+			const { data, error } = await supabase
+				.from('join_request')
+				.select('join_request_id')
+				.eq('status', 'pending')
+				.eq('post.profile_id', $userStore?.id)
+				.is('post.deleted_at', null)
+				.select('*, post!inner(post_id)');
+
+			if (error) {
+				throw new Error('Failed to load join requests.');
+			}
+
+			hasPendingJoinRequests = data?.length > 0;
+		} catch (error) {
+			console.error('Error checking pending join requests\n', error);
+		}
+	}
 
 	let showAuthModal = $state(false);
 	let authMode = $state<'sign-in' | 'sign-up'>('sign-in');
@@ -175,7 +198,15 @@
 				</li>
 				<li>
 					<a href="/notifications" aria-label="Notifications">
-						<BellOutline size="lg" color="var(--color-primary-600)" />
+						<span class="relative">
+							<BellOutline size="lg" color="var(--color-primary-600)" />
+							{#if hasPendingJoinRequests}
+								<span
+									class="ring-primary-600 absolute top-1 right-1.5 block h-2 w-2 rounded-full bg-red-500 ring-1"
+									style="transform: translate(40%,-40%);"
+								></span>
+							{/if}
+						</span>
 					</a>
 				</li>
 				<li>
