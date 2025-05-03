@@ -11,7 +11,7 @@
 		ClockOutline,
 		MapPinAltOutline,
 		TrashBinOutline,
-		UserOutline
+		UserOutline,
 	} from 'flowbite-svelte-icons';
 	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
@@ -35,13 +35,13 @@
 				throw new Error('Post not found.');
 			}
 			// Only allow the poster to delete
-			if ($userStore?.id !== post.profile_id) {
+			if (!isPostAuthor) {
 				throw new Error('You are not authorized to delete this post.');
 			}
 			isDeleting = true;
 
 			const confirmDelete = confirm(
-				'Are you sure you want to delete this post?\nThis action cannot be undone.'
+				'Are you sure you want to delete this post?\nThis action cannot be undone.',
 			);
 			if (!confirmDelete) {
 				return;

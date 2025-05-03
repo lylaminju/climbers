@@ -24,7 +24,12 @@
 							class="flex items-center gap-1 overflow-x-scroll whitespace-nowrap"
 						>
 							{#if joinRequest.profile}
-								{joinRequest.profile.username}
+								<a
+									href={`/profile/${joinRequest.profile.username}`}
+									class="underline"
+								>
+									{joinRequest.profile.username}
+								</a>
 							{:else}
 								{joinRequest.guest_name}
 								<Badge color="dark">guest</Badge>
