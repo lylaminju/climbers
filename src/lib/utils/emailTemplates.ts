@@ -17,7 +17,6 @@ export function requestToJoinTemplate(
                     <p style="font-size:18px;">A climber <b>${senderName}</b> sent a request to join your climbing</p>
                     <p style="font-size:18px;">Message: "${message}"</p>
                     <a href="${baseUrl}/notifications" style="font-size:18px;">Notifications page</a><br/>
-                    <a href="${baseUrl}/find-partners/${postId}" style="font-size:18px;">View Post</a>
                 </td>
             </tr>
         </table>
@@ -27,7 +26,7 @@ export function requestToJoinTemplate(
 export function requestHandledTemplate(
 	type: 'accepted' | 'declined',
 	senderName: string,
-	message: string,
+	gymNameWithCity: string,
 	postId: string,
 ) {
 	const defaultMessage =
@@ -41,6 +40,7 @@ export function requestHandledTemplate(
                 <td align="center">
                     ${LogoImageElement}
                     <h1 style="font-size:24px;">Your join request is ${type}</h1>
+                    <p style="font-size:18px;">📍 ${gymNameWithCity}</p>
                     <p style="font-size:18px;"><b>${senderName}</b> ${type} your request</p>
                     <p style="font-size:18px;">${defaultMessage}</p>
                     <a href="${baseUrl}/find-partners/${postId}" style="font-size:18px;">View Post</a>

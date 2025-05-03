@@ -16,7 +16,7 @@ export const PostSchema = z.object({
 	profile: ProfileSchema.pick({ username: true, email: true })
 		.nullable()
 		.optional(),
-	gym: ClimbingGymSchema.pick({ name: true, city: true }).nullable().optional(),
+	gym: ClimbingGymSchema.pick({ name: true, city: true }),
 	user_availability: AvailabilityTimeSchema.array().nullable().optional(),
 	join_request: JoinRequestSchema.array().nullable().optional(),
 });

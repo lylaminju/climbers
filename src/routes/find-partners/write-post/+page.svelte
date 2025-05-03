@@ -3,7 +3,6 @@
 	import ClimbersWallpaper from '$lib/components/ClimbersWallpaper.svelte';
 	import GymDropdown from '$lib/components/GymDropdown.svelte';
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
-	import { PostSchema, type Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
@@ -46,17 +45,6 @@
 			}
 
 			isLoading = true;
-
-			const postData: Post = {
-				profile_id: $userStore.id,
-				gym_id: selectedGymId,
-				content,
-			};
-			const validation = PostSchema.safeParse(postData);
-
-			if (!validation.success) {
-				throw new Error('Please fill in all fields correctly.');
-			}
 
 			const { error } = await supabase.rpc('create_post_with_availability', {
 				p_profile_id: $userStore.id,

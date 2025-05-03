@@ -100,9 +100,7 @@
 
 		{#if isLoading}
 			<Spinner />
-		{/if}
-
-		{#if errorMessage}
+		{:else if errorMessage}
 			<p class="text-red-600">{errorMessage}</p>
 		{:else if posts.length > 0}
 			<MeetupPosts posts={upcomingPosts} />

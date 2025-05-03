@@ -39,7 +39,7 @@
 					`*,
 					post!inner(
 						*,
-						gym(name),
+						gym(name, city),
 						user_availability(date, start_time, end_time),
 						profile(username)
 					),
