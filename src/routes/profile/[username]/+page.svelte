@@ -8,7 +8,7 @@
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import { Button } from 'flowbite-svelte';
+	import { Button, Tooltip } from 'flowbite-svelte';
 	import {
 		CirclePlusOutline,
 		FilePenOutline,
@@ -103,8 +103,8 @@
 			</h2>
 			<ul class="flex flex-col gap-2 text-base sm:text-xl">
 				<li class="flex items-center gap-2">
-					<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
-					<span class="w-20 sm:w-24">Whatsapp</span>
+					<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5 fill-gray-500" />
+					<Tooltip>Whatsapp</Tooltip>
 					<a
 						href={`https://api.whatsapp.com/send/?phone=${profile?.phone_number}`}
 						class="overflow-x-scroll whitespace-nowrap underline"
@@ -117,8 +117,8 @@
 					</a>
 				</li>
 				<li class="flex items-center gap-2">
-					<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
-					<span class="w-20 sm:w-24">Instagram</span>
+					<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
+					<Tooltip>Instagram</Tooltip>
 					<a
 						href={profile?.instagram_link}
 						class="overflow-x-scroll whitespace-nowrap underline"
@@ -129,8 +129,8 @@
 					</a>
 				</li>
 				<li class="flex items-center gap-2">
-					<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
-					<span class="w-20 sm:w-24">X</span>
+					<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
+					<Tooltip>X (Twitter)</Tooltip>
 					<a
 						href={profile?.x_link}
 						class="overflow-x-scroll whitespace-nowrap underline"
@@ -143,7 +143,7 @@
 				{#if profile?.contact_links}
 					<li class="flex items-center gap-2">
 						<CirclePlusOutline />
-						<span class="w-20 sm:w-24">Other</span>
+						<Tooltip>Other</Tooltip>
 						<a
 							href={profile?.contact_links}
 							class="overflow-x-scroll whitespace-nowrap underline"

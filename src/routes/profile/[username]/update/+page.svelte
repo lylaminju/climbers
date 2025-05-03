@@ -28,8 +28,8 @@
 	let boulderingGrade = $derived(profile?.bouldering_grade ?? null);
 	let sportClimbingGrade = $derived(profile?.sport_climbing_grade ?? null);
 	let phoneNumber = $derived(profile?.phone_number ?? null);
-	let instagramUsername = $derived(profile?.instagram_link ?? null);
-	let xUsername = $derived(profile?.x_link ?? null);
+	let instagramUsername = $derived(profile?.instagram_link?.split('/').pop());
+	let xUsername = $derived(profile?.x_link?.split('/').pop());
 	let otherContactLinks = $derived(profile?.contact_links ?? null);
 
 	// Redirect to homepage if user is not the owner of the profile after loading ends
@@ -198,7 +198,7 @@
 						<Input
 							type="url"
 							id="whatsapp-link"
-							placeholder="12345678900"
+							placeholder="12345678901"
 							bind:value={phoneNumber}
 							class="w-full"
 						/>
