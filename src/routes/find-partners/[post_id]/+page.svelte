@@ -28,6 +28,10 @@
 	let deleteErrorMsg = $state<string | null>(null);
 	let showModal = $state(false);
 	let isPostAuthor = $derived($userStore?.id === post?.profile_id);
+	let isPastDate = $derived(
+		(post?.user_availability?.[0]?.date ?? '') <
+			new Date().toISOString().split('T')[0],
+	);
 
 	async function deletePost() {
 		try {
@@ -125,6 +129,7 @@
 				<Button
 					class="mt-4 w-full sm:text-base"
 					onclick={() => (showModal = true)}
+					disabled={isPastDate}
 				>
 					Request to Join
 				</Button>

@@ -1,21 +1,14 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 	import ClimbersWallpaper from '$lib/components/ClimbersWallpaper.svelte';
 	import type { Availability } from '$lib/schemas/availability';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
 	import { Button, Spinner, Tooltip } from 'flowbite-svelte';
-	import {
-		ClockOutline,
-		MapPinAltOutline,
-		PenOutline,
-		UserCircleOutline,
-		UserOutline,
-	} from 'flowbite-svelte-icons';
+	import { PenOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
+	import MeetupPosts from './MeetupPosts.svelte';
 
 	let posts = $state<
 		(Post & {
@@ -63,85 +56,65 @@
 	function writePost() {
 		goto('/find-partners/write-post');
 	}
+
+	const today = new Date().toISOString().split('T')[0];
+	let pastPosts = $derived(
+		posts.filter((post) => post.user_availability[0].date < today),
+	);
+	let upcomingPosts = $derived(
+		posts.filter((post) => post.user_availability[0].date >= today),
+	);
 </script>
 
-<section class="mx-auto flex w-full flex-col items-center gap-3">
+<section class="mx-auto flex w-full flex-col items-center">
 	<ClimbersWallpaper />
 
-	<div
-		class="flex w-full flex-row items-center justify-between gap-3 sm:mt-2 sm:w-3xl"
-	>
-		<h1 class="text-primary-800 text-2xl font-bold sm:text-4xl">
-			Find climbing partners
-		</h1>
+	<div class="mt-3 flex w-full flex-col items-center sm:w-3xl">
+		<div
+			class="mb-2 flex w-full flex-row items-center justify-between gap-3 sm:mt-2 sm:mb-3"
+		>
+			<h1 class="text-primary-800 text-2xl font-bold sm:text-4xl">
+				Find climbing partners
+			</h1>
 
-		<!-- Responsive: desktop shows text button, mobile shows icon button -->
-		<Button
-			onclick={writePost}
-			disabled={!$userStore}
-			class="hidden text-base sm:block"
-		>
-			Write a post
-		</Button>
-		<Button
-			onclick={writePost}
-			disabled={!$userStore}
-			class="inline text-base sm:hidden"
-			size="xs"
-		>
-			<PenOutline size="md" />
-		</Button>
-		{#if !$userStore}
-			<Tooltip type="light">You must be signed in to write a post</Tooltip>
+			<!-- Responsive: desktop shows text button, mobile shows icon button -->
+			<Button
+				onclick={writePost}
+				disabled={!$userStore}
+				class="hidden text-base sm:block"
+			>
+				Write a post
+			</Button>
+			<Button
+				onclick={writePost}
+				disabled={!$userStore}
+				class="inline text-base sm:hidden"
+				size="xs"
+			>
+				<PenOutline size="md" />
+			</Button>
+			{#if !$userStore}
+				<Tooltip type="light">You must be signed in to write a post</Tooltip>
+			{/if}
+		</div>
+
+		{#if isLoading}
+			<Spinner />
+		{/if}
+
+		{#if errorMessage}
+			<p class="text-red-600">{errorMessage}</p>
+		{:else if posts.length > 0}
+			<MeetupPosts posts={upcomingPosts} />
+
+			<h2
+				class="text-primary-700 mt-4 mb-1 w-full text-2xl font-bold sm:mb-2 sm:text-3xl"
+			>
+				Past meetups
+			</h2>
+			<MeetupPosts posts={pastPosts} />
+		{:else}
+			<p>No posts found.</p>
 		{/if}
 	</div>
-
-	{#if isLoading}
-		<Spinner />
-	{/if}
-
-	{#if errorMessage}
-		<p class="text-red-600">{errorMessage}</p>
-	{:else if posts.length > 0}
-		<ol class="grid w-full grid-cols-1 gap-3 sm:w-3xl sm:grid-cols-2">
-			{#each posts as post}
-				<li>
-					<a
-						href="{base}/find-partners/{post.post_id}"
-						class="hover:bg-primary-50 relative flex h-fit flex-col gap-1 rounded-xl bg-white p-2 text-base sm:p-3 sm:text-xl"
-					>
-						<span
-							class="absolute top-2 right-3 flex items-center gap-0.5 sm:top-3"
-						>
-							<UserOutline size="sm" />
-							<span class="text-sm">{post.acceptedJoinRequestsCount}</span>
-						</span>
-						<h2 class="flex items-center text-lg font-bold sm:text-xl">
-							<UserCircleOutline class="mr-1 inline" />{post.profile.username}
-						</h2>
-						<p class="flex items-center">
-							<MapPinAltOutline class="mr-1 inline" />{post.gym.name}
-						</p>
-						<p class="flex items-center">
-							<MapPinAltOutline class="mr-1 inline" />
-							{capitalizeWords(post.gym.city)}
-						</p>
-						<p class="flex items-center">
-							<ClockOutline class="mr-1 inline" />
-							{post.user_availability[0]?.date}
-							{formatTimeToAMPM(post.user_availability[0]?.start_time)}
-							- {formatTimeToAMPM(post.user_availability[0]?.end_time)}
-						</p>
-						<p
-							class="overflow-hidden text-sm text-ellipsis whitespace-nowrap sm:mt-1 sm:text-lg"
-						>
-							{post.content}
-						</p>
-					</a>
-				</li>
-			{/each}
-		</ol>
-	{:else}
-		<p>No posts found.</p>
-	{/if}
 </section>

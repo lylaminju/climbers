@@ -84,10 +84,10 @@
 	}
 </script>
 
-<section class="mx-auto flex w-full flex-col items-center gap-3">
+<section class="mx-auto flex w-full flex-col items-center">
 	<ClimbersWallpaper />
 
-	<div class="flex w-full flex-col items-center gap-4 sm:mt-2 sm:w-lg">
+	<div class="mt-3 flex w-full flex-col items-center gap-4 sm:mt-5 sm:w-lg">
 		<h1 class="text-2xl font-bold sm:text-4xl">
 			Let's find a climbing partner!
 		</h1>
