@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
+	import GlobeIcon from '$lib/icons/GlobeIcon.svelte';
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
 	import WhatsApp from '$lib/icons/sns/WhatsApp.svelte';
 	import XTwitter from '$lib/icons/sns/XTwitter.svelte';
@@ -9,7 +10,6 @@
 	import { supabase } from '$lib/supabaseClient';
 	import { Button, Tooltip } from 'flowbite-svelte';
 	import {
-		CirclePlusOutline,
 		FilePenOutline,
 		LinkOutline,
 		TrashBinOutline,
@@ -154,7 +154,7 @@
 				{/if}
 				{#if profile?.contact_links}
 					<li class="flex items-center gap-2">
-						<CirclePlusOutline />
+						<GlobeIcon styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
 						<Tooltip>Other</Tooltip>
 						<a
 							href={profile?.contact_links?.[0]}

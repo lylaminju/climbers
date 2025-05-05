@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
 	import GymDropdown from '$lib/components/GymDropdown.svelte';
+	import GlobeIcon from '$lib/icons/GlobeIcon.svelte';
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
 	import WhatsApp from '$lib/icons/sns/WhatsApp.svelte';
 	import XTwitter from '$lib/icons/sns/XTwitter.svelte';
@@ -11,11 +12,7 @@
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
 	import { Button, Helper, Input, Spinner } from 'flowbite-svelte';
-	import {
-		CirclePlusOutline,
-		LinkOutline,
-		UserCircleOutline,
-	} from 'flowbite-svelte-icons';
+	import { LinkOutline, UserCircleOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
 	let gyms = $state<ClimbingGym[]>([]);
@@ -116,10 +113,8 @@
 	}
 </script>
 
-<section class="mx-auto flex w-full max-w-3xl flex-col gap-3">
-	<div
-		class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 shadow-md sm:p-6"
-	>
+<section class="mx-auto flex w-full max-w-2xl flex-col gap-3">
+	<div class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 sm:p-6">
 		<div class="mb-3 flex items-center justify-between">
 			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">
 				Update profile
@@ -197,7 +192,7 @@
 				</h2>
 				<ul class="flex flex-col gap-2 text-sm sm:text-lg">
 					<li class="flex items-center gap-2">
-						<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
+						<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
 						<label class="sm:whitespace-nowrap" for="whatsapp-link">
 							whatsapp.com/send/?phone=
 						</label>
@@ -210,7 +205,7 @@
 						/>
 					</li>
 					<li class="flex items-center gap-2">
-						<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
+						<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
 						<label for="instagram-link"> instagram.com/ </label>
 						<Input
 							type="url"
@@ -221,7 +216,7 @@
 						/>
 					</li>
 					<li class="flex items-center gap-2">
-						<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5" />
+						<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
 						<label for="x-link"> x.com/ </label>
 						<Input
 							type="url"
@@ -232,7 +227,7 @@
 						/>
 					</li>
 					<li class="flex items-center gap-2">
-						<CirclePlusOutline />
+						<GlobeIcon styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
 						<Input
 							type="url"
 							id="other-link"
