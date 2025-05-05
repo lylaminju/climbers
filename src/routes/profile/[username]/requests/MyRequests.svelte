@@ -15,7 +15,7 @@
 	const { joinRequests }: Props = $props();
 </script>
 
-<div>
+<div class="w-full sm:w-3xl sm:max-w-3xl">
 	<h1 class="text-primary-700 mb-3 text-2xl font-bold sm:text-3xl">
 		My Requests
 	</h1>
@@ -34,6 +34,7 @@
 						</span>
 						<Badge
 							color={joinRequest.status === 'accepted' ? 'green' : 'yellow'}
+							class="ml-1 w-fit"
 						>
 							{capitalizeWords(joinRequest.status)}
 						</Badge>

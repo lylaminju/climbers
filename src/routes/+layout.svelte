@@ -64,7 +64,7 @@
 
 			hasPendingJoinRequests = data?.length > 0;
 		} catch (error) {
-			console.error('Error checking pending join requests\n', error);
+			console.error(`Error checking pending join requests\n${error}`);
 		}
 	}
 

@@ -1,4 +1,9 @@
 export function capitalizeWords(str: string) {
+	if (!str) {
+		console.error(`capitalizeWords: str is undefined or null, str: ${str}`);
+		return '';
+	}
+
 	return str
 		.split(' ')
 		.map((word) => word.charAt(0).toUpperCase() + word.slice(1))
