@@ -16,6 +16,7 @@
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
 	import Sidebar from './Sidebar.svelte';
+	import MenuTab from './MenuTab.svelte';
 
 	type Props = {
 		data: {
@@ -36,12 +37,13 @@
 	}
 </script>
 
-<section class="mx-auto flex w-fit flex-col gap-3 sm:flex-row">
+<section class="mx-auto flex w-full flex-col gap-3 sm:w-fit sm:flex-row">
 	{#if isProfileOwner}
 		<Sidebar
 			username={profile?.username ?? ''}
 			activeUrl={`/profile/${profile?.username}`}
 		/>
+		<MenuTab username={profile?.username ?? ''} />
 	{/if}
 
 	<div

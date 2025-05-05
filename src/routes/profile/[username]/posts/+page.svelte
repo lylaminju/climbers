@@ -5,6 +5,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { onMount } from 'svelte';
 
+	import MenuTab from '../MenuTab.svelte';
 	import Sidebar from '../Sidebar.svelte';
 	import MyPosts from './MyPosts.svelte';
 
@@ -29,6 +30,7 @@
 
 <section class="mx-auto flex w-fit flex-col gap-3 sm:flex-row">
 	<Sidebar {username} activeUrl={`/profile/${username}/posts`} />
+	<MenuTab {username} />
 
 	<MyPosts posts={data?.posts} />
 </section>

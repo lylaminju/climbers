@@ -15,9 +15,9 @@
 		$props();
 </script>
 
-<Sidebar {activeUrl} class="w-full max-w-fit">
+<Sidebar {activeUrl} class="hidden w-full max-w-fit sm:block">
 	<SidebarWrapper>
-		<SidebarGroup class="flex w-full flex-row sm:flex-col">
+		<SidebarGroup>
 			<SidebarItem label="Profile" href={`/profile/${username}`}>
 				<svelte:fragment slot="icon">
 					<UserSolid

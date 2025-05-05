@@ -7,6 +7,7 @@
 
 	import Sidebar from '../Sidebar.svelte';
 	import MyRequests from './MyRequests.svelte';
+	import MenuTab from '../MenuTab.svelte';
 
 	let username = $derived(page.params.username);
 	let isProfileOwner = $derived(
@@ -29,6 +30,7 @@
 
 <section class="mx-auto flex w-fit flex-col gap-3 sm:flex-row">
 	<Sidebar {username} activeUrl={`/profile/${username}/requests`} />
+	<MenuTab {username} />
 
 	<MyRequests joinRequests={data?.joinRequests} />
 </section>
