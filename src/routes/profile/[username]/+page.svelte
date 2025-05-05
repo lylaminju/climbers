@@ -45,7 +45,7 @@
 	{/if}
 
 	<div
-		class="mx-auto space-y-6 rounded-xl bg-white p-4 pt-3 sm:w-3xl sm:max-w-3xl sm:p-6 sm:pt-5"
+		class="mx-auto w-full space-y-6 rounded-xl bg-white p-4 pt-3 sm:w-3xl sm:max-w-3xl sm:p-6 sm:pt-5"
 	>
 		<div class="mb-3 flex items-center justify-between">
 			<h1 class="text-primary-800 text-3xl font-bold sm:text-4xl">Profile</h1>
@@ -106,44 +106,50 @@
 				<LinkOutline size="lg" />Social Links
 			</h2>
 			<ul class="flex flex-col gap-2 text-base sm:text-xl">
-				<li class="flex items-center gap-2">
-					<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5 fill-gray-500" />
-					<Tooltip>Whatsapp</Tooltip>
-					<a
-						href={`https://api.whatsapp.com/send/?phone=${profile?.phone_number}`}
-						class="overflow-x-scroll whitespace-nowrap underline"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{profile?.phone_number
-							? `/send/?phone=${profile?.phone_number}`
-							: null}
-					</a>
-				</li>
-				<li class="flex items-center gap-2">
-					<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
-					<Tooltip>Instagram</Tooltip>
-					<a
-						href={profile?.instagram_link}
-						class="overflow-x-scroll whitespace-nowrap underline"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{profile?.instagram_link?.split('https://')[1]}
-					</a>
-				</li>
-				<li class="flex items-center gap-2">
-					<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
-					<Tooltip>X (Twitter)</Tooltip>
-					<a
-						href={profile?.x_link}
-						class="overflow-x-scroll whitespace-nowrap underline"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{profile?.x_link?.split('https://')[1]}
-					</a>
-				</li>
+				{#if profile?.phone_number}
+					<li class="flex items-center gap-2">
+						<WhatsApp styles="w-4 min-w-4 sm:w-5 sm:min-w-5 fill-gray-500" />
+						<Tooltip>Whatsapp</Tooltip>
+						<a
+							href={`https://api.whatsapp.com/send/?phone=${profile?.phone_number}`}
+							class="overflow-x-scroll whitespace-nowrap underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{profile?.phone_number
+								? `/send/?phone=${profile?.phone_number}`
+								: null}
+						</a>
+					</li>
+				{/if}
+				{#if profile?.instagram_link}
+					<li class="flex items-center gap-2">
+						<Instagram styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
+						<Tooltip>Instagram</Tooltip>
+						<a
+							href={profile?.instagram_link}
+							class="overflow-x-scroll whitespace-nowrap underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{profile?.instagram_link?.split('https://')[1]}
+						</a>
+					</li>
+				{/if}
+				{#if profile?.x_link}
+					<li class="flex items-center gap-2">
+						<XTwitter styles="w-4 min-w-4 sm:w-5 sm:min-w-5 text-gray-500" />
+						<Tooltip>X (Twitter)</Tooltip>
+						<a
+							href={profile?.x_link}
+							class="overflow-x-scroll whitespace-nowrap underline"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{profile?.x_link?.split('https://')[1]}
+						</a>
+					</li>
+				{/if}
 				{#if profile?.contact_links}
 					<li class="flex items-center gap-2">
 						<CirclePlusOutline />
