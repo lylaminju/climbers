@@ -44,10 +44,12 @@
 
 	onMount(async () => {
 		try {
+			const user = await supabase.auth.getUser();
+
 			const { data: profileData, error: profileError } = await supabase
 				.from('profile')
 				.select('*')
-				.eq('profile_id', $userStore?.id)
+				.eq('profile_id', user.data.user?.id)
 				.single();
 
 			if (profileError) {
@@ -66,7 +68,7 @@
 			profile = profileData;
 			gyms = gymsData;
 		} catch (error) {
-			console.error('Error loading gyms:', error);
+			console.error(`Error loading data\n${error}`);
 		} finally {
 			isLoading = false;
 		}
@@ -88,9 +90,13 @@
 						? `https://instagram.com/${instagramUsername}`
 						: null,
 					x_link: xUsername ? `https://x.com/${xUsername}` : null,
-					contact_links: otherContactLinks,
+					contact_links: otherContactLinks ? [otherContactLinks] : null,
 				})
 				.eq('profile_id', $userStore?.id);
+
+			if (error) {
+				throw new Error(error.message);
+			}
 
 			const { error: userError } = await supabase.auth.updateUser({
 				data: {
@@ -98,12 +104,12 @@
 				},
 			});
 
-			if (error || userError) {
-				throw new Error('Failed to update user profile.');
+			if (userError) {
+				throw new Error(userError.message);
 			}
 			goto(`/profile/${username}`);
 		} catch (error) {
-			console.error('Error updating profile:', error);
+			console.error(`Error updating profile\n${error}`);
 		} finally {
 			isUpdating = false;
 		}

@@ -15,8 +15,8 @@
 		TrashBinOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
-	import Sidebar from './Sidebar.svelte';
 	import MenuTab from './MenuTab.svelte';
+	import Sidebar from './Sidebar.svelte';
 
 	type Props = {
 		data: {
@@ -157,12 +157,12 @@
 						<CirclePlusOutline />
 						<Tooltip>Other</Tooltip>
 						<a
-							href={profile?.contact_links}
+							href={profile?.contact_links?.[0]}
 							class="overflow-x-scroll whitespace-nowrap underline"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							{profile?.contact_links?.split('https://')[1]}
+							{profile?.contact_links?.[0]?.split('https://')[1]}
 						</a>
 					</li>
 				{/if}

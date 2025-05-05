@@ -12,7 +12,7 @@ export const ProfileSchema = z.object({
 	phone_number: z.string().nullable().optional(),
 	instagram_link: z.string().url().nullable().optional(),
 	x_link: z.string().url().nullable().optional(),
-	contact_links: z.string().url().nullable().optional(),
+	contact_links: z.array(z.string().url()).nullable().optional(),
 	public_profile: z.boolean().default(false),
 	created_at: z.coerce.date().optional(),
 	updated_at: z.coerce.date().optional(),
