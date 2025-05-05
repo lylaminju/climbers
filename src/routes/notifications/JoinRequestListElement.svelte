@@ -7,6 +7,7 @@
 		formatShortDate,
 		formatTimeToAMPM,
 	} from '$lib/utils/formatString';
+	import { getStatusColor } from '$lib/utils/getStatusColor';
 	import { sendEmail } from '$lib/utils/sendEmail';
 	import { A, Badge, Button } from 'flowbite-svelte';
 	import {
@@ -92,10 +93,7 @@
 		class="absolute top-3 right-3 flex flex-col items-end gap-1 text-right text-xs text-gray-500 sm:text-sm"
 	>
 		{#if !isPending}
-			<Badge
-				color={joinRequest.status === 'accepted' ? 'green' : 'yellow'}
-				class="w-fit"
-			>
+			<Badge color={getStatusColor(joinRequest.status)} class="w-fit">
 				{capitalizeWords(joinRequest.status)}
 			</Badge>
 		{/if}
