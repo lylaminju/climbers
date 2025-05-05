@@ -9,14 +9,14 @@ export const load: PageServerLoad = async ({ params }) => {
 				`*,
 				gym(name),
 				user_availability(date, start_time, end_time),
-				profile(username)
+				profile!inner(username)
 			`,
 			)
 			.eq('profile.username', params.username)
 			.order('created_at', { ascending: false });
 
 		if (error) {
-			throw new Error(JSON.stringify(error, null, 2));
+			throw new Error(error.message);
 		}
 
 		return { posts: data };
