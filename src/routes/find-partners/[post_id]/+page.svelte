@@ -6,7 +6,7 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
-	import { Button, Modal, Spinner, Toast } from 'flowbite-svelte';
+	import { Button, Modal, Toast } from 'flowbite-svelte';
 	import {
 		ClockOutline,
 		MapPinAltOutline,
@@ -23,14 +23,17 @@
 	};
 	const { data }: Props = $props();
 	const post = $derived(data?.post);
-	let isLoading = $state(false);
 	let isDeleting = $state(false);
 	let deleteErrorMsg = $state<string | null>(null);
 	let showModal = $state(false);
-	let isPostAuthor = $derived($userStore?.id === post?.profile_id);
-	let isPastDate = $derived(
+	const isPostAuthor = $derived($userStore?.id === post?.profile_id);
+	const isPastDate = $derived(
 		(post?.user_availability?.[0]?.date ?? '') <
 			new Date().toISOString().split('T')[0],
+	);
+	const hasSentRequest = $derived(
+		post?.join_request?.some((r) => r.request_profile_id === $userStore?.id) ??
+			false,
 	);
 
 	async function deletePost() {
@@ -69,9 +72,7 @@
 </script>
 
 <section class="mx-auto flex h-full max-w-3xl flex-col justify-between">
-	{#if isLoading}
-		<Spinner />
-	{:else if post}
+	{#if post}
 		<div
 			class="relative flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
 		>
@@ -129,7 +130,7 @@
 				<Button
 					class="mt-4 w-full sm:text-base"
 					onclick={() => (showModal = true)}
-					disabled={isPastDate}
+					disabled={isPastDate || hasSentRequest}
 				>
 					Request to Join
 				</Button>
@@ -155,7 +156,7 @@
 		<p>Post not found.</p>
 	{/if}
 	<img
-		class="w-full max-w-3xl"
+		class="w-full max-w-3xl opacity-70"
 		src="/decor/climber-line-illust-woman.png"
 		alt="Climber illustration"
 	/>
