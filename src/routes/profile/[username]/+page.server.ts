@@ -8,15 +8,16 @@ export const load: PageServerLoad = async ({ params }) => {
 			.from('profile')
 			.select('*, gym(name, city)')
 			.eq('username', (params as { username: string }).username)
+			.is('deleted_at', null)
 			.single();
 
 		if (error) {
-			throw new Error('Failed to load user profile.');
+			throw new Error(error.message);
 		}
 
 		return { profile: ProfileSchema.parse(data) };
 	} catch (error) {
-		console.error('Error loading profile\n', error);
+		console.error(`Failed to load profile\n${error}`);
 		return { profile: null };
 	}
 };
