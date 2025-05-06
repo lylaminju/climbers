@@ -105,7 +105,7 @@
 
 <header
 	style={isHomepage ? 'background-image: url(/wall-paper.jpeg)' : ''}
-	class="relative flex flex-row justify-between gap-3
+	class="relative flex flex-row justify-between gap-3 pb-3
 		{isHomepage
 		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
 		: 'h-fit items-center sm:pt-3'} 
@@ -257,7 +257,7 @@
 	</nav>
 </header>
 
-<main class="h-full min-h-fit grow px-4 sm:px-6">
+<main class="min-h-fit grow px-4 sm:px-6">
 	{@render children()}
 </main>
 
