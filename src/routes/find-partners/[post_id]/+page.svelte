@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import MapIcon from '$lib/icons/MapIcon.svelte';
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
@@ -83,8 +84,15 @@
 
 			<div
 				style="background-image: url(/gym-preview/{post.gym.image_url})"
-				class="gym-title mb-1 h-[180px] w-full max-w-full rounded-xl bg-[#ccc] bg-cover bg-center p-2 text-center text-white sm:h-[280px]"
+				class="gym-title relative mb-1 h-[180px] w-full max-w-full rounded-xl bg-[#ccc] bg-cover bg-center p-2 text-center text-white sm:h-[280px]"
 			>
+				<a
+					href={post.gym.map_url}
+					target="_blank"
+					class="absolute top-2 right-2 rounded-full bg-[rgba(0,0,0,0.3)] p-1 hover:bg-[rgba(0,0,0,0.5)]"
+				>
+					<MapIcon styles="w-5 sm:w-6 stroke-white stroke-2" />
+				</a>
 				<p
 					class="overflow-x-scroll text-2xl font-bold whitespace-nowrap sm:text-3xl"
 				>
