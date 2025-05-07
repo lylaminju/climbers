@@ -73,7 +73,7 @@
 <section class="mx-auto flex h-full max-w-3xl flex-col justify-between">
 	{#if post}
 		<div
-			class="relative flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
+			class=" flex flex-col gap-1 rounded-xl border border-2 border-white bg-white p-4 text-xl sm:p-6 sm:text-2xl"
 		>
 			{#if deleteErrorMsg}
 				<Toast color="red" class="absolute top-0 right-0 z-2">
@@ -95,7 +95,7 @@
 				</p>
 			</div>
 
-			<h1 class="flex items-center text-xl font-bold sm:text-2xl">
+			<h1 class="relative flex items-center text-xl font-bold sm:text-2xl">
 				<UserCircleOutline class="mr-2" />
 				<a
 					href={`${base}/profile/${post?.profile?.username}`}
@@ -103,22 +103,22 @@
 				>
 					{post?.profile?.username}
 				</a>
+				<!-- Delete Button: Only show if current user is the poster -->
+				{#if isPostAuthor}
+					<Button
+						size="xs"
+						class="absolute top-0 right-0 bg-red-200 transition hover:bg-red-300"
+						onclick={deletePost}
+						disabled={isDeleting}
+					>
+						{#if isDeleting}
+							Deleting...
+						{:else}
+							<TrashBinOutline size="xs" color="red" />
+						{/if}
+					</Button>
+				{/if}
 			</h1>
-			<!-- Delete Button: Only show if current user is the poster -->
-			{#if isPostAuthor}
-				<Button
-					size="xs"
-					class="absolute top-3 right-3 bg-red-200 transition hover:bg-red-300"
-					onclick={deletePost}
-					disabled={isDeleting}
-				>
-					{#if isDeleting}
-						Deleting...
-					{:else}
-						<TrashBinOutline size="sm" color="red" />
-					{/if}
-				</Button>
-			{/if}
 
 			<div class="flex items-center gap-2">
 				<ClockOutline />
