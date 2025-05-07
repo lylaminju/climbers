@@ -9,9 +9,8 @@
 	import { Button, Modal, Toast } from 'flowbite-svelte';
 	import {
 		ClockOutline,
-		MapPinAltOutline,
 		TrashBinOutline,
-		UserCircleOutline
+		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
 	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
@@ -81,6 +80,21 @@
 					{deleteErrorMsg}
 				</Toast>
 			{/if}
+
+			<div
+				style="background-image: url(/gym-preview/{post.gym.image_url})"
+				class="gym-title mb-1 h-[180px] w-full max-w-full rounded-xl bg-[#ccc] bg-cover bg-center p-2 text-center text-white sm:h-[280px]"
+			>
+				<p
+					class="overflow-x-scroll text-2xl font-bold whitespace-nowrap sm:text-3xl"
+				>
+					{post.gym.name}
+				</p>
+				<p class="overflow-x-scroll text-lg whitespace-nowrap sm:text-xl">
+					{capitalizeWords(post.gym.city || '')}
+				</p>
+			</div>
+
 			<h1 class="flex items-center text-xl font-bold sm:text-2xl">
 				<UserCircleOutline class="mr-2" />
 				<a
@@ -106,24 +120,14 @@
 				</Button>
 			{/if}
 
-			<p class="flex items-center gap-2">
-				<MapPinAltOutline />
-				<a href={post.gym?.map_url} target="_blank" class="overflow-x-scroll underline">{post.gym?.name}</a>
-			</p>
-			<p class="flex items-center gap-2">
-				<MapPinAltOutline />
-				<span class="overflow-x-scroll">
-					{capitalizeWords(post.gym?.city || '')}
-				</span>
-			</p>
-			<p class="flex items-center gap-2">
+			<div class="flex items-center gap-2">
 				<ClockOutline />
 				<span class="overflow-x-auto whitespace-nowrap">
 					{post.user_availability?.[0]?.date}&nbsp;
 					{formatTimeToAMPM(post.user_availability?.[0]?.start_time)}
 					- {formatTimeToAMPM(post.user_availability?.[0]?.end_time)}
 				</span>
-			</p>
+			</div>
 			<p class="mt-3 whitespace-pre-wrap">{post.content}</p>
 
 			{#if !isPostAuthor}
@@ -138,9 +142,9 @@
 		</div>
 
 		<Attendees
-			joinRequests={(
-				post.join_request as JoinRequestWithPost[] | null
-			)?.filter((r) => r.status === 'accepted')}
+			joinRequests={(post.join_request as JoinRequestWithPost[] | null)?.filter(
+				(r) => r.status === 'accepted',
+			)}
 		/>
 
 		{#if showModal}
@@ -161,3 +165,12 @@
 		alt="Climber illustration"
 	/>
 </section>
+
+<style>
+	.gym-title {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-shadow: 1px 1px 4px rgba(0, 0, 0, 1);
+	}
+</style>

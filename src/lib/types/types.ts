@@ -55,7 +55,7 @@ export const ClimbingGymSchema = z.object({
 	publicTransport: PublicTransportSchema.optional(),
 	price: PriceSchema,
 	iconUrl: z.string(),
-	imageUrl: z.string().optional(),
+	image_url: z.string().optional(),
 	websiteUrl: z.string().url({ message: 'Invalid website URL' }).optional(),
 	area: AreaSchema,
 	climbingTypes: ClimbingTypeSchema,
