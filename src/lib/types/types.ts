@@ -49,7 +49,7 @@ export const ClimbingGymSchema = z.object({
 	name: z.string(),
 	city: z.string(),
 	address: z.string(),
-	mapUrl: z.string().url({ message: 'Invalid map URL' }),
+	map_url: z.string().url({ message: 'Invalid map URL' }),
 	placeId: z.string(),
 	coordinates: CoordinatesSchema,
 	publicTransport: PublicTransportSchema.optional(),

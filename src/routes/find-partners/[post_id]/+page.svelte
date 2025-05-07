@@ -11,7 +11,7 @@
 		ClockOutline,
 		MapPinAltOutline,
 		TrashBinOutline,
-		UserOutline,
+		UserCircleOutline
 	} from 'flowbite-svelte-icons';
 	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
@@ -82,7 +82,7 @@
 				</Toast>
 			{/if}
 			<h1 class="flex items-center text-xl font-bold sm:text-2xl">
-				<UserOutline size="lg" class="mr-2" />
+				<UserCircleOutline class="mr-2" />
 				<a
 					href={`${base}/profile/${post?.profile?.username}`}
 					class="overflow-x-scroll underline"
@@ -108,23 +108,23 @@
 
 			<p class="flex items-center gap-2">
 				<MapPinAltOutline />
-				<span class="overflow-x-scroll">{post?.gym?.name}</span>
+				<a href={post.gym?.map_url} target="_blank" class="overflow-x-scroll underline">{post.gym?.name}</a>
 			</p>
 			<p class="flex items-center gap-2">
 				<MapPinAltOutline />
 				<span class="overflow-x-scroll">
-					{capitalizeWords(post?.gym?.city || '')}
+					{capitalizeWords(post.gym?.city || '')}
 				</span>
 			</p>
 			<p class="flex items-center gap-2">
 				<ClockOutline />
 				<span class="overflow-x-auto whitespace-nowrap">
-					{post?.user_availability?.[0]?.date}&nbsp;
-					{formatTimeToAMPM(post?.user_availability?.[0]?.start_time)}
-					- {formatTimeToAMPM(post?.user_availability?.[0]?.end_time)}
+					{post.user_availability?.[0]?.date}&nbsp;
+					{formatTimeToAMPM(post.user_availability?.[0]?.start_time)}
+					- {formatTimeToAMPM(post.user_availability?.[0]?.end_time)}
 				</span>
 			</p>
-			<p class="mt-3 whitespace-pre-wrap">{post?.content}</p>
+			<p class="mt-3 whitespace-pre-wrap">{post.content}</p>
 
 			{#if !isPostAuthor}
 				<Button
@@ -139,16 +139,16 @@
 
 		<Attendees
 			joinRequests={(
-				post?.join_request as JoinRequestWithPost[] | null
+				post.join_request as JoinRequestWithPost[] | null
 			)?.filter((r) => r.status === 'accepted')}
 		/>
 
 		{#if showModal}
 			<Modal size="xs" bind:open={showModal} outsideclose>
 				<RequestForm
-					userAvailability={post?.user_availability}
-					postId={post?.post_id}
-					posterEmail={post?.profile?.email}
+					userAvailability={post.user_availability}
+					postId={post.post_id}
+					posterEmail={post.profile?.email}
 				/>
 			</Modal>
 		{/if}

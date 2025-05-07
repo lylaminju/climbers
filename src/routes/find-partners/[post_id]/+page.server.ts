@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params }) => {
 			.select(
 				`*,
 				profile(username, email),
-				gym(name, city),
+				gym(name, city, map_url),
 				user_availability(date, start_time, end_time),
 				join_request(
 					*,
