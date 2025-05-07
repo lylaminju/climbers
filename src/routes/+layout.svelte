@@ -208,10 +208,17 @@
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
 			<li>
-				<A href="/find-partners" class="flex items-center gap-1">
+				<a
+					href="/find-partners"
+					class="text-primary-600 flex items-center gap-1 rounded-xl
+						{isHomepage
+						? 'bg-[rgba(255,255,255,0.3)] p-2 px-3 hover:bg-[rgba(255,255,255,0.5)]'
+						: 'hover:underline'}
+					"
+				>
 					<UsersGroupOutline size="lg" />
 					Climbing meetups
-				</A>
+				</a>
 			</li>
 			{#if $userStore}
 				<li>
