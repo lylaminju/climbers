@@ -56,10 +56,15 @@
 				throw new Error('Failed to get a recipient email');
 			}
 
+			const userAvailableDatetime = `${joinRequest.date}
+				&nbsp;${formatTimeToAMPM(joinRequest.start_time)}
+				- ${formatTimeToAMPM(joinRequest.end_time)}
+			`;
 			const emailHtml = requestHandledTemplate(
 				type,
 				joinRequest.post.profile?.username ?? 'Post author',
 				`${joinRequest.post.gym.name} (${joinRequest.post.gym.city})`,
+				userAvailableDatetime,
 				joinRequest.post_id,
 			);
 			const { statusCode, message, name } = await sendEmail(

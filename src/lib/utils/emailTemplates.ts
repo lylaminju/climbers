@@ -27,6 +27,7 @@ export function requestHandledTemplate(
 	type: 'accepted' | 'declined',
 	senderName: string,
 	gymNameWithCity: string,
+	userAvailableDatetime: string,
 	postId: string,
 ) {
 	const defaultMessage =
@@ -41,6 +42,7 @@ export function requestHandledTemplate(
                     ${LogoImageElement}
                     <h1 style="font-size:24px;">Your join request is ${type}</h1>
                     <p style="font-size:18px;">📍 ${gymNameWithCity}</p>
+                    <p style="font-size:18px;">🕑 Your time: ${userAvailableDatetime}</p>
                     <p style="font-size:18px;"><b>${senderName}</b> ${type} your request</p>
                     <p style="font-size:18px;">${defaultMessage}</p>
                     <a href="${baseUrl}/find-partners/${postId}" style="font-size:18px;">View Post</a>
