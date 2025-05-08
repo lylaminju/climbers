@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -11,9 +12,12 @@
 		Toast,
 	} from 'flowbite-svelte';
 	import {
+		ArrowLeftToBracketOutline,
 		ArrowRightToBracketOutline,
 		BarsOutline,
 		BellOutline,
+		FilePenOutline,
+		HomeOutline,
 		UserCircleOutline,
 		UsersGroupOutline,
 	} from 'flowbite-svelte-icons';
@@ -96,8 +100,12 @@
 	}
 
 	let isHomepage = $derived(page.url.pathname === '/');
-	let dropdownOpen = $state(false);
 	let username = $derived($userStore?.user_metadata?.username);
+	let dropdownOpen = $state(false);
+
+	function closeDropdown() {
+		dropdownOpen = false;
+	}
 </script>
 
 {#if showSignOutErrorToast}
@@ -156,57 +164,88 @@
 			class="w-fit sm:hidden"
 			bind:open={dropdownOpen}
 		>
-			<DropdownItem>
-				<A
-					href="/find-partners"
-					onclick={() => (dropdownOpen = false)}
-					class="flex items-center gap-1 whitespace-nowrap"
-				>
-					<UsersGroupOutline size="sm" />
-					Climbing meetups
-				</A>
+			<DropdownItem
+				onclick={() => {
+					closeDropdown();
+					goto('/');
+				}}
+				class="flex items-center gap-1 whitespace-nowrap"
+				role="link"
+			>
+				<HomeOutline size="sm" />
+				Explore gyms
+			</DropdownItem>
+			<DropdownItem
+				onclick={() => {
+					closeDropdown();
+					goto('/find-partners');
+				}}
+				class="flex items-center gap-1 whitespace-nowrap"
+				role="link"
+			>
+				<UsersGroupOutline size="sm" />
+				Climbing meetups
 			</DropdownItem>
 			<DropdownDivider />
 			{#if $userStore}
-				<DropdownItem>
-					<A
-						href={`/profile/${username}`}
-						onclick={() => (dropdownOpen = false)}
-						title="My page"
-						class="flex items-center gap-1 whitespace-nowrap"
-					>
-						<UserCircleOutline size="sm" />
-						{username}
-					</A>
+				<DropdownItem
+					onclick={() => {
+						closeDropdown();
+						goto(`/profile/${username}`);
+					}}
+					class="flex items-center gap-1 whitespace-nowrap"
+					role="link"
+				>
+					<UserCircleOutline size="sm" />
+					{username}
 				</DropdownItem>
-				<DropdownItem>
-					<A
-						href="/notifications"
-						onclick={() => (dropdownOpen = false)}
-						class="flex items-center gap-1 whitespace-nowrap"
-					>
-						<span class="relative w-fit">
-							<BellOutline size="sm" color="var(--color-primary-600)" />
-							{#if hasPendingJoinRequests}
-								<span
-									class="ring-primary-600 absolute top-1 right-1.5 block h-1 w-1 rounded-full bg-red-500 ring-1"
-									style="transform: translate(40%,-40%);"
-								></span>
-							{/if}
-						</span>
-						Notifications
-					</A>
+				<DropdownItem
+					onclick={() => {
+						closeDropdown();
+						goto('/notifications');
+					}}
+					class="flex items-center gap-1 whitespace-nowrap"
+					role="link"
+				>
+					<span class="relative w-fit">
+						<BellOutline size="sm" color="var(--color-primary-600)" />
+						{#if hasPendingJoinRequests}
+							<span
+								class="ring-primary-600 absolute top-1 right-1.5 block h-1 w-1 rounded-full bg-red-500 ring-1"
+								style="transform: translate(40%,-40%);"
+							></span>
+						{/if}
+					</span>
+					Notifications
 				</DropdownItem>
 				<DropdownDivider />
-				<DropdownItem slot="footer" onclick={handleSignOut}>
+				<DropdownItem
+					onclick={handleSignOut}
+					class="flex items-center gap-1 whitespace-nowrap"
+				>
+					<ArrowRightToBracketOutline size="sm" />
 					Sign out
 				</DropdownItem>
 			{:else}
-				<DropdownItem>
-					<A onclick={() => openAuthModal('sign-in')}>Sign in</A>
+				<DropdownItem
+					onclick={() => {
+						openAuthModal('sign-in');
+						closeDropdown();
+					}}
+					class="flex items-center gap-1 whitespace-nowrap"
+				>
+					<ArrowLeftToBracketOutline size="sm" />
+					Sign in
 				</DropdownItem>
-				<DropdownItem>
-					<A onclick={() => openAuthModal('sign-up')}>Sign up</A>
+				<DropdownItem
+					onclick={() => {
+						openAuthModal('sign-up');
+						closeDropdown();
+					}}
+					class="flex items-center gap-1 whitespace-nowrap"
+				>
+					<FilePenOutline size="sm" />
+					Sign up
 				</DropdownItem>
 			{/if}
 		</Dropdown>
