@@ -85,6 +85,9 @@
 			>
 				Write a post
 			</Button>
+			{#if !$userStore}
+				<Tooltip type="light">You must be signed in to write a post</Tooltip>
+			{/if}
 			<Button
 				onclick={writePost}
 				disabled={!$userStore}
