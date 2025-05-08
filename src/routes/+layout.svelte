@@ -10,6 +10,7 @@
 		DropdownDivider,
 		DropdownItem,
 		Toast,
+		Tooltip,
 	} from 'flowbite-svelte';
 	import {
 		ArrowLeftToBracketOutline,
@@ -254,6 +255,17 @@
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
 			<li>
 				<a
+					href="/"
+					class="text-primary-600 flex items-center gap-1 rounded-xl
+						{isHomepage ? 'hidden' : 'hover:underline'}
+					"
+				>
+					<HomeOutline size="lg" />
+					Explore gyms
+				</a>
+			</li>
+			<li>
+				<a
 					href="/find-partners"
 					class="text-primary-600 flex items-center gap-1 rounded-xl
 						{isHomepage
@@ -290,16 +302,13 @@
 					</a>
 				</li>
 				<li>
-					<button
-						class="flex items-center"
-						title="Sign out"
-						onclick={handleSignOut}
-					>
+					<button class="flex items-center" onclick={handleSignOut}>
 						<ArrowRightToBracketOutline
 							size="lg"
 							color="var(--color-primary-600)"
 						/>
 					</button>
+					<Tooltip class="whitespace-nowrap" type="light">Sign out</Tooltip>
 				</li>
 			{:else}
 				<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
