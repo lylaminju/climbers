@@ -30,13 +30,19 @@
 		// Initial fetch
 		const { data } = await supabase.auth.getUser();
 		userStore.set(data.user);
-		checkPendingJoinRequests();
+
+		if (data.user) {
+			checkPendingJoinRequests();
+		}
 
 		// Listen for auth state changes
 		const { data: listenerData } = supabase.auth.onAuthStateChange(
 			(event, session) => {
 				userStore.set(session?.user ?? null);
-				checkPendingJoinRequests();
+
+				if (session?.user) {
+					checkPendingJoinRequests();
+				}
 			},
 		);
 
