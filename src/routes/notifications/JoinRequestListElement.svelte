@@ -116,7 +116,9 @@
 				{joinRequest.profile?.username}
 			</A>
 		{:else}
-			{joinRequest.guest_name} (guest)
+			<span class="w-52 overflow-x-scroll whitespace-nowrap sm:w-58">
+				{joinRequest.guest_name} ({joinRequest.guest_email})
+			</span>
 		{/if}
 	</div>
 	<div class="flex items-center gap-2">
