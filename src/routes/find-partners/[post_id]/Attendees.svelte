@@ -10,7 +10,7 @@
 	const { joinRequests }: Props = $props();
 </script>
 
-<div class="mt-4">
+<div class="mt-4 grow">
 	<h2 class="mb-1 text-xl font-bold">Attendees</h2>
 	{#if !joinRequests || joinRequests.length === 0}
 		<p class="text-gray-500">No attendees found.</p>

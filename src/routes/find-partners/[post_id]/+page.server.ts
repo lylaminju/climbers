@@ -15,13 +15,18 @@ export const load: PageServerLoad = async ({ params }) => {
 					*,
 					profile(username, email)
 				)
-				`
+				`,
 			)
 			.eq('post_id', (params as { post_id: string }).post_id)
+			.order('start_time', {
+				referencedTable: 'join_request',
+				ascending: true,
+			})
+			.limit(1)
 			.single();
 
 		if (error) {
-			throw new Error('Failed to load post.');
+			throw error;
 		}
 
 		return { post: PostSchema.parse(data) };
