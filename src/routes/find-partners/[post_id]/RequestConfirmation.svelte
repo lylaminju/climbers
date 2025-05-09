@@ -11,6 +11,7 @@
 		MessageDotsOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
+	import RequestSent from './RequestSent.svelte';
 
 	const { formData } = $props();
 
@@ -66,7 +67,7 @@
 				throw new Error(`${statusCode} ${name}: ${message}`);
 			}
 
-			window.location.href = `/find-partners/${formData?.postId}`;
+			showConfirmation = false;
 		} catch (error) {
 			console.error(error);
 			errorMsg = 'Failed to send a request';
@@ -82,39 +83,50 @@
 			isSending = false;
 		}
 	}
+
+	let showConfirmation = $state(true);
 </script>
 
-<form onsubmit={handleSubmit} class="flex flex-col gap-3">
-	<h2 class="text-xl font-bold sm:text-2xl">Confirm your request</h2>
-	<ul class="flex flex-col gap-2 text-lg sm:text-xl">
-		<li class="flex items-center gap-2">
-			<UserCircleOutline />
-			<span class="whitespace-nowrap">{formData?.guestName ?? userName}</span>
-		</li>
-		<li class="flex items-center gap-2">
-			<EnvelopeOutline />
-			<span class="whitespace-nowrap">{formData?.guestEmail ?? userEmail}</span>
-		</li>
-		<li class="flex items-center gap-2">
-			<ClockOutline />
-			<span class="whitespace-nowrap">{formData?.date}&nbsp;</span>
-			<span class="whitespace-nowrap">
-				{formatTimeToAMPM(formData?.startTime)} -
-				{formatTimeToAMPM(formData?.endTime)}
-			</span>
-		</li>
-		<li class="flex items-center gap-2">
-			<MessageDotsOutline />
-			<span class="w-full max-w-full min-w-0 break-words whitespace-pre-wrap">
-				{formData?.message}
-			</span>
-		</li>
-	</ul>
-	<Button class="mt-3 w-full" type="submit" disabled={isSending}>
-		{isSending ? 'Sending request...' : 'Confirm to Join'}
-	</Button>
+{#if showConfirmation}
+	<form onsubmit={handleSubmit} class="flex flex-col gap-3">
+		<h2 class="text-xl font-bold sm:text-2xl">Confirm your request</h2>
+		<ul class="flex flex-col gap-2 text-lg sm:text-xl">
+			<li class="flex items-center gap-2">
+				<UserCircleOutline />
+				<span class="whitespace-nowrap">{formData?.guestName ?? userName}</span>
+			</li>
+			<li class="flex items-center gap-2">
+				<EnvelopeOutline />
+				<span class="whitespace-nowrap"
+					>{formData?.guestEmail ?? userEmail}</span
+				>
+			</li>
+			<li class="flex items-center gap-2">
+				<ClockOutline />
+				<span class="whitespace-nowrap">{formData?.date}&nbsp;</span>
+				<span class="whitespace-nowrap">
+					{formatTimeToAMPM(formData?.startTime)} -
+					{formatTimeToAMPM(formData?.endTime)}
+				</span>
+			</li>
+			<li class="flex items-center gap-2">
+				<MessageDotsOutline />
+				<span class="w-full max-w-full min-w-0 break-words whitespace-pre-wrap">
+					{formData?.message}
+				</span>
+			</li>
+		</ul>
+		<Button class="mt-3 w-full" type="submit" disabled={isSending}>
+			{isSending ? 'Sending request...' : 'Confirm to Join'}
+		</Button>
 
-	{#if errorMsg}
-		<p class="text-red-600">{errorMsg}</p>
-	{/if}
-</form>
+		{#if errorMsg}
+			<p class="text-red-600">{errorMsg}</p>
+		{/if}
+	</form>
+{:else}
+	<RequestSent
+		email={formData?.guestEmail ?? userEmail}
+		postId={formData?.postId}
+	/>
+{/if}
