@@ -45,6 +45,47 @@ export function formatTimeToAMPM(time: string | null | undefined) {
 }
 
 /**
+ * Converts a timestamp to a date string in 'YYYY-MM-DD' format
+ * @param timestamp - Timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T04:00:00+00:00')
+ * @returns Date string in 'YYYY-MM-DD' format
+ */
+export function timestampToDate(timestamp: string) {
+	return timestamp.split('T')[0];
+}
+
+/**
+ * Converts a timestamp to a time string in 'HH:MM' format, applying the current timezone offset
+ * @param timestamp - Timestamp in 'YYYY-MM-DDTHH:MM:SS+00:00' or 'YYYY-MM-DDTHH:MM:SS-00:00' format (e.g., '2025-05-16T04:00:00+00:00')
+ * @returns Time string in 'HH:MM' format
+ */
+export function timestampToTime(timestamp: string) {
+	// convert to date (with current timezone offset)
+	const date = new Date(timestamp);
+	if (isNaN(date.getTime())) {
+		throw new Error('Invalid timestamp');
+	}
+
+	const hours = String(date.getHours()).padStart(2, '0');
+	const minutes = String(date.getMinutes()).padStart(2, '0');
+
+	return `${hours}:${minutes}`;
+}
+
+/**
+ * Formats a time range from start and end timestamps
+ * @param startDatetime - Start timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T04:00:00+00:00')
+ * @param endDatetime - End timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T05:00:00+00:00')
+ * @returns Formatted time range string in 'YYYY-MM-DD h:MM AM/PM - h:MM AM/PM' format
+ */
+export function timeRange(startDatetime: string, endDatetime: string) {
+	const date = timestampToDate(startDatetime);
+	const startTime = formatTimeToAMPM(timestampToTime(startDatetime));
+	const endTime = formatTimeToAMPM(timestampToTime(endDatetime));
+
+	return `${date}  ${startTime} - ${endTime}`;
+}
+
+/**
  * Formats a date to 'MMM DD' format (e.g., 'Apr 15')
  * @param dateString - Date in 'YYYY-MM-DD' format
  * @returns Formatted date string in 'MMM DD' format, or undefined if invalid
@@ -62,4 +103,16 @@ export function formatShortDate(dateString: string) {
 		console.error('Error formatting date:', error);
 		return undefined;
 	}
+}
+
+export function getTimezoneOffsetString() {
+	const offsetMinutes = new Date().getTimezoneOffset();
+	const sign = offsetMinutes > 0 ? '-' : '+';
+	const hours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(
+		2,
+		'0',
+	);
+	const minutes = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
+
+	return `${sign}${hours}:${minutes}`;
 }

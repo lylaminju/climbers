@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import ClimbersWallpaper from '$lib/components/ClimbersWallpaper.svelte';
-	import type { Availability } from '$lib/schemas/availability';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
@@ -12,9 +11,6 @@
 
 	let posts = $state<
 		(Post & {
-			profile: { username: string };
-			gym: { name: string; city: string };
-			user_availability: Availability[];
 			acceptedJoinRequestsCount: number;
 		})[]
 	>([]);
@@ -27,9 +23,8 @@
 				.from('post')
 				.select(
 					`*, 
-					profile(username), 
+					profile(username, email), 
 					gym(name, city), 
-					user_availability(date, start_time, end_time), 
 					join_requests:join_request!post_id(status)
 					`,
 				)
@@ -37,7 +32,7 @@
 				.is('deleted_at', null);
 
 			if (error) {
-				throw new Error('Failed to load posts.');
+				throw error;
 			}
 
 			posts = data.map((post) => ({
@@ -48,6 +43,7 @@
 			}));
 		} catch (error) {
 			errorMessage = 'Error loading posts.';
+			console.error(`Failed to load posts ${error}`);
 		} finally {
 			isLoading = false;
 		}
@@ -58,11 +54,9 @@
 	}
 
 	const today = new Date().toISOString().split('T')[0];
-	let pastPosts = $derived(
-		posts.filter((post) => post.user_availability[0].date < today),
-	);
+	let pastPosts = $derived(posts.filter((post) => post.start_datetime < today));
 	let upcomingPosts = $derived(
-		posts.filter((post) => post.user_availability[0].date >= today),
+		posts.filter((post) => post.start_datetime >= today),
 	);
 </script>
 

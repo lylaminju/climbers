@@ -6,12 +6,14 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
+	import { getTimezoneOffsetString } from '$lib/utils/formatString';
+	import { PostgrestError } from '@supabase/supabase-js';
 	import { Button, Datepicker, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
 	let gyms = $state<ClimbingGym[]>([]);
 	let selectedGymId = $state('');
-	let selectedDate = $state<Date | null>(null);
+	let selectedDate = $state(new Date());
 	let startTime = $state('');
 	let endTime = $state('');
 	let content = $state('');
@@ -46,26 +48,26 @@
 
 			isLoading = true;
 
-			const { error } = await supabase.rpc('create_post_with_availability', {
-				p_profile_id: $userStore.id,
-				p_gym_id: selectedGymId,
-				p_content: content,
-				p_date: selectedDate,
-				p_start_time: startTime,
-				p_end_time: endTime,
+			const { error } = await supabase.from('post').insert({
+				profile_id: $userStore.id,
+				gym_id: selectedGymId,
+				content,
+				start_datetime: `${selectedDate.toISOString().split('T')[0]}T${startTime}${getTimezoneOffsetString()}`,
+				end_datetime: `${selectedDate.toISOString().split('T')[0]}T${endTime}${getTimezoneOffsetString()}`,
 			});
 
 			if (error) {
-				throw new Error('Failed to create post with availability.');
+				throw error;
 			}
 
 			goto('/find-partners');
 		} catch (error) {
-			errorMsg =
-				error instanceof Error
-					? error.message
-					: 'Something went wrong. Please try again.';
-			console.error(error);
+			if (error instanceof PostgrestError) {
+				errorMsg = 'Something went wrong. Please try again.';
+			} else {
+				errorMsg = error instanceof Error ? error.message : 'Unknown eror';
+			}
+			console.error(`Failed to create a post`, error);
 		} finally {
 			isLoading = false;
 		}

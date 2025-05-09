@@ -10,7 +10,6 @@ export const load: PageServerLoad = async ({ params }) => {
 				`*,
 				profile(username, email),
 				gym(name, city, map_url, image_url),
-				user_availability(date, start_time, end_time),
 				join_request(
 					*,
 					profile(username, email)

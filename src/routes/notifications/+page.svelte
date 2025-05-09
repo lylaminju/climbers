@@ -40,7 +40,6 @@
 					post!inner(
 						*,
 						gym(name, city),
-						user_availability(date, start_time, end_time),
 						profile(username)
 					),
 					profile(username, email)

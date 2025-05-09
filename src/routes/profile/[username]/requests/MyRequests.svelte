@@ -1,6 +1,7 @@
 <script lang="ts">
+	import TimeRange from '$lib/components/TimeRange.svelte';
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
-	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
+	import { capitalizeWords } from '$lib/utils/formatString';
 	import { getStatusColor } from '$lib/utils/getStatusColor';
 	import { Badge } from 'flowbite-svelte';
 	import {
@@ -55,14 +56,10 @@
 						</div>
 						<div class="flex items-center gap-1">
 							<ClockOutline size="sm" />
-							{joinRequest.post.user_availability?.[0]?.date}&nbsp;
-							{formatTimeToAMPM(
-								joinRequest.post.user_availability?.[0]?.start_time,
-							)}
-							-
-							{formatTimeToAMPM(
-								joinRequest.post.user_availability?.[0]?.end_time,
-							)}
+							<TimeRange
+								startDatetime={joinRequest.post.start_datetime}
+								endDatetime={joinRequest.post.end_datetime}
+							/>
 						</div>
 					</div>
 
@@ -73,11 +70,10 @@
 
 					<div class="flex items-center gap-2">
 						<ClockOutline size="sm" />
-						<span class="sm:text-lg">
-							{joinRequest.date}&nbsp;
-							{formatTimeToAMPM(joinRequest.start_time)}
-							- {formatTimeToAMPM(joinRequest.end_time)}
-						</span>
+						<TimeRange
+							startDatetime={`${joinRequest.date}T${joinRequest.start_time}`}
+							endDatetime={`${joinRequest.date}T${joinRequest.end_time}`}
+						/>
 					</div>
 				</li>
 			{/each}

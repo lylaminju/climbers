@@ -13,7 +13,19 @@
 	} from 'flowbite-svelte-icons';
 	import RequestSent from './RequestSent.svelte';
 
-	const { formData } = $props();
+	type Props = {
+		postId: string;
+		requestProfileId: string | undefined;
+		guestName: string | null;
+		guestEmail: string | null;
+		date: string;
+		startTime: string;
+		endTime: string;
+		message: string;
+		posterEmail: string;
+	};
+
+	const { formData }: { formData: Props } = $props();
 
 	let isSending = $state(false);
 	let errorMsg = $state('');
@@ -28,14 +40,14 @@
 		const { data, error: insertError } = await supabase
 			.from('join_request')
 			.insert({
-				post_id: formData?.postId,
-				request_profile_id: formData?.requestProfileId,
-				guest_name: formData?.guestName,
-				guest_email: formData?.guestEmail,
-				date: formData?.date,
-				start_time: formData?.startTime,
-				end_time: formData?.endTime,
-				message: formData?.message,
+				post_id: formData.postId,
+				request_profile_id: formData.requestProfileId,
+				guest_name: formData.guestName,
+				guest_email: formData.guestEmail,
+				date: formData.date,
+				start_time: formData.startTime,
+				end_time: formData.endTime,
+				message: formData.message,
 			})
 			.select();
 

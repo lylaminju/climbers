@@ -1,6 +1,6 @@
 <script lang="ts">
+	import TimeRange from '$lib/components/TimeRange.svelte';
 	import type { Post } from '$lib/schemas/post';
-	import { formatTimeToAMPM } from '$lib/utils/formatString';
 	import {
 		ArrowUpRightFromSquareOutline,
 		ClockOutline,
@@ -39,11 +39,10 @@
 					</div>
 					<div class="flex items-center gap-1">
 						<ClockOutline size="sm" />
-						<span>
-							{post.user_availability?.[0]?.date}&nbsp;
-							{formatTimeToAMPM(post.user_availability?.[0]?.start_time)}
-							- {formatTimeToAMPM(post.user_availability?.[0]?.end_time)}
-						</span>
+						<TimeRange
+							startDatetime={post.start_datetime}
+							endDatetime={post.end_datetime}
+						/>
 					</div>
 
 					<p class="h-fit max-h-18 overflow-y-auto text-gray-600 sm:h-18">

@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
+	import TimeRange from '$lib/components/TimeRange.svelte';
+	import type { Post } from '$lib/schemas/post';
+	import { capitalizeWords } from '$lib/utils/formatString';
 	import {
 		ClockOutline,
 		InboxOutline,
@@ -8,7 +10,8 @@
 		UserOutline,
 	} from 'flowbite-svelte-icons';
 
-	let { posts } = $props();
+	let { posts }: { posts: (Post & { acceptedJoinRequestsCount: number })[] } =
+		$props();
 </script>
 
 {#if posts.length === 0}
@@ -37,11 +40,12 @@
 						<MapPinAltOutline class="mr-1 inline" />
 						{capitalizeWords(post.gym.city)}
 					</p>
-					<p class="flex items-center">
+					<p class="flex items-center whitespace-pre-wrap">
 						<ClockOutline class="mr-1 inline" />
-						{post.user_availability[0]?.date}
-						{formatTimeToAMPM(post.user_availability[0]?.start_time)}
-						- {formatTimeToAMPM(post.user_availability[0]?.end_time)}
+						<TimeRange
+							startDatetime={post.start_datetime}
+							endDatetime={post.end_datetime}
+						/>
 					</p>
 					<p
 						class="overflow-hidden text-sm text-ellipsis whitespace-nowrap sm:mt-1 sm:text-lg"

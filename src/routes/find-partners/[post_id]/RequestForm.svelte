@@ -1,15 +1,22 @@
 <script lang="ts">
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { userStore } from '$lib/stores/user';
+	import { timestampToDate, timestampToTime } from '$lib/utils/formatString';
 	import { Button, Input, Textarea } from 'flowbite-svelte';
 	import RequestConfirmation from './RequestConfirmation.svelte';
 
-	let { userAvailability, postId, posterEmail } = $props();
+	type Props = {
+		postId: string;
+		posterEmail: string;
+		start_datetime: string;
+		end_datetime: string;
+	};
+	const { postId, posterEmail, start_datetime, end_datetime }: Props = $props();
 
 	let guestName = $state(null);
 	let guestEmail = $state(null);
-	let startTime = $state(userAvailability?.[0]?.start_time);
-	let endTime = $state(userAvailability?.[0]?.end_time);
+	let startTime = $derived(timestampToTime(start_datetime));
+	let endTime = $derived(timestampToTime(end_datetime));
 	let message = $state('');
 	let showRequestForm = $state(true);
 
@@ -18,7 +25,7 @@
 		requestProfileId: $userStore?.id,
 		guestName,
 		guestEmail,
-		date: userAvailability?.[0]?.date,
+		date: timestampToDate(start_datetime),
 		startTime,
 		endTime,
 		message,
@@ -46,7 +53,7 @@
 		<div>
 			<label for="time-range">Time</label>
 			<div class="flex items-center gap-3">
-				<span class="whitespace-nowrap">{userAvailability?.[0]?.date}</span>
+				<span class="whitespace-nowrap">{timestampToDate(start_datetime)}</span>
 				<TimeSelect bind:startTime bind:endTime style="w-21 sm:w-24" />
 			</div>
 		</div>

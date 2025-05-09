@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import TimeRange from '$lib/components/TimeRange.svelte';
 	import MapIcon from '$lib/icons/MapIcon.svelte';
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import { capitalizeWords, formatTimeToAMPM } from '$lib/utils/formatString';
+	import { capitalizeWords } from '$lib/utils/formatString';
 	import { Button, Modal, Toast } from 'flowbite-svelte';
 	import {
 		ClockOutline,
@@ -28,8 +29,7 @@
 	let showModal = $state(false);
 	const isPostAuthor = $derived($userStore?.id === post?.profile_id);
 	const isPastDate = $derived(
-		(post?.user_availability?.[0]?.date ?? '') <
-			new Date().toISOString().split('T')[0],
+		(post?.start_datetime ?? '') < new Date().toISOString().split('T')[0],
 	);
 	const hasSentRequest = $derived(
 		post?.join_request?.some((r) => r.request_profile_id === $userStore?.id) ??
@@ -130,11 +130,10 @@
 
 			<div class="flex items-center gap-2">
 				<ClockOutline />
-				<span class="overflow-x-auto whitespace-nowrap">
-					{post.user_availability?.[0]?.date}&nbsp;
-					{formatTimeToAMPM(post.user_availability?.[0]?.start_time)}
-					- {formatTimeToAMPM(post.user_availability?.[0]?.end_time)}
-				</span>
+				<TimeRange
+					startDatetime={post.start_datetime}
+					endDatetime={post.end_datetime}
+				/>
 			</div>
 			<p class="mt-3 whitespace-pre-wrap">{post.content}</p>
 
@@ -158,9 +157,10 @@
 		{#if showModal}
 			<Modal size="xs" bind:open={showModal} outsideclose>
 				<RequestForm
-					userAvailability={post.user_availability}
 					postId={post.post_id}
-					posterEmail={post.profile?.email}
+					posterEmail={post.profile.email}
+					start_datetime={post.start_datetime}
+					end_datetime={post.end_datetime}
 				/>
 			</Modal>
 		{/if}

@@ -8,7 +8,6 @@ export const load: PageServerLoad = async ({ params }) => {
 			.select(
 				`*,
 				gym(name),
-				user_availability(date, start_time, end_time),
 				profile!inner(username)
 			`,
 			)

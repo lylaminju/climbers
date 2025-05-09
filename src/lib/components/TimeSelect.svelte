@@ -12,7 +12,7 @@
 			const minute = i % 2 === 0 ? '00' : '30';
 			const time = `${hour.toString().padStart(2, '0')}:${minute}`;
 
-			return { value: `${time}:00`, name: time };
+			return { value: time, name: time };
 		},
 	);
 

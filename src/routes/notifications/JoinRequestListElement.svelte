@@ -1,4 +1,5 @@
 <script lang="ts">
+	import TimeRange from '$lib/components/TimeRange.svelte';
 	import type { JoinRequestWithPost } from '$lib/schemas/joinRequest';
 	import { supabase } from '$lib/supabaseClient';
 	import { requestHandledTemplate } from '$lib/utils/emailTemplates';
@@ -142,10 +143,10 @@
 		</div>
 		<div class="flex items-center gap-1">
 			<ClockOutline size="sm" />
-			{joinRequest.post.user_availability?.[0]?.date}&nbsp;
-			{formatTimeToAMPM(joinRequest.post.user_availability?.[0]?.start_time)}
-			-
-			{formatTimeToAMPM(joinRequest.post.user_availability?.[0]?.end_time)}
+			<TimeRange
+				startDatetime={joinRequest.post.start_datetime}
+				endDatetime={joinRequest.post.end_datetime}
+			/>
 		</div>
 	</div>
 	{#if isPending}

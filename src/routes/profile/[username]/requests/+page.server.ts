@@ -10,7 +10,6 @@ export const load: PageServerLoad = async ({ params }) => {
 				post!inner(
 					*,
 					gym(name),
-					user_availability(date, start_time, end_time),
 					profile(username)
 				),
 				profile!inner(username)
