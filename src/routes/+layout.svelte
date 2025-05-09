@@ -25,6 +25,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	import '../app.css';
 	import AuthModal from '../lib/components/AuthModal.svelte';
+	import Footer from './Footer.svelte';
 
 	let { children } = $props();
 
@@ -326,11 +327,7 @@
 	<AuthModal mode={authMode} onclose={closeAuthModal} />
 {/if}
 
-<footer class="mt-5 bg-gray-200 p-3">
-	<p class="text-center text-xs text-gray-500 md:text-sm">
-		© 2025 Lyla Minju Park. All rights reserved.
-	</p>
-</footer>
+<Footer />
 
 <style>
 </style>
