@@ -115,14 +115,14 @@
 				{#if isPostAuthor}
 					<Button
 						size="xs"
-						class="absolute top-0 right-0 bg-red-200 transition hover:bg-red-300"
+						class="absolute top-0 right-0 bg-red-200 px-2 py-1 transition hover:bg-red-300 sm:px-2.5 sm:py-1.5"
 						onclick={deletePost}
 						disabled={isDeleting}
 					>
 						{#if isDeleting}
 							Deleting...
 						{:else}
-							<TrashBinOutline size="xs" color="red" />
+							<TrashBinOutline size="sm" color="red" />
 						{/if}
 					</Button>
 				{/if}
