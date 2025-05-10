@@ -9,6 +9,7 @@
 	import {
 		ClockOutline,
 		EnvelopeOutline,
+		InfoCircleOutline,
 		MessageDotsOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
@@ -148,6 +149,17 @@
 		<Button class="mt-3 w-full" type="submit" disabled={isSending}>
 			{isSending ? 'Sending request...' : 'Confirm to Join'}
 		</Button>
+
+		{#if formData?.guestEmail}
+			<div class="flex items-center gap-2">
+				<InfoCircleOutline size="sm" />
+				<span class="text-[9px]">
+					We collect a temporary ID to process your event registration and
+					prevent duplicate requests. This information is stored for 7 days
+					after the event.
+				</span>
+			</div>
+		{/if}
 
 		{#if errorMsg}
 			<p class="text-red-600">{errorMsg}</p>
