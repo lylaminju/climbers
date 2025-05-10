@@ -49,6 +49,10 @@
 				if (session?.user) {
 					checkPendingJoinRequests();
 				}
+
+				if (event === 'SIGNED_IN') {
+					localStorage.removeItem('climberzday_guest_uuid');
+				}
 			},
 		);
 

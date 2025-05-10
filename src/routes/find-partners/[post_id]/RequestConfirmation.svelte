@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ONE_DAY_IN_MS } from '$lib/constants';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import { requestToJoinTemplate } from '$lib/utils/emailTemplates';
@@ -31,6 +32,20 @@
 	let errorMsg = $state('');
 	let userName = $derived($userStore?.user_metadata?.username || '');
 	let userEmail = $derived($userStore?.email || '');
+	const uuidExpiry = new Date(
+		new Date(formData.date).getTime() + 7 * ONE_DAY_IN_MS,
+	)
+		.toISOString()
+		.split('T')[0];
+
+	function getOrCreateUUID() {
+		let uuid = localStorage.getItem('climberzday_guest_uuid');
+		if (!uuid) {
+			uuid = crypto.randomUUID();
+			localStorage.setItem('climberzday_guest_uuid', uuid);
+		}
+		return uuid;
+	}
 
 	async function handleSubmit(event: Event) {
 		event.preventDefault();
@@ -48,6 +63,8 @@
 				start_time: formData.startTime,
 				end_time: formData.endTime,
 				message: formData.message,
+				user_uuid: formData.guestEmail ? getOrCreateUUID() : null,
+				user_uuid_expiry: formData.guestEmail ? uuidExpiry : null,
 			})
 			.select();
 

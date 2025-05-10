@@ -12,16 +12,18 @@ export const JoinRequestSchema = z.object({
 	date: z.coerce.date(), // e.g., '2025-04-21'
 	start_time: z
 		.string()
-		.regex(/^\d{2}:\d{2}:\d{2}$/, 'Must be in HH:MM:SS format'), // e.g., '11:00:00'
+		.regex(/^\d{2}:\d{2}:\d{2}$/, 'start_time must be in HH:MM:SS format'), // e.g., '11:00:00'
 	end_time: z
 		.string()
-		.regex(/^\d{2}:\d{2}:\d{2}$/, 'Must be in HH:MM:SS format'), // e.g., '15:00:00'
+		.regex(/^\d{2}:\d{2}:\d{2}$/, 'end_time must be in HH:MM:SS format'), // e.g., '15:00:00'
 	message: z.string().optional(), // TEXT, nullable in DB
 	status: z.enum(['pending', 'accepted', 'declined']).default('pending'), // Constrained to valid statuses
 	created_at: z.string(),
 	profile: ProfileSchema.pick({ username: true, email: true })
 		.nullable()
 		.optional(),
+	user_uuid: z.string().uuid().nullable().optional(),
+	user_uuid_expiry: z.string().nullable().optional(),
 });
 
 export type JoinRequest = z.infer<typeof JoinRequestSchema>;

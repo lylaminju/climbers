@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import TimeRange from '$lib/components/TimeRange.svelte';
@@ -14,6 +15,7 @@
 		TrashBinOutline,
 		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
+	import { onMount } from 'svelte';
 	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
 
@@ -31,9 +33,19 @@
 	const isPastDate = $derived(
 		(post?.start_datetime ?? '') < new Date().toISOString().split('T')[0],
 	);
+	let userUuid = $state<string | null>(null);
+
+	onMount(() => {
+		if (browser) {
+			userUuid = localStorage.getItem('climberzday_guest_uuid');
+		}
+	});
+
 	const hasSentRequest = $derived(
-		post?.join_request?.some((r) => r.request_profile_id === $userStore?.id) ??
-			false,
+		post?.join_request?.some(
+			(r) =>
+				r.request_profile_id === $userStore?.id || r.user_uuid === userUuid,
+		) ?? false,
 	);
 
 	async function deletePost() {
@@ -143,7 +155,7 @@
 					onclick={() => (showModal = true)}
 					disabled={isPastDate || hasSentRequest}
 				>
-					Request to Join
+					{hasSentRequest ? 'Request Sent' : 'Request to Join'}
 				</Button>
 			{/if}
 		</div>
