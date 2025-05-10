@@ -6,7 +6,6 @@
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { ClimbingGym } from '$lib/types/types';
-	import { getTimezoneOffsetString } from '$lib/utils/formatString';
 	import { PostgrestError } from '@supabase/supabase-js';
 	import { Button, Datepicker, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
@@ -52,8 +51,8 @@
 				profile_id: $userStore.id,
 				gym_id: selectedGymId,
 				content,
-				start_datetime: `${selectedDate.toISOString().split('T')[0]}T${startTime}${getTimezoneOffsetString()}`,
-				end_datetime: `${selectedDate.toISOString().split('T')[0]}T${endTime}${getTimezoneOffsetString()}`,
+				start_datetime: `${selectedDate.toISOString().split('T')[0]}T${startTime}`,
+				end_datetime: `${selectedDate.toISOString().split('T')[0]}T${endTime}`,
 			});
 
 			if (error) {

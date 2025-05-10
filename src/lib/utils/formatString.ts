@@ -46,7 +46,7 @@ export function formatTimeToAMPM(time: string | null | undefined) {
 
 /**
  * Converts a timestamp to a date string in 'YYYY-MM-DD' format
- * @param timestamp - Timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T04:00:00+00:00')
+ * @param timestamp - Timestamp in 'YYYY-MM-DD HH:MM:SS' format (e.g., '2025-05-16T04:00:00')
  * @returns Date string in 'YYYY-MM-DD' format
  */
 export function timestampToDate(timestamp: string) {
@@ -55,26 +55,19 @@ export function timestampToDate(timestamp: string) {
 
 /**
  * Converts a timestamp to a time string in 'HH:MM' format, applying the current timezone offset
- * @param timestamp - Timestamp in 'YYYY-MM-DDTHH:MM:SS+00:00' or 'YYYY-MM-DDTHH:MM:SS-00:00' format (e.g., '2025-05-16T04:00:00+00:00')
+ * @param timestamp - Timestamp in 'YYYY-MM-DDTHH:MM:SS' format (e.g., '2025-05-16T04:00:00')
  * @returns Time string in 'HH:MM' format
  */
 export function timestampToTime(timestamp: string) {
-	// convert to date (with current timezone offset)
-	const date = new Date(timestamp);
-	if (isNaN(date.getTime())) {
-		throw new Error('Invalid timestamp');
-	}
-
-	const hours = String(date.getHours()).padStart(2, '0');
-	const minutes = String(date.getMinutes()).padStart(2, '0');
+	const [hours, minutes] = timestamp.split('T')[1].split(':');
 
 	return `${hours}:${minutes}`;
 }
 
 /**
  * Formats a time range from start and end timestamps
- * @param startDatetime - Start timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T04:00:00+00:00')
- * @param endDatetime - End timestamp in 'YYYY-MM-DD HH:MM:SS+ZZ' or 'YYYY-MM-DD HH:MM:SS-ZZ' format (e.g., '2025-05-16T05:00:00+00:00')
+ * @param startDatetime - Start timestamp in 'YYYY-MM-DD HH:MM:SS' format (e.g., '2025-05-16T04:00:00')
+ * @param endDatetime - End timestamp in 'YYYY-MM-DD HH:MM:SS' format (e.g., '2025-05-16T05:00:00')
  * @returns Formatted time range string in 'YYYY-MM-DD h:MM AM/PM - h:MM AM/PM' format
  */
 export function timeRange(startDatetime: string, endDatetime: string) {
