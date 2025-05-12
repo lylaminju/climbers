@@ -9,7 +9,9 @@
 	import CurrentLocation from '$lib/icons/CurrentLocation.svelte';
 	import EllipsisVertical from '$lib/icons/EllipsisVertical.svelte';
 	import MapPin from '$lib/icons/MapPin.svelte';
+	import MapPinPlus from "$lib/icons/MapPinPlus.svelte";
 	import { Tooltip } from 'flowbite-svelte';
+	import { InfoCircleOutline } from "flowbite-svelte-icons";
 
 	const { displayedGyms, isMobile, gymPlaceIds, searchRoutes } = $props();
 </script>
@@ -18,7 +20,24 @@
 	id="routes"
 	class="flex h-fit w-full flex-row items-center gap-3 gap-y-2 text-sm text-slate-700 transition duration-300 sm:min-w-0 sm:text-base"
 >
-	<img src="{base}/google-map-icon.png" alt="Google Map Icon" class="hidden w-5 sm:inline" />
+	<div class="text-lg flex items-center gap-1">
+		<InfoCircleOutline id="routes-info"/>
+		<Tooltip triggeredBy="#routes-info" type="light" class="w-fit pl-6 sm:pl-7 sm:text-base">
+			<ol class="list-decimal">
+				<li>
+					Add destinations by clicking on the map icon
+					<MapPinPlus styles="w-4 inline"/><br/>
+					(Remove destinations by clicking on the map icon)
+				</li>
+				<li>
+					Select a travel mode
+				</li>
+			</ol>
+		</Tooltip>
+		<span class="hidden sm:inline">
+			Compare routes 👉
+		</span>
+	</div>
 	<div
 		class="grid w-fit min-w-fit grid-cols-2 divide-slate-300 rounded-lg border border-slate-300 sm:grid-cols-4 sm:divide-x"
 	>
