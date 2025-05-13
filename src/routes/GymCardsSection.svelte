@@ -6,9 +6,15 @@
 	import type { ClimbingType, GymBoard } from '$lib/types/types';
 	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
 	import { Tooltip } from 'flowbite-svelte';
+	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 
-	const { displayedGyms, isMobile, gymPlaceIds, toggleChildElementVisibility, handleDestination } =
-		$props();
+	const {
+		displayedGyms,
+		isMobile,
+		gymPlaceIds,
+		toggleChildElementVisibility,
+		handleDestination,
+	} = $props();
 </script>
 
 <section id="gyms">
@@ -24,11 +30,19 @@
 		>
 			{#if !isMobile}
 				{#if gymPlaceIds.includes(gym.placeId)}
-					<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+					<Tooltip
+						triggeredBy="#add-destination-{gym.id}"
+						type="light"
+						class="z-10 text-nowrap"
+					>
 						Remove a destination
 					</Tooltip>
 				{:else}
-					<Tooltip triggeredBy="#add-destination-{gym.id}" type="light" class="z-10 text-nowrap">
+					<Tooltip
+						triggeredBy="#add-destination-{gym.id}"
+						type="light"
+						class="z-10 text-nowrap"
+					>
 						Add a destination
 					</Tooltip>
 				{/if}
@@ -41,9 +55,13 @@
 					aria-label="Add or delete a destination"
 				>
 					{#if gymPlaceIds.includes(gym.placeId)}
-						<MapPin styles="w-full stroke-white fill-blue-600 hover:fill-none" />
+						<MapPin
+							styles="w-full stroke-white fill-blue-600 hover:fill-none"
+						/>
 					{:else}
-						<MapPinPlus styles="w-full stroke-white fill-none hover:stroke-blue-300" />
+						<MapPinPlus
+							styles="w-full stroke-white fill-none hover:stroke-blue-300"
+						/>
 					{/if}
 				</button>
 				<img
@@ -51,10 +69,14 @@
 					src="{base}/{gym.iconUrl}"
 					alt={gym.name}
 				/>
-				<h2 class="text-base leading-[1.2] font-semibold sm:text-3xl sm:leading-[1.5]">
+				<h2
+					class="text-base leading-[1.2] font-semibold sm:text-3xl sm:leading-[1.5]"
+				>
 					{gym.name}
 				</h2>
-				<p class="text-xs sm:text-xl sm:font-medium">{capitalizeWords(gym.city)}</p>
+				<p class="text-xs sm:text-xl sm:font-medium">
+					{capitalizeWords(gym.city)}
+				</p>
 			</div>
 			<div
 				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
@@ -70,24 +92,43 @@
 					onclick={(event) => event.stopPropagation()}
 				>
 					<span class="mr-1">📍</span>
-					<span class="underline decoration-1 underline-offset-2">{gym.address}</span>
-				</a>
-				<a
-					class="flex w-fit flex-row hover:text-yellow-500"
-					href={gym.price.sourceUrl || gym.websiteUrl}
-					target="_blank"
-					onclick={(event) => event.stopPropagation()}
-				>
-					<span class="mr-1">💵</span>
 					<span class="underline decoration-1 underline-offset-2">
-						{gym.price.amount.toLocaleString('en-US', {
-							style: 'currency',
-							currency: gym.price.currency,
-							minimumFractionDigits: 0,
-						})}
-						{#if gym.price.tax}+ {gym.price.tax}{/if}
+						{gym.address}
 					</span>
 				</a>
+
+				<div class="flex items-center gap-1">
+					<a
+						class="flex w-fit flex-row hover:text-yellow-500"
+						href={gym.price.sourceUrl || gym.websiteUrl}
+						target="_blank"
+						onclick={(event) => event.stopPropagation()}
+					>
+						<span class="mr-1">💵</span>
+						<span class="underline decoration-1 underline-offset-2">
+							{gym.price.amount.toLocaleString('en-US', {
+								style: 'currency',
+								currency: gym.price.currency,
+								minimumFractionDigits: 0,
+							})}
+							{#if gym.price.tax}+ {gym.price.tax}{/if}
+						</span>
+					</a>
+					<InfoCircleOutline
+						id={`price-info-${gym.id}`}
+						class="w-4 opacity-50 sm:w-6"
+						onclick={(event) => event.stopPropagation()}
+					/>
+					<Tooltip
+						type="light"
+						triggeredBy={`#price-info-${gym.id}`}
+						class="w-full whitespace-normal sm:w-[250px]"
+					>
+						Price might be subject to change. Please check the exact price on
+						the climbing gym's website.
+					</Tooltip>
+				</div>
+
 				<p>
 					🧗
 					{(Object.keys(gym.climbingTypes) as Array<keyof ClimbingType>)
@@ -119,7 +160,11 @@
 					{/if}
 				</p>
 				<div class="flex w-full flex-row justify-between">
-					<p>📐 {gym.area.value ? `${gym.area.value.toLocaleString()} ${gym.area.unit}` : '-'}</p>
+					<p>
+						📐 {gym.area.value
+							? `${gym.area.value.toLocaleString()} ${gym.area.unit}`
+							: '-'}
+					</p>
 					<a
 						class="w-fit sm:hidden"
 						href={gym.websiteUrl}
