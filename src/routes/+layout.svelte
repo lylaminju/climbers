@@ -226,7 +226,10 @@
 				</DropdownItem>
 				<DropdownDivider />
 				<DropdownItem
-					onclick={handleSignOut}
+					onclick={() => {
+						closeDropdown();
+						handleSignOut();
+					}}
 					class="flex items-center gap-1 whitespace-nowrap"
 				>
 					<ArrowRightToBracketOutline size="sm" />
