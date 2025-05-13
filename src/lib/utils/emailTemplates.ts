@@ -1,6 +1,6 @@
 import { LOGO_URL } from '../constants';
 
-const LogoImageElement = `<img src="${LOGO_URL}" alt="ClimberzDay Logo" width="250" draggable="false" style="display:block;" />`;
+const LogoImageElement = `<img src="${LOGO_URL}" alt="ClimberzDay Logo" width="200" draggable="false" style="display:block;" />`;
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 export function requestToJoinTemplate(

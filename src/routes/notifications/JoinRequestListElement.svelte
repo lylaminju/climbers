@@ -70,7 +70,7 @@
 			);
 			const { statusCode, message, name } = await sendEmail(
 				recipientEmail,
-				`[ClimberzDay] Join Request is ${type}`,
+				`[ClimberzDay] Join Request has been ${type}`,
 				emailHtml,
 			);
 
