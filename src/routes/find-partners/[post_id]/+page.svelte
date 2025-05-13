@@ -33,11 +33,11 @@
 	const isPastDate = $derived(
 		(post?.start_datetime ?? '') < new Date().toISOString().split('T')[0],
 	);
-	let userUuid = $state<string | null>(null);
+	let userUuid = $state<string>('none');
 
 	onMount(() => {
 		if (browser) {
-			userUuid = localStorage.getItem('climberzday_guest_uuid');
+			userUuid = localStorage.getItem('climberzday_guest_uuid') || 'none';
 		}
 	});
 
