@@ -64,7 +64,7 @@
 			const emailHtml = requestHandledTemplate(
 				type,
 				joinRequest.post.profile?.username ?? 'Post author',
-				`${joinRequest.post.gym.name} (${joinRequest.post.gym.city})`,
+				`${joinRequest.post.gym.name} (${capitalizeWords(joinRequest.post.gym.city)})`,
 				userAvailableDatetime,
 				joinRequest.post_id,
 			);

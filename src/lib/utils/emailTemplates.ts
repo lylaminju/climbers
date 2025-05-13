@@ -40,7 +40,7 @@ export function requestHandledTemplate(
             <tr>
                 <td align="center">
                     ${LogoImageElement}
-                    <h1 style="font-size:24px;">Your join request is ${type}</h1>
+                    <h1 style="font-size:24px;">Your join request has been ${type}</h1>
                     <p style="font-size:18px;">📍 ${gymNameWithCity}</p>
                     <p style="font-size:18px;">🕑 Your time: ${userAvailableDatetime}</p>
                     <p style="font-size:18px;"><b>${senderName}</b> ${type} your request</p>

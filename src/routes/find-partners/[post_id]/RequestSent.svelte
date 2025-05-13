@@ -12,7 +12,7 @@
 	<p class="text-center text-2xl">🎉</p>
 	<p class="text-center text-2xl">Request sent!</p>
 	<p class="text-center text-xl">
-		Once your request is accepted, <br />
+		Once your request has been accepted, <br />
 		an email will be sent to <br />
 		<span class="font-bold">{email}</span>
 	</p>
