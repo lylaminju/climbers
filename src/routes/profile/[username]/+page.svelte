@@ -22,11 +22,13 @@
 		};
 	};
 	const { data }: Props = $props();
-	const profile = $derived(data?.profile);
+	const profile = $derived(data.profile);
 	let isProfileOwner = $derived($userStore?.id === profile?.profile_id);
 
 	async function handleDeleteProfile() {
 		try {
+			if (!profile) return;
+
 			const hasConfirmed = confirm(`
 Are you sure you want to delete your profile?
 This action cannot be undone.
@@ -41,7 +43,7 @@ This action cannot be undone.
 				throw new Error('User ID not found');
 			}
 
-			const response = await fetch(`/profile/${profile?.username}`, {
+			const response = await fetch(`/profile/${profile.username}`, {
 				method: 'DELETE',
 				body: JSON.stringify({ userId }),
 			});
