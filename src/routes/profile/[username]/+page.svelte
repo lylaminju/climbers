@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import ClimberLineIllust from '$lib/components/ClimberLineIllust.svelte';
 	import GlobeIcon from '$lib/icons/GlobeIcon.svelte';
 	import Instagram from '$lib/icons/sns/Instagram.svelte';
@@ -51,7 +50,7 @@ This action cannot be undone.
 				throw new Error('Failed to delete profile');
 			}
 
-			goto('/');
+			window.location.href = '/';
 		} catch (error) {
 			console.error(error instanceof Error ? error.message : 'Unknown error');
 		}
