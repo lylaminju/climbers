@@ -50,7 +50,7 @@ https://climberz.day
 
 #### Request to Join
 
-![Request to join page](https://github.com/pmjuu/climbers/raw/main/readme-images/meetup-detail.png)
+![Request to join page](https://github.com/pmjuu/climbers/raw/main/readme-images/meetup-detail-page.png)
 
 - When a user requests to join, a post author will receive a notification email
 - The post author can accept or decline the request
@@ -126,7 +126,7 @@ Among IP address tracking, email-based deduplication, client-side UUID, and CAPT
 
 #### Implementation Highlights
 
-- **UUID Generation and Storage**: In my SvelteKit app, I generate a UUID when a guest requests to join an event using `crypto.randomUUID()`. When a user submits request to join, I store it in `localStorage` as `climberzday_guest_uuid` and send it to database, where it’s stored in the `join_request` table’s `user_uuid` column, along with a `uuid_expiry` set to 7 days after the event date.
+- **UUID Generation and Storage**: I generate a UUID when a guest requests to join an event using `crypto.randomUUID()`. When a user submits request to join, I store it in `localStorage` as `climberzday_guest_uuid` and send it to database, where it’s stored in the `join_request` table’s `user_uuid` column, along with a `uuid_expiry` set to 7 days after the event date.
 - **Duplicate Check**: I query the `join_request` table to check if the `user_uuid` already exists for the event’s `post_id`, disabling the “Request to Join” button if a match is found, displaying “Request sent”.
 
 ## Tech Stack
