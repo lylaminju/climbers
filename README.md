@@ -73,15 +73,15 @@ Since Supabase’s client-side API doesn’t support multi-table transactions, I
 - **PostgreSQL Trigger:** Automatically sync `public.profile.deleted_at` when `auth.users.deleted_at` changes.
 - **Client-Side Queries:** Issue separate queries from SvelteKit and implement rollback logic if one fails.
 
-_"Should I handle data integrity in the database or the application layer?"_
+> _"Should I handle data integrity in the database or the application layer?"_
 
-I opted for **PostgreSQL triggers** for several reasons:
+☑️ I opted for **PostgreSQL triggers** for several reasons:
 
-- Guaranteed Consistency: Triggers ensure `public.profile.deleted_at` is updated atomically with `auth.users.deleted_at`, critical for the foreign key relationship. Partial updates could orphan profiles, breaking the app.
-- Simplified SvelteKit Code: Triggers reduce server and client code to a single query, keeping our codebase lean and focused on user interaction.
-- Security: Triggers reduce the attack surface by moving sensitive data operations from application code to database rules, which are typically more hardened against security vulnerabilities.
-- Supabase Best Practices: Supabase encourages PostgreSQL features like triggers for data integrity, especially for auth schema operations. ([Supabase User Management](https://supabase.com/docs/guides/auth/managing-user-data))
-- Performance: Triggers require one client query, reducing latency.
+- **Guaranteed Consistency:** Triggers ensure `public.profile.deleted_at` is updated atomically with `auth.users.deleted_at`, critical for the foreign key relationship. Partial updates could orphan profiles, breaking the app.
+- **Simplified SvelteKit Code:** Triggers reduce server and client code to a single query, keeping our codebase lean and focused on user interaction.
+- **Security:** Triggers reduce the attack surface by moving sensitive data operations from application code to database rules, which are typically more hardened against security vulnerabilities.
+- **Supabase Best Practices:** Supabase encourages PostgreSQL features like triggers for data integrity, especially for auth schema operations. ([Supabase User Management](https://supabase.com/docs/guides/auth/managing-user-data))
+- **Performance:** Triggers require one client query, reducing latency.
 
 While client-side queries offer easier debugging, database agnosticism, and ease of testing, the risk of data inconsistency and added complexity in the application layer outweigh these benefits for my use case.
 
@@ -111,7 +111,8 @@ EXECUTE FUNCTION public.sync_profile_deleted_at();
 
 Users can join one-day events without needing to log in, prioritizing a frictionless experience. However, this open access posed a challenge: preventing spam and duplicate registrations while keeping the process simple. I needed a lightweight solution to deter repeat submissions from anonymous users, all while complying with privacy regulations.
 
-Among IP address tracking, email-based deduplication, client-side UUID, and CAPTCHA, I chose the **client-side UUID** approach. Here’s why:
+Among IP address tracking, email-based deduplication, client-side UUID, and CAPTCHA, <br/>
+☑️ I chose the **client-side UUID** approach. Here’s why:
 
 - **Ease of Access**: UUIDs require no additional input, keeping registration seamless for anonymous users.
 - **Simplicity**: The solution is lightweight, using `crypto.randomUUID()` and Supabase queries without complex dependencies.
