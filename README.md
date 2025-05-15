@@ -52,6 +52,10 @@ https://climberz.day
 
 ![Request to join page](https://github.com/pmjuu/climbers/raw/main/readme-images/meetup-detail-page.png)
 
+#### Notifications
+
+![Notification page](image/README/1747274961221.png)
+
 - When a user requests to join, a post author will receive a notification email
 - The post author can accept or decline the request
 
