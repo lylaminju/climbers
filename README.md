@@ -4,7 +4,7 @@
 
 https://climberz.day
 
-![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.jpg)
+![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.png)
 
 ## Table of Contents
 
@@ -49,6 +49,8 @@ https://climberz.day
 - Other users can request to join the climbing session by clicking the "Request to Join" button
 
 #### Request to Join
+
+![Request to join page](https://github.com/pmjuu/climbers/raw/main/readme-images/meetup-detail.png)
 
 - When a user requests to join, a post author will receive a notification email
 - The post author can accept or decline the request
