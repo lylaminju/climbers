@@ -4,7 +4,7 @@
 
 https://climberz.day
 
-![Landing page](https://github.com/pmjuu/climbers/raw/main/readme-images/landing-page.png)
+![Landing page](image/README/landing-page.png)
 
 ## Table of Contents
 
@@ -34,7 +34,7 @@ https://climberz.day
 
 ### Compare Routes with Google Maps
 
-![Google Map routes page](https://github.com/pmjuu/climbers/raw/main/readme-images/gmap-route-page.png)
+![Google Map routes page](image/README/gmap-route-page.png)
 
 - Select climbing gyms for destinations
 - Check optimal routes to climbing gyms from your current location with various transportation options
@@ -50,7 +50,7 @@ https://climberz.day
 
 #### Request to Join
 
-![Request to join page](https://github.com/pmjuu/climbers/raw/main/readme-images/meetup-detail-page.png)
+![Request to join page](image/README/meetup-detail-page.png)
 
 #### Notifications
 
