@@ -1,6 +1,7 @@
 <script lang="ts">
 	import {
 		EnvelopeOutline,
+		GithubSolid,
 		InstagramSolid,
 		LinkedinSolid,
 		XSolid,
@@ -17,11 +18,14 @@
 		<a href="https://instagram.com/mjuuclimb" target="_blank">
 			<InstagramSolid class="h-[25px] w-[25px] hover:text-black" />
 		</a>
+		<a href="https://x.com/lylaminju" target="_blank">
+			<XSolid class="h-[20px] w-[20px] hover:text-black" />
+		</a>
 		<a href="https://www.linkedin.com/in/lylaminju" target="_blank">
 			<LinkedinSolid class="rounded-md bg-gray-300 p-[1px] hover:text-black" />
 		</a>
-		<a href="https://x.com/lylaminju" target="_blank">
-			<XSolid class="h-[20px] w-[20px] hover:text-black" />
+		<a href="https://github.com/lylaminju/climbers" target="_blank">
+			<GithubSolid class="h-[22px] w-[22px] hover:text-black" />
 		</a>
 	</div>
 
