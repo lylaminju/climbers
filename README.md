@@ -45,12 +45,14 @@ https://climberz.day
 #### Write a post
 
 - Only a signed-in user can write a post to find climbing partners
-- The post has a poster's username, climbing gym, time, and message
-- Other users can request to join the climbing session by clicking the "Request to Join" button
+- The meetup post has a poster's username, climbing gym, time, and message
+- Other users can check the post author's profile by clicking the poster's username
 
 #### Request to Join
 
 ![Request to join page](image/README/meetup-detail-page.png)
+
+- Anyone can request to join the meetup, but each user may only submit one request per meetup
 
 #### Notifications
 
@@ -58,6 +60,7 @@ https://climberz.day
 
 - When a user requests to join, a post author will receive a notification email
 - The post author can accept or decline the request
+- The user will receive a notification email when the request is accepted or declined
 
 ## Challenges
 
