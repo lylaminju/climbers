@@ -1696,6 +1696,84 @@
 				"kilterBoard": true,
 				"tensionBoard": false
 			}
+		},
+		{
+			"id": 45,
+			"name": "Kong Climbing",
+			"city": "toronto",
+			"address": "2450 Victoria Park Ave #100A, North York",
+			"mapUrl": "https://maps.google.com/?cid=541500148047589712",
+			"placeId": "ChIJlwfFzCbT1IkRULEyAoTLgwc",
+			"coordinates": {
+				"latitude": 43.771172,
+				"longitude": -79.32263
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://kongclimbing.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 29.0,
+				"tax": "HST",
+				"sourceUrl": "https://kongclimbing.ca/Pricing"
+			},
+			"iconUrl": "kongclimbing.jpg",
+			"imageUrl": "kongclimbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 6000
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": true,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
+		},
+		{
+			"id": 46,
+			"name": "Conquer Climbing Centre",
+			"city": "brantford",
+			"address": "34 Dalkeith Dr Building 2, Brantford",
+			"mapUrl": "https://maps.google.com/?cid=14324171507956807562",
+			"placeId": "ChIJjzxFtnllLIgRineJARiuycY",
+			"coordinates": {
+				"latitude": 43.176847,
+				"longitude": -80.233837
+			},
+			"publicTransport": {
+				"busOrTram": true
+			},
+			"websiteUrl": "https://www.conquerclimbing.ca/",
+			"price": {
+				"currency": "CAD",
+				"amount": 22.0,
+				"tax": "HST",
+				"sourceUrl": "https://www.conquerclimbing.ca/pricing"
+			},
+			"iconUrl": "conquer-climbing.jpg",
+			"imageUrl": "conquer-climbing.jpg",
+			"area": {
+				"unit": "sqft",
+				"value": 3600
+			},
+			"climbingTypes": {
+				"boulder": true,
+				"topRope": false,
+				"lead": false,
+				"autoBelay": true
+			},
+			"boards": {
+				"moonBoard": false,
+				"kilterBoard": true,
+				"tensionBoard": false
+			}
 		}
 	]
 }
