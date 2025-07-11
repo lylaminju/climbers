@@ -11,7 +11,7 @@
 		EnvelopeOutline,
 		InfoCircleOutline,
 		MessageDotsOutline,
-		UserCircleOutline,
+		UserCircleOutline
 	} from 'flowbite-svelte-icons';
 	import RequestSent from './RequestSent.svelte';
 
@@ -33,11 +33,10 @@
 	let errorMsg = $state('');
 	let userName = $derived($userStore?.user_metadata?.username || '');
 	let userEmail = $derived($userStore?.email || '');
-	const uuidExpiry = new Date(
-		new Date(formData.date).getTime() + 7 * ONE_DAY_IN_MS,
-	)
-		.toISOString()
-		.split('T')[0];
+	let showConfirmation = $state(true);
+
+	const expiryDateMs = new Date(formData.date).getTime() + 7 * ONE_DAY_IN_MS;
+	const uuidExpiry = new Date(expiryDateMs).toISOString().split('T')[0];
 
 	function getOrCreateUUID() {
 		let uuid = localStorage.getItem('climberzday_guest_uuid');
@@ -53,28 +52,30 @@
 		isSending = true;
 		errorMsg = '';
 
-		const { data, error: insertError } = await supabase
-			.from('join_request')
-			.insert({
-				post_id: formData.postId,
-				request_profile_id: formData.requestProfileId,
-				guest_name: formData.guestName,
-				guest_email: formData.guestEmail,
-				date: formData.date,
-				start_time: formData.startTime,
-				end_time: formData.endTime,
-				message: formData.message,
-				user_uuid: formData.guestEmail ? getOrCreateUUID() : null,
-				user_uuid_expiry: formData.guestEmail ? uuidExpiry : null,
-			})
-			.select();
-
-		const joinRequestId = data?.[0]?.join_request_id;
+		let joinRequestId: string | null = null;
 
 		try {
+			const { data, error: insertError } = await supabase
+				.from('join_request')
+				.insert({
+					post_id: formData.postId,
+					request_profile_id: formData.requestProfileId,
+					guest_name: formData.guestName,
+					guest_email: formData.guestEmail,
+					date: formData.date,
+					start_time: formData.startTime,
+					end_time: formData.endTime,
+					message: formData.message,
+					user_uuid: formData.guestEmail ? getOrCreateUUID() : null,
+					user_uuid_expiry: formData.guestEmail ? uuidExpiry : null
+				})
+				.select();
+
 			if (insertError) {
 				throw new Error('Failed to insert join_request');
 			}
+
+			joinRequestId = data?.[0]?.join_request_id;
 
 			const posterEmail = formData?.posterEmail;
 
@@ -85,12 +86,12 @@
 			const emailHtml = requestToJoinTemplate(
 				formData?.guestName ?? userName,
 				formData?.message,
-				formData?.postId,
+				formData?.postId
 			);
 			const { statusCode, message, name } = await sendEmail(
 				posterEmail,
 				'[ClimberzDay] Request to Join',
-				emailHtml,
+				emailHtml
 			);
 
 			if (statusCode !== undefined) {
@@ -113,8 +114,6 @@
 			isSending = false;
 		}
 	}
-
-	let showConfirmation = $state(true);
 </script>
 
 {#if showConfirmation}
