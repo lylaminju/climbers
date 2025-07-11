@@ -63,6 +63,8 @@ https://climberz.day
 - The post author can accept or decline the request
 - The user will receive a notification email when the request is accepted or declined
 
+<br/>
+
 ## Challenges
 
 ### Ensuring Data Integrity in SvelteKit + Supabase
@@ -71,12 +73,12 @@ https://climberz.day
 
 I use Supabase for authentication and data storage.
 
-- The `auth.users` table manages user authentication, with a deleted_at column for soft deletion.
-- The `public.profile` table stores user profiles, with a profile_id column referencing `auth.users.id` as a foreign key and its own deleted_at column.
+- The `auth.users` table manages user authentication, with a `deleted_at` column for soft deletion.
+- The `public.profile` table stores user profiles, with a `profile_id` column referencing `auth.users.id` as a foreign key and its own `deleted_at` column.
 
 When a user is soft-deleted (i.e., `auth.users.deleted_at` is set), I must update `public.profile.deleted_at` to maintain consistency.
 
-Since Supabase’s client-side API doesn’t support multi-table transactions, I face a choice:
+Since Supabase’s client-side API didn’t support multi-table transactions, I faced a choice:
 
 - **PostgreSQL Trigger:** Automatically sync `public.profile.deleted_at` when `auth.users.deleted_at` changes.
 - **Client-Side Queries:** Issue separate queries from SvelteKit and implement rollback logic if one fails.
@@ -114,17 +116,18 @@ FOR EACH ROW
 WHEN (OLD.deleted_at IS DISTINCT FROM NEW.deleted_at)
 EXECUTE FUNCTION public.sync_profile_deleted_at();
 ```
+<br/>
 
 ### Balancing ease of access for anonymous users with spam protection
 
-Users can join one-day events without needing to log in, prioritizing a frictionless experience. However, this open access posed a challenge: preventing spam and duplicate registrations while keeping the process simple. I needed a lightweight solution to deter repeat submissions from anonymous users, all while complying with privacy regulations.
+Users can join one-day meetups without needing to log in, prioritizing a frictionless experience. However, this open access posed a challenge: _preventing spam and duplicate registrations_ while keeping the process simple. I needed a lightweight solution to deter repeat submissions from anonymous users, all while complying with privacy regulations.
 
 Among IP address tracking, email-based deduplication, client-side UUID, and CAPTCHA, <br/>
 ☑️ I chose the **client-side UUID** approach. Here’s why:
 
 - **Ease of Access**: UUIDs require no additional input, keeping registration seamless for anonymous users.
 - **Simplicity**: The solution is lightweight, using `crypto.randomUUID()` and Supabase queries without complex dependencies.
-- **PIPEDA Compliance**: I disclose UUID collection in privacy policy as a "temporary ID" stored for 7 days post-event, aligning with data minimization principles.
+- **PIPEDA Compliance**: I disclose UUID collection in privacy policy as a "temporary ID", aligning with data minimization principles.
 - **Trade-offs Accepted**: For a small-scale project, strict enforcement isn’t critical. I accept that users could bypass the system by clearing browser data, relying partly on user goodwill.
 
 > 💡 **Is UUID the best method?**  
@@ -138,10 +141,12 @@ Among IP address tracking, email-based deduplication, client-side UUID, and CAPT
 - **UUID Generation and Storage**: I generate a UUID when a guest requests to join an event using `crypto.randomUUID()`. When a user submits request to join, I store it in `localStorage` as `climberzday_guest_uuid` and send it to database, where it’s stored in the `join_request` table’s `user_uuid` column, along with a `uuid_expiry` set to 7 days after the event date.
 - **Duplicate Check**: I query the `join_request` table to check if the `user_uuid` already exists for the event’s `post_id`, disabling the “Request to Join” button if a match is found, displaying “Request sent”.
 
+<br/>
+
 ## Tech Stack
 
-- [SvelteKit](https://svelte.dev)
 - [TypeScript](https://www.typescriptlang.org/)
+- [SvelteKit](https://svelte.dev)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Flowbite Svelte](https://flowbite-svelte.com/)
 - [Vite](https://vitejs.dev/)
