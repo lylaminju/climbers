@@ -53,6 +53,7 @@
 		const placeIds = params.get('placeIds');
 		const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
 
+		// ref) Google Maps API docs
 		const CONFIGURATION = $state({
 			defaultTravelMode: travelMode,
 			distanceMeasurementType: 'METRIC',

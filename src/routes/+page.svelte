@@ -23,7 +23,7 @@
 	function updateIsMobile() {
 		isMobile = window.innerWidth <= 640;
 	}
-	let userCoordinates = $state({
+	const userCoordinates = $state({
 		latitude: 43.6519307,
 		longitude: -79.3847546,
 	}); // Toronto City Hall
