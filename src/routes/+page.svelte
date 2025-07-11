@@ -18,15 +18,10 @@
 	import RoutesDiv from './RoutesDiv.svelte';
 	import SortDropdown from './SortDropdown.svelte';
 
-	let gymsViewMode: GymsViewMode = $state(GymsViewMode.CARD);
 	let isMobile = $state(false);
 	function updateIsMobile() {
 		isMobile = window.innerWidth <= 640;
 	}
-	const userCoordinates = $state({
-		latitude: 43.6519307,
-		longitude: -79.3847546,
-	}); // Toronto City Hall
 
 	onMount(() => {
 		// Set initial value
@@ -40,6 +35,11 @@
 			window.removeEventListener('resize', updateIsMobile);
 		};
 	});
+
+	const userCoordinates = $state({
+		latitude: 43.6519307,
+		longitude: -79.3847546,
+	}); // Toronto City Hall
 
 	function setUserCoordinates() {
 		try {
@@ -187,6 +187,8 @@
 			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`,
 		);
 	}
+
+	let gymsViewMode: GymsViewMode = $state(GymsViewMode.CARD);
 
 	function handleViewMode(viewMode: GymsViewMode) {
 		gymsViewMode = viewMode;

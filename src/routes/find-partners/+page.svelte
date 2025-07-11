@@ -26,7 +26,7 @@
 					profile(username, email), 
 					gym(name, city), 
 					join_requests:join_request!post_id(status)
-					`,
+					`
 				)
 				.order('created_at', { ascending: false })
 				.is('deleted_at', null);
@@ -38,8 +38,8 @@
 			posts = data.map((post) => ({
 				...post,
 				acceptedJoinRequestsCount: post.join_requests.filter(
-					(request: { status: string }) => request.status === 'accepted',
-				).length,
+					(request: { status: string }) => request.status === 'accepted'
+				).length
 			}));
 		} catch (error) {
 			errorMessage = 'Error loading posts.';
@@ -56,7 +56,7 @@
 	const today = new Date().toISOString().split('T')[0];
 	let pastPosts = $derived(posts.filter((post) => post.start_datetime < today));
 	let upcomingPosts = $derived(
-		posts.filter((post) => post.start_datetime >= today),
+		posts.filter((post) => post.start_datetime >= today)
 	);
 </script>
 

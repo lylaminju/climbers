@@ -12,10 +12,10 @@
 	let isLoading = $state(true);
 	let joinRequests = $state<JoinRequestWithPost[] | null>(null);
 	let pendingJoinRequests = $derived(
-		joinRequests?.filter((r) => r.status === 'pending'),
+		joinRequests?.filter((r) => r.status === 'pending')
 	);
 	let handledJoinRequests = $derived(
-		joinRequests?.filter((r) => r.status !== 'pending'),
+		joinRequests?.filter((r) => r.status !== 'pending')
 	);
 
 	// Redirect to homepage if user is not logged in after loading ends
@@ -43,7 +43,7 @@
 						profile(username)
 					),
 					profile(username, email)
-				`,
+				`
 				)
 				.eq('post.profile_id', user.user?.id)
 				.is('post.deleted_at', null)

@@ -30,7 +30,6 @@
 	let { children } = $props();
 
 	let listener: { subscription: Subscription } | undefined = undefined;
-	let hasPendingJoinRequests = $state(false);
 
 	onMount(async () => {
 		// Initial fetch
@@ -63,6 +62,8 @@
 	onDestroy(() => {
 		listener?.subscription.unsubscribe();
 	});
+
+	let hasPendingJoinRequests = $state(false);
 
 	async function checkPendingJoinRequests() {
 		try {

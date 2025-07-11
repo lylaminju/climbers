@@ -19,20 +19,6 @@
 	import Attendees from './Attendees.svelte';
 	import RequestForm from './RequestForm.svelte';
 
-	type Props = {
-		data: {
-			post: Post | null;
-		};
-	};
-	const { data }: Props = $props();
-	const post = $derived(data?.post);
-	let isDeleting = $state(false);
-	let deleteErrorMsg = $state<string | null>(null);
-	let showModal = $state(false);
-	const isPostAuthor = $derived($userStore?.id === post?.profile_id);
-	const isPastDate = $derived(
-		(post?.start_datetime ?? '') < new Date().toISOString().split('T')[0],
-	);
 	let userUuid = $state<string>('none');
 
 	onMount(() => {
@@ -41,12 +27,23 @@
 		}
 	});
 
+	type Props = {
+		data: {
+			post: Post | null;
+		};
+	};
+	const { data }: Props = $props();
+	const post = $derived(data?.post);
 	const hasSentRequest = $derived(
 		post?.join_request?.some(
 			(r) =>
-				r.request_profile_id === $userStore?.id || r.user_uuid === userUuid,
-		) ?? false,
+				r.request_profile_id === $userStore?.id || r.user_uuid === userUuid
+		) ?? false
 	);
+
+	let isDeleting = $state(false);
+	let deleteErrorMsg = $state<string | null>(null);
+	const isPostAuthor = $derived($userStore?.id === post?.profile_id);
 
 	async function deletePost() {
 		try {
@@ -81,6 +78,11 @@
 			isDeleting = false;
 		}
 	}
+
+	let showModal = $state(false);
+	const isPastDate = $derived(
+		(post?.start_datetime ?? '') < new Date().toISOString().split('T')[0]
+	);
 </script>
 
 <section class="mx-auto flex h-full max-w-3xl flex-col justify-between">

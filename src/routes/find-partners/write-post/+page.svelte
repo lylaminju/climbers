@@ -11,12 +11,6 @@
 	import { onMount } from 'svelte';
 
 	let gyms = $state<ClimbingGym[]>([]);
-	let selectedGymId = $state('');
-	let selectedDate = $state(new Date());
-	let startTime = $state('');
-	let endTime = $state('');
-	let content = $state('');
-	let isLoading = $state(false);
 	let errorMsg = $state('');
 
 	onMount(async () => {
@@ -35,6 +29,13 @@
 				error instanceof Error ? error.message : 'Failed to load gyms.';
 		}
 	});
+
+	let selectedGymId = $state('');
+	let selectedDate = $state(new Date());
+	let startTime = $state('');
+	let endTime = $state('');
+	let content = $state('');
+	let isLoading = $state(false);
 
 	async function handleSubmit() {
 		try {
