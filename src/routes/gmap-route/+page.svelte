@@ -52,6 +52,7 @@
 		const travelMode = params.get('travelMode');
 		const placeIds = params.get('placeIds');
 		const gymPlaceIds = placeIds ? JSON.parse(decodeURIComponent(placeIds)) : [];
+		const TORONTO_DOWNTOWN = { lat: 43.6519307, lng: -79.3847546 };
 
 		// ref) Google Maps API docs
 		const CONFIGURATION = $state({
@@ -62,7 +63,7 @@
 				travelMode: travelMode,
 			})),
 			mapOptions: {
-				center: { lat: 43.6519307, lng: -79.3847546 },
+				center: TORONTO_DOWNTOWN,
 				fullscreenControl: true,
 				mapTypeControl: false,
 				streetViewControl: false,
