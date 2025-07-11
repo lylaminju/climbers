@@ -13,7 +13,7 @@
 	import {
 		ClockOutline,
 		TrashBinOutline,
-		UserCircleOutline,
+		UserCircleOutline
 	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import Attendees from './Attendees.svelte';
@@ -34,16 +34,16 @@
 	};
 	const { data }: Props = $props();
 	const post = $derived(data?.post);
+	const currentUserId = $derived($userStore?.id);
 	const hasSentRequest = $derived(
 		post?.join_request?.some(
-			(r) =>
-				r.request_profile_id === $userStore?.id || r.user_uuid === userUuid
+			(r) => r.request_profile_id === currentUserId || r.user_uuid === userUuid
 		) ?? false
 	);
 
 	let isDeleting = $state(false);
 	let deleteErrorMsg = $state<string | null>(null);
-	const isPostAuthor = $derived($userStore?.id === post?.profile_id);
+	const isPostAuthor = $derived(currentUserId === post?.profile_id);
 
 	async function deletePost() {
 		try {
@@ -57,7 +57,7 @@
 			isDeleting = true;
 
 			const confirmDelete = confirm(
-				'Are you sure you want to delete this post?\nThis action cannot be undone.',
+				'Are you sure you want to delete this post?\nThis action cannot be undone.'
 			);
 			if (!confirmDelete) {
 				return;
@@ -164,7 +164,7 @@
 
 		<Attendees
 			joinRequests={(post.join_request as JoinRequestWithPost[] | null)?.filter(
-				(r) => r.status === 'accepted',
+				(r) => r.status === 'accepted'
 			)}
 		/>
 
