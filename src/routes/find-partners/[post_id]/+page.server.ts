@@ -14,12 +14,12 @@ export const load: PageServerLoad = async ({ params }) => {
 					*,
 					profile(username, email)
 				)
-				`,
+				`
 			)
 			.eq('post_id', (params as { post_id: string }).post_id)
 			.order('start_time', {
 				referencedTable: 'join_request',
-				ascending: true,
+				ascending: true
 			})
 			.limit(1)
 			.single();
@@ -34,5 +34,3 @@ export const load: PageServerLoad = async ({ params }) => {
 		return { post: null };
 	}
 };
-
-export const prerender = 'auto';

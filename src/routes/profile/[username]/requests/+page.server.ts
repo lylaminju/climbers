@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
 					profile(username)
 				),
 				profile!inner(username)
-			`,
+			`
 			)
 			.eq('profile.username', params.username)
 			.order('created_at', { ascending: false });
@@ -28,5 +28,3 @@ export const load: PageServerLoad = async ({ params }) => {
 		return { joinRequests: null };
 	}
 };
-
-export const prerender = 'auto';

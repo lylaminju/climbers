@@ -21,5 +21,3 @@ export const load: PageServerLoad = async ({ params }) => {
 		return { profile: null };
 	}
 };
-
-export const prerender = 'auto';

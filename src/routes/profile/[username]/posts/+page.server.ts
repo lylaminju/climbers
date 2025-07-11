@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params }) => {
 				`*,
 				gym(name),
 				profile!inner(username)
-			`,
+			`
 			)
 			.eq('profile.username', params.username)
 			.order('created_at', { ascending: false });
@@ -24,5 +24,3 @@ export const load: PageServerLoad = async ({ params }) => {
 		return { posts: null };
 	}
 };
-
-export const prerender = 'auto';
