@@ -14,6 +14,7 @@ https://climberz.day
   - [Find Climbing Partners](#find-climbing-partners)
 - [Challenges](#challenges)
 - [Tech Stack](#tech-stack)
+- [Database Schema](#database-schema)
 
 ## Features
 
@@ -147,3 +148,7 @@ Among IP address tracking, email-based deduplication, client-side UUID, and CAPT
 - [Supabase](https://supabase.com/)
   - [Send Emails from Edge Functions using the Resend API](https://supabase.com/docs/guides/functions/examples/send-emails)
   - [PostgreSQL](https://www.postgresql.org/)
+
+## Database Schema
+
+<img width="848" height="883" alt="image" src="https://github.com/user-attachments/assets/baaac84a-fdda-41fb-b267-c507ae13ee38" />
