@@ -45,17 +45,17 @@ export const GymBoardSchema = z.object({
 export type GymBoard = z.infer<typeof GymBoardSchema>;
 
 export const ClimbingGymSchema = z.object({
-	gym_id: z.string().uuid(),
+	id: z.union([z.string(), z.number()]),
 	name: z.string(),
 	city: z.string(),
 	address: z.string(),
-	map_url: z.string().url({ message: 'Invalid map URL' }),
+	mapUrl: z.string().url({ message: 'Invalid map URL' }),
 	placeId: z.string(),
 	coordinates: CoordinatesSchema,
 	publicTransport: PublicTransportSchema.optional(),
 	price: PriceSchema,
 	iconUrl: z.string(),
-	image_url: z.string().optional(),
+	imageUrl: z.string().optional(),
 	websiteUrl: z.string().url({ message: 'Invalid website URL' }).optional(),
 	area: AreaSchema,
 	climbingTypes: ClimbingTypeSchema,
