@@ -232,7 +232,16 @@
 		</Dropdown>
 
 		<Button class="dropdown-btn">
-			Cities
+			{#if isMobile}
+				Cities
+			{:else}
+				{filteredCities.filter((city) => city.checked).length === 0
+					? 'Cities'
+					: filteredCities
+							.filter((city) => city.checked)
+							.map((city) => formatCamelCase(city.name))
+							.join(', ')}
+			{/if}
 			<ChevronDownOutline
 				class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
 			/>
