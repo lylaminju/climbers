@@ -3,20 +3,19 @@
 	import { base } from '$app/paths';
 	import { GymsViewMode } from '$lib/enums/GymsViewMode';
 	import { TravelModes } from '$lib/enums/TravelModes';
-	import ClimberIcon from '$lib/icons/ClimberIcon.svelte';
 	import ImagesIcon from '$lib/icons/ImagesIcon.svelte';
 	import MapIcon from '$lib/icons/MapIcon.svelte';
 	import type { ClimbingGym, ClimbingType } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
-	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
-	import { Button, Checkbox, Dropdown, Search } from 'flowbite-svelte';
-	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+	import { Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import GymCardsSection from './GymCardsSection.svelte';
 	import MapSection from './MapSection.svelte';
 	import RoutesDiv from './RoutesDiv.svelte';
 	import SortDropdown from './SortDropdown.svelte';
+	import ClimbingTypeFilter from './ClimbingTypeFilter.svelte';
+	import CityFilter from './CityFilter.svelte';
 
 	let isMobile = $state(false);
 	function updateIsMobile() {
@@ -85,14 +84,8 @@
 	const { data }: { data: { gyms: ClimbingGym[] } } = $props();
 	const uniqueCities = [...new Set(data.gyms.map((gym) => gym.city))].sort();
 
-	let searchTerm = $state('');
 	const cities = $state(
 		uniqueCities.map((city) => ({ name: city, checked: false }))
-	);
-	let filteredCities = $derived(
-		cities.filter((city) =>
-			city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')
-		)
 	);
 
 	const climbingType: ClimbingType = $state({
@@ -201,63 +194,9 @@
 	<RoutesDiv {displayedGyms} {isMobile} {gymPlaceIds} {searchRoutes} />
 
 	<div class="flex w-full flex-row gap-2 sm:w-fit">
-		<Button class="dropdown-btn text-nowrap">
-			{#if isMobile}
-				<ClimberIcon styles="w-5 stroke-white fill-white" />
-			{:else}
-				{Object.values(climbingType).every((v) => !v)
-					? 'Climbing Types'
-					: Object.entries(climbingType)
-							.filter(([type, isSelected]) => isSelected)
-							.map(([type]) => formatCamelCase(type))
-							.join(', ')}
-			{/if}
-			<ChevronDownOutline
-				class="ms-0 h-6 w-6 text-white sm:ms-2 dark:text-white"
-			/>
-		</Button>
-		<Dropdown class="w-48 space-y-1 p-2 text-sm sm:p-3">
-			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox bind:checked={climbingType.boulder}>Boulder</Checkbox>
-			</li>
-			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox bind:checked={climbingType.autoBelay}>Auto belay</Checkbox>
-			</li>
-			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox bind:checked={climbingType.topRope}>Top rope</Checkbox>
-			</li>
-			<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-				<Checkbox bind:checked={climbingType.lead}>Lead</Checkbox>
-			</li>
-		</Dropdown>
+		<ClimbingTypeFilter {climbingType} {isMobile} />
 
-		<Button class="dropdown-btn">
-			{#if isMobile}
-				Cities
-			{:else}
-				{filteredCities.filter((city) => city.checked).length === 0
-					? 'Cities'
-					: filteredCities
-							.filter((city) => city.checked)
-							.map((city) => formatCamelCase(city.name))
-							.join(', ')}
-			{/if}
-			<ChevronDownOutline
-				class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
-			/>
-		</Button>
-		<Dropdown class="h-44 overflow-y-auto px-3 pb-3 text-sm sm:h-50">
-			<div slot="header" class="p-3">
-				<Search size="md" bind:value={searchTerm} />
-			</div>
-			{#each filteredCities as city (city.name)}
-				<li class="rounded-sm p-2 hover:bg-gray-100 dark:hover:bg-gray-600">
-					<Checkbox bind:checked={city.checked}
-						>{capitalizeWords(city.name)}</Checkbox
-					>
-				</li>
-			{/each}
-		</Dropdown>
+		<CityFilter {cities} {isMobile} />
 
 		<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 
