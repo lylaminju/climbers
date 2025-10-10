@@ -38,7 +38,7 @@
 
 	const userCoordinates = $state({
 		latitude: 43.6519307,
-		longitude: -79.3847546,
+		longitude: -79.3847546
 	}); // Toronto City Hall
 
 	function setUserCoordinates() {
@@ -49,7 +49,7 @@
 						userCoordinates.latitude = position.coords.latitude;
 						userCoordinates.longitude = position.coords.longitude;
 					},
-					() => console.log('Unable to retrieve the location'),
+					() => console.log('Unable to retrieve the location')
 				);
 			} else {
 				console.log('Geolocation is not supported by your browser');
@@ -63,10 +63,10 @@
 		if (!isMobile) return;
 
 		const gymTitle: HTMLElement | null = document.querySelector(
-			`#gym-card-${id.toString()} .gym-title`,
+			`#gym-card-${id.toString()} .gym-title`
 		);
 		const gymDetails: HTMLElement | null = document.querySelector(
-			`#gym-card-${id.toString()} .gym-details`,
+			`#gym-card-${id.toString()} .gym-details`
 		);
 		if (gymTitle && gymDetails) {
 			gymTitle.style['visibility'] =
@@ -87,19 +87,19 @@
 
 	let searchTerm = $state('');
 	const cities = $state(
-		uniqueCities.map((city) => ({ name: city, checked: false })),
+		uniqueCities.map((city) => ({ name: city, checked: false }))
 	);
 	let filteredCities = $derived(
 		cities.filter((city) =>
-			city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? ''),
-		),
+			city.name.toLowerCase().includes(searchTerm?.toLowerCase() ?? '')
+		)
 	);
 
 	const climbingType: ClimbingType = $state({
 		boulder: false,
 		autoBelay: false,
 		topRope: false,
-		lead: false,
+		lead: false
 	});
 
 	let selectedSortingOption = $state('nearest');
@@ -109,7 +109,7 @@
 	let displayedGyms = $derived.by(() => {
 		const filteredGyms = data.gyms.filter((gym) => {
 			const matchesCity = cities.some(
-				(city) => city.checked && city.name === gym.city,
+				(city) => city.checked && city.name === gym.city
 			);
 			const hasCityFilter = cities.some((city) => city.checked);
 
@@ -120,10 +120,10 @@
 					}
 					// Unselected types are excluded
 					return true;
-				},
+				}
 			);
 			const hasClimbingFilter = Object.values(climbingType).some(
-				(isSelected) => isSelected,
+				(isSelected) => isSelected
 			);
 
 			return (
@@ -184,7 +184,7 @@
 	function searchRoutes(travelMode: TravelModes) {
 		const placeIdsString = JSON.stringify(gymPlaceIds);
 		goto(
-			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`,
+			`${base}/gmap-route?travelMode=${travelMode}&placeIds=${encodeURIComponent(placeIdsString)}`
 		);
 	}
 
@@ -232,7 +232,8 @@
 		</Dropdown>
 
 		<Button class="dropdown-btn">
-			Cities<ChevronDownOutline
+			Cities
+			<ChevronDownOutline
 				class="ms-1 h-6 w-6 text-white sm:ms-2 dark:text-white"
 			/>
 		</Button>
@@ -257,7 +258,7 @@
 				handleViewMode(
 					gymsViewMode === GymsViewMode.CARD
 						? GymsViewMode.MAP
-						: GymsViewMode.CARD,
+						: GymsViewMode.CARD
 				);
 			}}
 			aria-label={gymsViewMode}
