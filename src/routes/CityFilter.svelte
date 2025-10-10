@@ -40,7 +40,9 @@
 	}
 </script>
 
-<Button class="dropdown-btn overflow-x-scroll sm:max-w-[300px]">
+<Button
+	class="dropdown-btn min-w-fit overflow-x-scroll sm:max-w-[300px] sm:min-w-0"
+>
 	{#if isMobile}
 		Cities
 	{:else}
