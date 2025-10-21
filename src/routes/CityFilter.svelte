@@ -41,7 +41,7 @@
 </script>
 
 <Button
-	class="dropdown-btn min-w-fit overflow-x-scroll sm:max-w-[300px] sm:min-w-0"
+	class="dropdown-btn min-w-fit overflow-hidden sm:max-w-[300px] sm:min-w-0"
 >
 	{#if isMobile}
 		Cities
