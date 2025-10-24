@@ -4,7 +4,7 @@
 		GithubSolid,
 		InstagramSolid,
 		LinkedinSolid,
-		XSolid,
+		XSolid
 	} from 'flowbite-svelte-icons';
 </script>
 
@@ -29,7 +29,5 @@
 		</a>
 	</div>
 
-	<p class="text-center text-xs">
-		© 2025 Lyla Minju Park. All rights reserved.
-	</p>
+	<p class="text-center text-xs">© 2025 Minju Park. All rights reserved.</p>
 </footer>
