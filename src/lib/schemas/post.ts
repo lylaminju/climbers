@@ -17,8 +17,8 @@ export const PostSchema = z
 		gym: ClimbingGymSchema.pick({
 			name: true,
 			city: true,
-			map_url: true,
-			image_url: true,
+			mapUrl: true,
+			imageUrl: true,
 		}),
 		start_datetime: z.string(),
 		// .regex(
@@ -37,7 +37,7 @@ export const PostSchema = z
 		{
 			message: 'end_datetime must be after start_datetime',
 			path: ['end_datetime'],
-		},
+		}
 	);
 
 export type Post = z.infer<typeof PostSchema>;

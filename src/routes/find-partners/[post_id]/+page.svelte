@@ -97,11 +97,11 @@
 			{/if}
 
 			<div
-				style="background-image: url(/gym-preview/{post.gym.image_url})"
+				style="background-image: url(/gym-preview/{post.gym.imageUrl})"
 				class="gym-title relative mb-1 h-[180px] w-full max-w-full rounded-xl bg-[#ccc] bg-cover bg-center p-2 text-center text-white sm:h-[280px]"
 			>
 				<a
-					href={post.gym.map_url}
+					href={post.gym.mapUrl}
 					target="_blank"
 					class="absolute top-2 right-2 rounded-full bg-[rgba(0,0,0,0.3)] p-1 hover:bg-[rgba(0,0,0,0.5)]"
 				>
