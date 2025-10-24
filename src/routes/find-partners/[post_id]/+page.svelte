@@ -13,7 +13,7 @@
 	import {
 		ClockOutline,
 		TrashBinOutline,
-		UserCircleOutline
+		UserCircleOutline,
 	} from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 	import Attendees from './Attendees.svelte';
@@ -108,11 +108,13 @@
 					<MapIcon styles="w-5 sm:w-6 stroke-white stroke-2" />
 				</a>
 				<p
-					class="overflow-x-scroll text-2xl font-bold whitespace-nowrap sm:text-3xl"
+					class="no-scrollbar overflow-x-auto text-2xl font-bold whitespace-nowrap sm:text-3xl"
 				>
 					{post.gym.name}
 				</p>
-				<p class="overflow-x-scroll text-lg whitespace-nowrap sm:text-xl">
+				<p
+					class="no-scrollbar overflow-x-auto text-lg whitespace-nowrap sm:text-xl"
+				>
 					{capitalizeWords(post.gym.city || '')}
 				</p>
 			</div>
@@ -121,7 +123,7 @@
 				<UserCircleOutline class="mr-2" />
 				<a
 					href={`${base}/profile/${post?.profile?.username}`}
-					class="overflow-x-scroll underline"
+					class="no-scrollbar overflow-x-auto underline"
 				>
 					{post?.profile?.username}
 				</a>

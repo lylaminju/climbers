@@ -146,7 +146,7 @@ This action cannot be undone.
 							<Tooltip>Whatsapp</Tooltip>
 							<a
 								href={`https://api.whatsapp.com/send/?phone=${profile?.phone_number}`}
-								class="overflow-x-scroll whitespace-nowrap underline"
+								class="no-scrollbar overflow-x-auto whitespace-nowrap underline"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -162,7 +162,7 @@ This action cannot be undone.
 							<Tooltip>Instagram</Tooltip>
 							<a
 								href={profile?.instagram_link}
-								class="overflow-x-scroll whitespace-nowrap underline"
+								class="no-scrollbar overflow-x-auto whitespace-nowrap underline"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -176,7 +176,7 @@ This action cannot be undone.
 							<Tooltip>X (Twitter)</Tooltip>
 							<a
 								href={profile?.x_link}
-								class="overflow-x-scroll whitespace-nowrap underline"
+								class="no-scrollbar overflow-x-auto whitespace-nowrap underline"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
@@ -190,7 +190,7 @@ This action cannot be undone.
 							<Tooltip>Other</Tooltip>
 							<a
 								href={profile?.contact_links?.[0]}
-								class="overflow-x-scroll whitespace-nowrap underline"
+								class="no-scrollbar overflow-x-auto whitespace-nowrap underline"
 								target="_blank"
 								rel="noopener noreferrer"
 							>

@@ -79,7 +79,7 @@
 				</p>
 			</div>
 			<div
-				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-scroll rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
+				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-auto rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 				onkeydown={() => !isMobile && window.open(gym.websiteUrl)}
 				role="link"

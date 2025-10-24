@@ -21,7 +21,7 @@
 					<div class="flex items-center gap-1">
 						<UserCircleOutline />
 						<span
-							class="flex items-center gap-1 overflow-x-scroll whitespace-nowrap"
+							class="flex items-center gap-1 no-scrollbar overflow-x-auto whitespace-nowrap"
 						>
 							{#if joinRequest.profile}
 								<a
@@ -38,7 +38,7 @@
 					</div>
 					<div class="flex items-center gap-1 text-sm sm:text-base">
 						<ClockOutline />
-						<span class="overflow-x-scroll whitespace-nowrap">
+						<span class="no-scrollbar overflow-x-auto whitespace-nowrap">
 							{formatTimeToAMPM(joinRequest.start_time)} -
 							{formatTimeToAMPM(joinRequest.end_time)}
 						</span>

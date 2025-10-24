@@ -25,7 +25,7 @@
 
 	async function handleRequest(
 		type: 'accepted' | 'declined',
-		joinRequestId: string,
+		joinRequestId: string
 	) {
 		const action = type === 'accepted' ? 'accept' : 'decline';
 
@@ -33,7 +33,7 @@
 			isUpdating = true;
 
 			const confirmHandle = confirm(
-				`Are you sure you want to ${action} this join request?`,
+				`Are you sure you want to ${action} this join request?`
 			);
 			if (!confirmHandle) {
 				return;
@@ -66,12 +66,12 @@
 				joinRequest.post.profile?.username ?? 'Post author',
 				`${joinRequest.post.gym.name} (${capitalizeWords(joinRequest.post.gym.city)})`,
 				userAvailableDatetime,
-				joinRequest.post_id,
+				joinRequest.post_id
 			);
 			const { statusCode, message, name } = await sendEmail(
 				recipientEmail,
 				`[ClimberzDay] Join Request has been ${type}`,
-				emailHtml,
+				emailHtml
 			);
 
 			if (statusCode !== undefined) {
@@ -117,7 +117,7 @@
 				{joinRequest.profile?.username}
 			</A>
 		{:else}
-			<span class="w-52 overflow-x-scroll whitespace-nowrap sm:w-58">
+			<span class="no-scrollbar w-52 overflow-x-auto whitespace-nowrap sm:w-58">
 				{joinRequest.guest_name} ({joinRequest.guest_email})
 			</span>
 		{/if}

@@ -24,7 +24,8 @@
 			script.async = true;
 			script.defer = true;
 			script.onload = () => resolve();
-			script.onerror = () => reject(new Error('Failed to load Google Maps script'));
+			script.onerror = () =>
+				reject(new Error('Failed to load Google Maps script'));
 			document.head.appendChild(script);
 		});
 	}
@@ -38,7 +39,10 @@
 		// If there's only one entity, set a default zoom
 		if (displayedGyms.length === 1) {
 			const firstGym = displayedGyms[0];
-			map.setCenter({ lat: firstGym.coordinates.latitude, lng: firstGym.coordinates.longitude });
+			map.setCenter({
+				lat: firstGym.coordinates.latitude,
+				lng: firstGym.coordinates.longitude,
+			});
 			map.setZoom(14); // Default zoom for a single point (adjust as needed)
 			addMarker(firstGym);
 			return;
@@ -47,7 +51,10 @@
 		// Calculate bounds to include all entities
 		const bounds = new google.maps.LatLngBounds();
 		displayedGyms.forEach((gym) => {
-			bounds.extend({ lat: gym.coordinates.latitude, lng: gym.coordinates.longitude });
+			bounds.extend({
+				lat: gym.coordinates.latitude,
+				lng: gym.coordinates.longitude,
+			});
 		});
 
 		// Center and zoom the map to fit all markers
@@ -61,7 +68,10 @@
 
 	function addMarker(gym: ClimbingGym) {
 		const marker = new google.maps.Marker({
-			position: { lat: gym.coordinates.latitude, lng: gym.coordinates.longitude },
+			position: {
+				lat: gym.coordinates.latitude,
+				lng: gym.coordinates.longitude,
+			},
 			map: map,
 			title: gym.name,
 		});
@@ -71,7 +81,7 @@
 				class="w-full max-w-full bg-cover bg-center rounded-[8px] text-nowrap text-white text-sm sm:text-base"
 				style="background-image: url(${base}/${gym.imageUrl});"
 			>
-				<div class="w-full h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
+				<div class="w-full h-fit max-w-full overflow-x-auto no-scrollbar rounded-[inherit] p-2 bg-black/60">
 					<a
 						class="flex w-fit flex-row hover:text-yellow-500"
 						href=${gym.mapUrl}
