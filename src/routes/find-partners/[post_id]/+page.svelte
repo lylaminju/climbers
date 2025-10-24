@@ -127,8 +127,8 @@
 				>
 					{post?.profile?.username}
 				</a>
-				<!-- Delete Button: Only show if current user is the poster -->
-				{#if isPostAuthor}
+				<!-- Delete Button: Only show if current user is the poster and not deleted -->
+				{#if isPostAuthor && !post.deleted_at}
 					<Button
 						size="xs"
 						class="absolute top-0 right-0 bg-red-200 px-2 py-1 transition hover:bg-red-300 sm:px-2.5 sm:py-1.5"
