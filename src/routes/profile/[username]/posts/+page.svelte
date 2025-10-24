@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import type { Post } from '$lib/schemas/post';
 	import { userStore } from '$lib/stores/user';
-	import { onMount } from 'svelte';
+	import { Spinner } from 'flowbite-svelte';
 
 	import MenuTab from '../MenuTab.svelte';
 	import Sidebar from '../Sidebar.svelte';
@@ -11,11 +11,13 @@
 
 	let username = $derived(page.params.username);
 	let isProfileOwner = $derived(
-		$userStore?.user_metadata?.username === username,
+		$userStore?.user_metadata?.username === username
 	);
+	let isLoading = $derived($userStore === null);
 
-	onMount(() => {
-		if (!isProfileOwner) {
+	// Redirect if not profile owner (only after userStore is loaded)
+	$effect(() => {
+		if ($userStore !== null && !isProfileOwner) {
 			goto(`/profile/${username}`);
 		}
 	});
@@ -29,8 +31,15 @@
 </script>
 
 <section class="mx-auto flex w-fit flex-col gap-3 sm:flex-row">
-	<Sidebar {username} activeUrl={`/profile/${username}/posts`} />
-	<MenuTab {username} />
+	{#if isLoading}
+		<!-- Loading state: prevent flash of unauthorized content -->
+		<div class="flex h-200 items-center justify-center">
+			<Spinner size="12" />
+		</div>
+	{:else if isProfileOwner}
+		<Sidebar {username} activeUrl={`/profile/${username}/posts`} />
+		<MenuTab {username} />
 
-	<MyPosts posts={data?.posts} />
+		<MyPosts posts={data?.posts} />
+	{/if}
 </section>
