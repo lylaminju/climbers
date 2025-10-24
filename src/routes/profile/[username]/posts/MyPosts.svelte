@@ -18,7 +18,9 @@
 	</h1>
 	<PostComponent posts={existingPosts} />
 
-	<h2 class="text-primary-700 my-1 text-xl font-bold sm:my-3 sm:text-2xl">
+	<h2
+		class="text-primary-700 mt-2 mb-1 text-xl font-bold sm:mt-5 sm:mb-3 sm:text-2xl"
+	>
 		Deleted Posts
 	</h2>
 	<PostComponent posts={deletedPosts} />
