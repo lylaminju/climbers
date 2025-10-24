@@ -74,7 +74,7 @@
 				<div class="w-full h-fit max-w-full overflow-x-scroll rounded-[inherit] p-2 bg-black/60">
 					<a
 						class="flex w-fit flex-row hover:text-yellow-500"
-						href=${gym.map_url}
+						href=${gym.mapUrl}
 						target="_blank"
 					>
 						<span class="mr-1">📍</span>
