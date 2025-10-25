@@ -91,7 +91,9 @@
 					/>
 				</div>
 
-				<p class="h-fit max-h-18 overflow-y-auto text-gray-600 sm:h-18">
+				<p
+					class="h-fit max-h-18 overflow-y-auto text-gray-600 sm:h-18 sm:text-base"
+				>
 					{post.content}
 				</p>
 			</li>

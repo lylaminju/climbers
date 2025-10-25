@@ -151,7 +151,7 @@
 					endDatetime={post.end_datetime}
 				/>
 			</div>
-			<p class="mt-3 whitespace-pre-wrap">{post.content}</p>
+			<p class="mt-3 text-lg whitespace-pre-wrap sm:text-xl">{post.content}</p>
 
 			{#if !isPostAuthor}
 				<Button
