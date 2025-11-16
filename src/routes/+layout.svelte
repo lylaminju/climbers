@@ -13,6 +13,7 @@
 		Tooltip,
 	} from 'flowbite-svelte';
 	import {
+		AnnotationOutline,
 		ArrowLeftToBracketOutline,
 		ArrowRightToBracketOutline,
 		BarsOutline,
@@ -52,7 +53,7 @@
 				if (event === 'SIGNED_IN') {
 					localStorage.removeItem('climberzday_guest_uuid');
 				}
-			},
+			}
 		);
 
 		// Store the listener
@@ -258,6 +259,16 @@
 					Sign up
 				</DropdownItem>
 			{/if}
+			<!-- Feedback -->
+			<DropdownDivider />
+			<DropdownItem
+				href="https://tally.so/r/D44dDZ"
+				target="_blank"
+				class="flex items-center gap-1 whitespace-nowrap"
+			>
+				<AnnotationOutline size="sm" />
+				Feedback
+			</DropdownItem>
 		</Dropdown>
 
 		<!-- Desktop: horizontal menu list -->
@@ -323,6 +334,17 @@
 				<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
 				<li><A onclick={() => openAuthModal('sign-up')}>Sign up</A></li>
 			{/if}
+			<!-- Feedback -->
+			<li>
+				<A
+					href="https://tally.so/r/D44dDZ"
+					target="_blank"
+					class="flex items-center gap-1"
+				>
+					<AnnotationOutline size="lg" />
+					Feedback
+				</A>
+			</li>
 		</ul>
 	</nav>
 </header>
