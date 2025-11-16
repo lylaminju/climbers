@@ -15,7 +15,12 @@
 </script>
 
 {#if posts.length === 0}
-	<InboxOutline size="lg" class="text-gray-400" />
+	<div
+		class="flex h-32 w-full flex-col items-center justify-center gap-2 rounded-xl border border-2 border-dashed border-gray-300 text-gray-400 sm:h-40"
+	>
+		<InboxOutline size="lg" />
+		<p>No upcoming meetups</p>
+	</div>
 {:else}
 	<ul class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2">
 		{#each posts as post}
