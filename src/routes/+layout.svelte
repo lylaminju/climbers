@@ -130,7 +130,7 @@
 	class="relative flex flex-row justify-between gap-3 pb-3
 		{isHomepage
 		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
-		: 'h-fit items-center sm:pt-3'} 
+		: 'h-fit items-center sm:pt-3'}
 		bg-cover bg-top px-4 py-4 sm:px-6
 	"
 >
@@ -192,7 +192,7 @@
 				role="link"
 			>
 				<UsersGroupOutline size="sm" />
-				Climbing meetups
+				Meetups
 			</DropdownItem>
 			<DropdownDivider />
 			{#if $userStore}
@@ -294,7 +294,7 @@
 					"
 				>
 					<UsersGroupOutline size="lg" />
-					Climbing meetups
+					Meetups
 				</a>
 			</li>
 			{#if $userStore}
