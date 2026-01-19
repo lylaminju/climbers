@@ -1,4 +1,3 @@
-import staticGymsData from '$lib/data/climbing-gyms.json';
 import { supabase } from '$lib/supabaseClient';
 import type { ClimbingGym } from '$lib/types/types';
 
@@ -7,7 +6,8 @@ export async function load() {
 		const { data, error } = await supabase.from('gym').select('*');
 
 		if (error || !data) {
-			throw error;
+			console.error('Error loading gyms from database:', error);
+			return { gyms: [], error: 'Failed to load gym data' };
 		}
 
 		const formattedGyms: ClimbingGym[] = data.map((gym) => ({
@@ -23,10 +23,7 @@ export async function load() {
 			},
 			publicTransport: {
 				subway: gym.subway_station
-					? {
-							line: gym.subway_line,
-							station: gym.subway_station
-						}
+					? { line: gym.subway_line, station: gym.subway_station }
 					: undefined,
 				busOrTram: Boolean(gym.bus_tram)
 			},
@@ -57,14 +54,8 @@ export async function load() {
 		}));
 
 		return { gyms: formattedGyms };
-	} catch (error) {
-		console.error('Error loading gyms from database:', error);
-		const formattedGyms = staticGymsData.gyms.map((gym) => ({
-			...gym,
-			iconUrl: `gym-icon/${gym.iconUrl}`,
-			imageUrl: `gym-preview/${gym.imageUrl}`
-		}));
-
-		return { gyms: formattedGyms };
+	} catch (err) {
+		console.error('Unexpected error loading gyms:', err);
+		return { gyms: [], error: 'Failed to load gym data' };
 	}
 }
