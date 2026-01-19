@@ -67,6 +67,18 @@ https://climberz.day
 
 ## Challenges
 
+### Detecting gym changes
+
+1. Google Places API
+   Periodic automated searches for 'climbing gym' in your target cities. Can detect
+   new gyms and verify existing ones still exist.
+2. User submissions
+   Add a 'Suggest a gym' form to your site. Users can report new gyms or closures.
+3. Web scraping
+   Scrape climbing gym directories or aggregator sites periodically.
+4. Combination
+   Mix of automated API checks + user submissions for best coverage.
+
 ### Ensuring Data Integrity in SvelteKit + Supabase
 
 #### Synchronizing Soft Deletes of users and profiles
@@ -116,6 +128,7 @@ FOR EACH ROW
 WHEN (OLD.deleted_at IS DISTINCT FROM NEW.deleted_at)
 EXECUTE FUNCTION public.sync_profile_deleted_at();
 ```
+
 <br/>
 
 ### Balancing ease of access for anonymous users with spam protection
