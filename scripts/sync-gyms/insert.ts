@@ -65,6 +65,19 @@ interface GymInsert {
 type Environment = 'test' | 'prod' | 'both';
 
 // ============================================================================
+// Helpers
+// ============================================================================
+
+function toSlug(name: string): string {
+	return name
+		.toLowerCase()
+		.replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+		.replace(/\s+/g, '-') // Replace spaces with hyphens
+		.replace(/-+/g, '-') // Replace multiple hyphens with single
+		.replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+}
+
+// ============================================================================
 // CLI Argument Parsing
 // ============================================================================
 
@@ -202,8 +215,8 @@ async function insertGyms(
 			longitude: gym.longitude,
 			map_url: gym.mapsUrl,
 			website_url: gym.websiteUrl || null,
-			icon_url: 'default.png',
-			image_url: 'default.png',
+			icon_url: `${toSlug(gym.name)}.jpg`,
+			image_url: `${toSlug(gym.name)}.jpg`,
 			// Pricing
 			price_currency: gym.price?.currency ?? 'CAD',
 			price_amount: gym.price?.amount ?? 0,
