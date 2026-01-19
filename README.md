@@ -67,17 +67,43 @@ https://climberz.day
 
 ## Challenges
 
-### Detecting gym changes
+### Keeping Gym Data Fresh
 
-1. Google Places API
-   Periodic automated searches for 'climbing gym' in your target cities. Can detect
-   new gyms and verify existing ones still exist.
-2. User submissions
-   Add a 'Suggest a gym' form to your site. Users can report new gyms or closures.
-3. Web scraping
-   Scrape climbing gym directories or aggregator sites periodically.
-4. Combination
-   Mix of automated API checks + user submissions for best coverage.
+Climbing gyms open and close, so the database needs periodic updates. I built a sync system using the Google Places API to detect changes.
+
+#### How It Works
+
+The sync workflow has three stages:
+
+1. **Search** (`scripts/sync-gyms/search.ts`) — Queries Google Places API for "climbing gym" across configured regions, compares results against the Supabase database, and outputs:
+
+   - New gym candidates (found in API but not in database)
+   - Potentially closed gyms (in database but not found in API)
+
+2. **Manual verification** — Review candidates in `sync-results.json` and create a `verification-results-YYYY-MM-DD.json` file with confirmed climbing gyms.
+
+3. **Insert** (`scripts/sync-gyms/insert.ts`) — Inserts verified gyms into Supabase with a dry-run option for safety.
+
+#### Running the Scripts
+
+```bash
+# Search for gym changes (outputs sync-results.json)
+npx tsx scripts/sync-gyms/search.ts
+
+# Insert verified gyms (dry run first)
+npx tsx scripts/sync-gyms/insert.ts --env test --dry-run
+npx tsx scripts/sync-gyms/insert.ts --env prod # or both
+```
+
+#### Filtering False Positives
+
+The search script filters out non-climbing places by:
+
+- Excluding known false positive `place_id`s (configured in `config.ts`)
+- Filtering by Google Places types (parks, schools, bowling alleys, etc.)
+- Skipping permanently closed businesses
+
+This approach catches most new gyms while minimizing API costs (only 2-4 API calls per region search).
 
 ### Ensuring Data Integrity in SvelteKit + Supabase
 
