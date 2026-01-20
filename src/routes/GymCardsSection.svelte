@@ -21,7 +21,7 @@
 	{#each displayedGyms as gym, _ (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card relative h-[145px] rounded-2xl bg-[#aaaaaa] bg-cover bg-center text-white sm:h-[270px]"
+			class="gym-card relative h-[145px] rounded-2xl bg-[#aaaaaa] bg-cover bg-center text-white sm:h-[220px]"
 			style="background-image: url({base}/{gym.imageUrl})"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
@@ -65,21 +65,21 @@
 					{/if}
 				</button>
 				<img
-					class="mb-0.5 h-6 w-6 rounded-full bg-white sm:mb-0 sm:h-10 sm:w-10"
+					class="mb-0.5 h-6 w-6 rounded-full bg-white sm:mb-0 sm:h-8 sm:w-8"
 					src="{base}/{gym.iconUrl}"
 					alt={gym.name}
 				/>
 				<h2
-					class="text-base leading-[1.2] font-semibold sm:text-3xl sm:leading-[1.5]"
+					class="text-base leading-[1.2] font-semibold sm:text-2xl sm:leading-[1.5]"
 				>
 					{gym.name}
 				</h2>
-				<p class="text-xs sm:text-xl sm:font-medium">
+				<p class="text-xs sm:text-lg sm:font-medium">
 					{capitalizeWords(gym.city)}
 				</p>
 			</div>
 			<div
-				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-auto rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-2xl"
+				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-auto rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-xl"
 				onclick={() => !isMobile && window.open(gym.websiteUrl)}
 				onkeydown={() => !isMobile && window.open(gym.websiteUrl)}
 				role="link"
@@ -215,7 +215,7 @@
 
 	@media (min-width: 640px) {
 		#gyms {
-			grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+			grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 			gap: 1.2rem;
 		}
 
