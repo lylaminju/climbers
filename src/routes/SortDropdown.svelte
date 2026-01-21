@@ -4,8 +4,8 @@
 
 	const sortGroups = [
 		[
-			{ value: 'name-asc', label: 'Name (A → Z)' },
-			{ value: 'name-desc', label: 'Name (Z → A)' },
+			{ value: 'name-asc', label: 'Name: A to Z' },
+			{ value: 'name-desc', label: 'Name: Z to A' },
 		],
 		[
 			{ value: 'nearest', label: 'Nearest Distance' },
