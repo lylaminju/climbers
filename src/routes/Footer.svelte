@@ -29,5 +29,5 @@
 		</a>
 	</div>
 
-	<p class="text-center text-xs">© 2025 Minju Park. All rights reserved.</p>
+	<p class="text-center text-xs">© 2025 - 2026 Minju Park. All rights reserved.</p>
 </footer>
