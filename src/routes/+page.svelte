@@ -8,14 +8,15 @@
 	import type { ClimbingGym, ClimbingType } from '$lib/types/types';
 	import { haversineDistance } from '$lib/utils/calculateDistance';
 	import { toUSD } from '$lib/utils/convertCurrency';
+	import { loadGoogleMaps } from '$lib/utils/googleMapsLoader';
 	import { Button } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
+	import CityFilter from './CityFilter.svelte';
+	import ClimbingTypeFilter from './ClimbingTypeFilter.svelte';
 	import GymCardsSection from './GymCardsSection.svelte';
 	import MapSection from './MapSection.svelte';
 	import RoutesDiv from './RoutesDiv.svelte';
 	import SortDropdown from './SortDropdown.svelte';
-	import ClimbingTypeFilter from './ClimbingTypeFilter.svelte';
-	import CityFilter from './CityFilter.svelte';
 
 	let isMobile = $state(false);
 	function updateIsMobile() {
@@ -37,24 +38,69 @@
 
 	const userCoordinates = $state({
 		latitude: 43.6519307,
-		longitude: -79.3847546
+		longitude: -79.3847546,
 	}); // Toronto City Hall
+
+	let userLocationDisplay = $state('Locating...');
+
+	async function reverseGeocode(lat: number, lng: number): Promise<string> {
+		try {
+			const maps = await loadGoogleMaps();
+			const geocoder = new maps.Geocoder();
+
+			const response = await geocoder.geocode({
+				location: { lat, lng },
+			});
+
+			if (response.results.length > 0) {
+				const result = response.results[0];
+				let streetNumber = '';
+				let route = '';
+
+				for (const component of result.address_components) {
+					if (component.types.includes('street_number')) {
+						streetNumber = component.short_name;
+					}
+					if (component.types.includes('route')) {
+						route = component.short_name;
+					}
+				}
+
+				if (route) {
+					return streetNumber ? `${streetNumber} ${route}` : route;
+				}
+			}
+		} catch (error) {
+			console.error('Reverse geocoding failed:', error);
+		}
+
+		return 'Your location';
+	}
 
 	function setUserCoordinates() {
 		try {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
-					(position: GeolocationPosition) => {
+					async (position: GeolocationPosition) => {
 						userCoordinates.latitude = position.coords.latitude;
 						userCoordinates.longitude = position.coords.longitude;
+						userLocationDisplay = await reverseGeocode(
+							position.coords.latitude,
+							position.coords.longitude
+						);
 					},
-					() => console.log('Unable to retrieve the location')
+					() => {
+						console.log('Unable to retrieve the location');
+						userLocationDisplay = 'Your location';
+					}
 				);
 			} else {
 				console.log('Geolocation is not supported by your browser');
+				userLocationDisplay = 'Your location';
 			}
 		} catch (error) {
 			console.error(`navigator error: ${error}`);
+			userLocationDisplay = 'Your location';
 		}
 	}
 
@@ -92,7 +138,7 @@
 		boulder: false,
 		autoBelay: false,
 		topRope: false,
-		lead: false
+		lead: false,
 	});
 
 	let selectedSortingOption = $state('nearest');
@@ -191,7 +237,13 @@
 <section
 	class="mt-4 mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3"
 >
-	<RoutesDiv {displayedGyms} {isMobile} {gymPlaceIds} {searchRoutes} />
+	<RoutesDiv
+		{displayedGyms}
+		{isMobile}
+		{gymPlaceIds}
+		{searchRoutes}
+		{userLocationDisplay}
+	/>
 
 	<div class="flex w-full flex-row gap-2 sm:w-fit">
 		<ClimbingTypeFilter {climbingType} {isMobile} />

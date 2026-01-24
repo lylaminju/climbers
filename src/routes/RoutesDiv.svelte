@@ -13,7 +13,7 @@
 	import { Tooltip } from 'flowbite-svelte';
 	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 
-	const { displayedGyms, isMobile, gymPlaceIds, searchRoutes } = $props();
+	const { displayedGyms, isMobile, gymPlaceIds, searchRoutes, userLocationDisplay } = $props();
 </script>
 
 <div
@@ -82,7 +82,7 @@
 	>
 		<div class="flex flex-row items-center gap-1">
 			<CurrentLocation styles="w-4 sm:w-5" />
-			<span>Your location</span>
+			<span>{userLocationDisplay}</span>
 		</div>
 
 		{#if isMobile}
