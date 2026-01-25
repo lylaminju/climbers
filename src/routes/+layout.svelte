@@ -126,7 +126,7 @@
 {/if}
 
 <header
-	style={isHomepage ? 'background-image: url(/wall-paper.jpeg)' : ''}
+	style={isHomepage ? 'background-image: url(/wall-paper.webp)' : ''}
 	class="relative flex flex-row justify-between gap-3 pb-3
 		{isHomepage
 		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
