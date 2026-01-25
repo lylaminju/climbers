@@ -41,6 +41,7 @@
 		longitude: -79.3847546,
 	}); // Toronto City Hall
 
+	const DEFAULT_LOCATION_DISPLAY = 'Your location';
 	let userLocationDisplay = $state('Locating...');
 
 	async function reverseGeocode(lat: number, lng: number): Promise<string> {
@@ -74,33 +75,30 @@
 			console.error('Reverse geocoding failed:', error);
 		}
 
-		return 'Your location';
+		return DEFAULT_LOCATION_DISPLAY;
 	}
 
-	function setUserCoordinates() {
+	async function setUserCoordinates() {
 		try {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(
-					async (position: GeolocationPosition) => {
-						userCoordinates.latitude = position.coords.latitude;
-						userCoordinates.longitude = position.coords.longitude;
-						userLocationDisplay = await reverseGeocode(
-							position.coords.latitude,
-							position.coords.longitude
-						);
-					},
-					() => {
-						console.log('Unable to retrieve the location');
-						userLocationDisplay = 'Your location';
+			const position = await new Promise<GeolocationPosition>(
+				(resolve, reject) => {
+					if (!navigator.geolocation) {
+						reject(new Error('Geolocation not supported'));
+						return;
 					}
-				);
-			} else {
-				console.log('Geolocation is not supported by your browser');
-				userLocationDisplay = 'Your location';
-			}
+					navigator.geolocation.getCurrentPosition(resolve, reject);
+				}
+			);
+
+			userCoordinates.latitude = position.coords.latitude;
+			userCoordinates.longitude = position.coords.longitude;
+			userLocationDisplay = await reverseGeocode(
+				position.coords.latitude,
+				position.coords.longitude
+			);
 		} catch (error) {
-			console.error(`navigator error: ${error}`);
-			userLocationDisplay = 'Your location';
+			console.error('Location error: ', error);
+			userLocationDisplay = DEFAULT_LOCATION_DISPLAY;
 		}
 	}
 
