@@ -1,5 +1,9 @@
 # Claude Code Instructions for Climbers Project
 
+## Coding Conventions
+
+- Prefer async/await over nested callbacks for better readability and error handling
+
 ## Gym Price Verification Strategy
 
 When verifying gym prices against their websites, use a tiered approach:
