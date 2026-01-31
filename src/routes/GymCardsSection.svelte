@@ -50,17 +50,15 @@
 			<div class="gym-title p-2 text-center sm:p-3">
 				<button
 					id="add-destination-{gym.id}"
-					class="absolute top-2 right-2 w-[18px] cursor-pointer sm:visible sm:z-10 sm:w-[24px]"
+					class="absolute top-2 right-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/80 shadow-sm transition-all hover:bg-white hover:shadow-md sm:visible sm:z-10 sm:h-10 sm:w-10"
 					onclick={(event) => handleDestination(event, gym.placeId)}
 					aria-label="Add or delete a destination"
 				>
 					{#if gymPlaceIds.includes(gym.placeId)}
-						<MapPin
-							styles="w-full stroke-white fill-blue-600 hover:fill-none"
-						/>
+						<MapPin styles="w-5 sm:w-6 stroke-blue-600 fill-blue-200" />
 					{:else}
 						<MapPinPlus
-							styles="w-full stroke-white fill-none hover:stroke-blue-300"
+							styles="w-5 sm:w-6 stroke-slate-600 fill-none hover:stroke-blue-500"
 						/>
 					{/if}
 				</button>
