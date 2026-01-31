@@ -15,7 +15,7 @@
 	import ClimbingTypeFilter from './ClimbingTypeFilter.svelte';
 	import GymCardsSection from './GymCardsSection.svelte';
 	import MapSection from './MapSection.svelte';
-	import RoutesDiv from './RoutesDiv.svelte';
+	import RouteComparePanel from './RouteComparePanel.svelte';
 	import SortDropdown from './SortDropdown.svelte';
 
 	let isMobile = $state(false);
@@ -209,11 +209,21 @@
 
 	function handleDestination(event: MouseEvent, gymPlaceId: string) {
 		event.stopPropagation();
+		toggleGymDestination(gymPlaceId);
+	}
 
+	function toggleGymDestination(gymPlaceId: string) {
 		const index = gymPlaceIds.indexOf(gymPlaceId);
 		if (index === -1) {
 			gymPlaceIds.push(gymPlaceId);
 		} else {
+			gymPlaceIds.splice(index, 1);
+		}
+	}
+
+	function removeGymDestination(gymPlaceId: string) {
+		const index = gymPlaceIds.indexOf(gymPlaceId);
+		if (index !== -1) {
 			gymPlaceIds.splice(index, 1);
 		}
 	}
@@ -232,51 +242,53 @@
 	}
 </script>
 
-<section
-	class="mt-4 mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3"
->
-	<RoutesDiv
-		{displayedGyms}
-		{isMobile}
-		{gymPlaceIds}
-		{searchRoutes}
-		{userLocationDisplay}
-	/>
+<div class="pb-20 lg:pb-0 lg:pr-[60px]">
+	<section
+		class="mt-4 mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3"
+	>
+		<div class="flex w-full flex-row gap-2 sm:w-fit">
+			<ClimbingTypeFilter {climbingType} {isMobile} />
 
-	<div class="flex w-full flex-row gap-2 sm:w-fit">
-		<ClimbingTypeFilter {climbingType} {isMobile} />
+			<CityFilter {cities} {isMobile} />
 
-		<CityFilter {cities} {isMobile} />
+			<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 
-		<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
+			<Button
+				class="px-2.5 py-1 sm:px-4"
+				onclick={() => {
+					handleViewMode(
+						gymsViewMode === GymsViewMode.CARD
+							? GymsViewMode.MAP
+							: GymsViewMode.CARD
+					);
+				}}
+				aria-label={gymsViewMode}
+			>
+				{#if gymsViewMode === GymsViewMode.CARD}
+					<MapIcon styles="w-4 sm:w-5 stroke-white" />
+				{:else}
+					<ImagesIcon styles="w-4 sm:w-5 stroke-white" />
+				{/if}
+			</Button>
+		</div>
+	</section>
+	{#if gymsViewMode == GymsViewMode.CARD}
+		<GymCardsSection
+			{displayedGyms}
+			{isMobile}
+			{gymPlaceIds}
+			{toggleChildElementVisibility}
+			{handleDestination}
+		/>
+	{:else if gymsViewMode == GymsViewMode.MAP}
+		<MapSection {displayedGyms} />
+	{/if}
+</div>
 
-		<Button
-			class="px-2.5 py-1 sm:px-4"
-			onclick={() => {
-				handleViewMode(
-					gymsViewMode === GymsViewMode.CARD
-						? GymsViewMode.MAP
-						: GymsViewMode.CARD
-				);
-			}}
-			aria-label={gymsViewMode}
-		>
-			{#if gymsViewMode === GymsViewMode.CARD}
-				<MapIcon styles="w-4 sm:w-5 stroke-white" />
-			{:else}
-				<ImagesIcon styles="w-4 sm:w-5 stroke-white" />
-			{/if}
-		</Button>
-	</div>
-</section>
-{#if gymsViewMode == GymsViewMode.CARD}
-	<GymCardsSection
-		{displayedGyms}
-		{isMobile}
-		{gymPlaceIds}
-		{toggleChildElementVisibility}
-		{handleDestination}
-	/>
-{:else if gymsViewMode == GymsViewMode.MAP}
-	<MapSection {displayedGyms} />
-{/if}
+<RouteComparePanel
+	{gymPlaceIds}
+	{displayedGyms}
+	{userLocationDisplay}
+	{searchRoutes}
+	onRemoveGym={removeGymDestination}
+/>

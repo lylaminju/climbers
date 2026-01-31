@@ -131,7 +131,7 @@
 		{isHomepage
 		? 'h-100 min-h-100 items-start sm:h-[50vh] sm:min-h-[50vh] sm:pt-5'
 		: 'h-fit items-center sm:pt-3'}
-		bg-cover bg-top px-4 py-4 sm:px-6
+		bg-cover bg-top px-4 py-4 sm:px-6 lg:pr-20
 	"
 >
 	{#if isHomepage}
