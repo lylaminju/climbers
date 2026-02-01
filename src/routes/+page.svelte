@@ -242,7 +242,7 @@
 	}
 </script>
 
-<div class="pb-20 lg:pb-0 lg:pr-[60px]">
+<div class="pb-20 lg:pr-[60px] lg:pb-0">
 	<section
 		class="mt-4 mb-3 flex w-full flex-col gap-y-2 lg:mb-4 lg:flex-row lg:items-center lg:gap-x-3"
 	>
@@ -253,8 +253,9 @@
 
 			<SortDropdown {selectedSortingOption} onSortChange={handleSortChange} />
 
+			<!-- Mobile -->
 			<Button
-				class="px-2.5 py-1 sm:px-4"
+				class="px-2.5 py-1 sm:hidden"
 				onclick={() => {
 					handleViewMode(
 						gymsViewMode === GymsViewMode.CARD
@@ -270,6 +271,51 @@
 					<ImagesIcon styles="w-4 sm:w-5 stroke-white" />
 				{/if}
 			</Button>
+
+			<!-- Desktop -->
+			<div
+				class="relative hidden rounded-full bg-gray-200 p-1 sm:flex dark:bg-gray-700"
+			>
+				<button
+					class="relative z-10 flex flex-1 items-center justify-center rounded-full py-1 pr-4 pl-3 text-sm transition-colors {gymsViewMode ===
+					GymsViewMode.CARD
+						? 'text-white'
+						: 'text-gray-600 dark:text-gray-300'}"
+					onclick={() => handleViewMode(GymsViewMode.CARD)}
+					aria-label="Card view"
+					aria-pressed={gymsViewMode === GymsViewMode.CARD}
+				>
+					<ImagesIcon
+						styles="w-4 {gymsViewMode === GymsViewMode.CARD
+							? 'stroke-white'
+							: 'stroke-gray-600 dark:stroke-gray-300'}"
+					/>
+					<span class="ml-1.5">Cards</span>
+				</button>
+				<button
+					class="relative z-10 flex flex-1 items-center justify-center rounded-full py-1 pr-4 pl-3 text-sm transition-colors {gymsViewMode ===
+					GymsViewMode.MAP
+						? 'text-white'
+						: 'text-gray-600 dark:text-gray-300'}"
+					onclick={() => handleViewMode(GymsViewMode.MAP)}
+					aria-label="Map view"
+					aria-pressed={gymsViewMode === GymsViewMode.MAP}
+				>
+					<MapIcon
+						styles="w-4 {gymsViewMode === GymsViewMode.MAP
+							? 'stroke-white'
+							: 'stroke-gray-600 dark:stroke-gray-300'}"
+					/>
+					<span class="ml-1.5">Map</span>
+				</button>
+				<div
+					class="bg-primary-700 absolute top-1 bottom-1 rounded-full transition-all duration-200 {gymsViewMode ===
+					GymsViewMode.CARD
+						? 'left-1'
+						: 'left-[calc(50%)]'}"
+					style="width: calc(50% - 4px);"
+				></div>
+			</div>
 		</div>
 	</section>
 	{#if gymsViewMode == GymsViewMode.CARD}
