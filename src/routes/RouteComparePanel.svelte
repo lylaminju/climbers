@@ -14,7 +14,7 @@
 	import MapPinPlus from '$lib/icons/MapPinPlus.svelte';
 	import XIcon from '$lib/icons/XIcon.svelte';
 	import type { ClimbingGym } from '$lib/types/types';
-	import { Tooltip } from 'flowbite-svelte';
+	import { Button, Dropdown, DropdownItem } from 'flowbite-svelte';
 
 	interface Props {
 		gymPlaceIds: string[];
@@ -125,47 +125,41 @@
 				{/if}
 			</div>
 
-			<!-- Travel mode buttons -->
-			<div
-				class="grid grid-cols-4 divide-x divide-slate-200 rounded-lg border border-slate-200"
-			>
-				<button
-					onclick={() => searchRoutes(TravelModes.DRIVING)}
-					class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-					aria-label="Search driving routes"
-					disabled={travelModeDisabled}
-				>
-					<DrivingIcon fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'} />
-				</button>
-
-				<button
-					onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
-					class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-					aria-label="Search public transit routes"
-					disabled={travelModeDisabled}
-				>
-					<TransitIcon fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'} />
-				</button>
-
-				<button
-					onclick={() => searchRoutes(TravelModes.BICYCLING)}
-					class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-					aria-label="Search bicycling routes"
-					disabled={travelModeDisabled}
-				>
-					<BicyclingIcon
-						fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'}
-					/>
-				</button>
-
-				<button
-					onclick={() => searchRoutes(TravelModes.WALKING)}
-					class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-					aria-label="Search walking routes"
-					disabled={travelModeDisabled}
-				>
-					<WalkingIcon fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'} />
-				</button>
+			<!-- Travel mode dropdown -->
+			<div class="relative [&_[role='tooltip']]:w-full">
+				<Button color="light" disabled={travelModeDisabled} class="w-full">
+					Compare routes
+				</Button>
+				<Dropdown>
+					<DropdownItem
+						onclick={() => searchRoutes(TravelModes.DRIVING)}
+						class="flex items-center gap-2"
+					>
+						<DrivingIcon fillColor="#64748B" />
+						Driving
+					</DropdownItem>
+					<DropdownItem
+						onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
+						class="flex items-center gap-2"
+					>
+						<TransitIcon fillColor="#64748B" />
+						Transit
+					</DropdownItem>
+					<DropdownItem
+						onclick={() => searchRoutes(TravelModes.BICYCLING)}
+						class="flex items-center gap-2"
+					>
+						<BicyclingIcon fillColor="#64748B" />
+						Bicycling
+					</DropdownItem>
+					<DropdownItem
+						onclick={() => searchRoutes(TravelModes.WALKING)}
+						class="flex items-center gap-2"
+					>
+						<WalkingIcon fillColor="#64748B" />
+						Walking
+					</DropdownItem>
+				</Dropdown>
 			</div>
 		</div>
 	{/if}
@@ -220,120 +214,94 @@
 				</button>
 			</div>
 
-			<!-- Travel mode buttons (fixed at top) -->
-			<div class="px-4 pt-4">
-				<div
-					class="grid grid-cols-4 divide-x divide-slate-200 rounded-lg border border-slate-200"
-				>
-					<button
-						id="travel-driving"
-						onclick={() => searchRoutes(TravelModes.DRIVING)}
-						class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-						aria-label="Search driving routes"
-						disabled={travelModeDisabled}
-					>
-						<DrivingIcon
-							fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'}
-						/>
-					</button>
-					<Tooltip triggeredBy="#travel-driving" type="light" class="z-50">
-						Driving
-					</Tooltip>
-
-					<button
-						id="travel-transit"
-						onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
-						class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-						aria-label="Search public transit routes"
-						disabled={travelModeDisabled}
-					>
-						<TransitIcon
-							fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'}
-						/>
-					</button>
-					<Tooltip triggeredBy="#travel-transit" type="light" class="z-50">
-						Transit
-					</Tooltip>
-
-					<button
-						id="travel-bicycling"
-						onclick={() => searchRoutes(TravelModes.BICYCLING)}
-						class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-						aria-label="Search bicycling routes"
-						disabled={travelModeDisabled}
-					>
-						<BicyclingIcon
-							fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'}
-						/>
-					</button>
-					<Tooltip triggeredBy="#travel-bicycling" type="light" class="z-50">
-						Bicycling
-					</Tooltip>
-
-					<button
-						id="travel-walking"
-						onclick={() => searchRoutes(TravelModes.WALKING)}
-						class="flex cursor-pointer items-center justify-center px-3 py-2.5 transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
-						aria-label="Search walking routes"
-						disabled={travelModeDisabled}
-					>
-						<WalkingIcon
-							fillColor={travelModeDisabled ? '#94A3B8' : '#64748B'}
-						/>
-					</button>
-					<Tooltip triggeredBy="#travel-walking" type="light" class="z-50">
-						Walking
-					</Tooltip>
-				</div>
-			</div>
-
-			<!-- Scrollable Content -->
-			<div class="flex-1 overflow-y-auto p-4">
-				<!-- From location -->
-				<div class="mb-4">
-					<span class="mb-1 block text-xs font-medium text-slate-500"
-						>From:</span
-					>
-					<div class="flex items-center gap-2">
-						<CurrentLocation styles="w-4 text-slate-500" />
-						<span class="text-sm text-slate-700">{userLocationDisplay}</span>
-					</div>
+			<div class="p-3">
+				<!-- Travel mode dropdown (fixed at top) -->
+				<div class="relative pb-3 [&_[role='tooltip']]:w-full">
+					<Button color="light" disabled={travelModeDisabled} class="w-full">
+						Compare routes
+					</Button>
+					<Dropdown>
+						<DropdownItem
+							onclick={() => searchRoutes(TravelModes.DRIVING)}
+							class="flex items-center gap-2"
+						>
+							<DrivingIcon fillColor="#64748B" />
+							Driving
+						</DropdownItem>
+						<DropdownItem
+							onclick={() => searchRoutes(TravelModes.PUBLIC_TRANSIT)}
+							class="flex items-center gap-2"
+						>
+							<TransitIcon fillColor="#64748B" />
+							Transit
+						</DropdownItem>
+						<DropdownItem
+							onclick={() => searchRoutes(TravelModes.BICYCLING)}
+							class="flex items-center gap-2"
+						>
+							<BicyclingIcon fillColor="#64748B" />
+							Bicycling
+						</DropdownItem>
+						<DropdownItem
+							onclick={() => searchRoutes(TravelModes.WALKING)}
+							class="flex items-center gap-2"
+						>
+							<WalkingIcon fillColor="#64748B" />
+							Walking
+						</DropdownItem>
+					</Dropdown>
 				</div>
 
-				<!-- To destinations -->
-				<div>
-					<span class="mb-2 block text-xs font-medium text-slate-500">To:</span>
-					{#if selectedGyms.length === 0}
-						<p class="flex items-center gap-1 text-sm text-slate-400">
-							Click <MapPinPlus styles="w-4 inline" /> on gyms to add
-						</p>
-					{:else}
-						<div class="space-y-2">
-							{#each selectedGyms as gym (gym.placeId)}
-								<div
-									class="flex items-center justify-between rounded-lg bg-slate-50 p-2"
-								>
-									<div class="flex items-center gap-2">
-										<img
-											class="h-6 w-6 rounded-full bg-white"
-											src="{base}/{gym.iconUrl}"
-											alt={gym.name}
-										/>
-										<span class="max-w-[160px] truncate text-sm"
-											>{gym.name}</span
-										>
-									</div>
-									<button
-										class="cursor-pointer rounded p-1 hover:bg-slate-200"
-										onclick={() => onRemoveGym(gym.placeId)}
-										aria-label="Remove {gym.name}"
-									>
-										<XIcon styles="w-4 text-slate-500" />
-									</button>
-								</div>
-							{/each}
+				<!-- Scrollable Content -->
+				<div class="flex-1 overflow-y-auto">
+					<!-- From location -->
+					<div class="mb-4">
+						<span class="mb-1 block text-xs font-medium text-slate-500"
+							>From:</span
+						>
+						<div class="flex items-center gap-2">
+							<CurrentLocation styles="w-4 text-slate-500" />
+							<span class="text-sm text-slate-700">{userLocationDisplay}</span>
 						</div>
-					{/if}
+					</div>
+
+					<!-- To destinations -->
+					<div>
+						<span class="mb-2 block text-xs font-medium text-slate-500"
+							>To:</span
+						>
+						{#if selectedGyms.length === 0}
+							<p class="flex items-center gap-1 text-sm text-slate-400">
+								Click <MapPinPlus styles="w-4 inline" /> on gyms to add
+							</p>
+						{:else}
+							<div class="space-y-2">
+								{#each selectedGyms as gym (gym.placeId)}
+									<div
+										class="flex items-center justify-between rounded-lg bg-slate-50 p-2"
+									>
+										<div class="flex items-center gap-2">
+											<img
+												class="h-6 w-6 rounded-full bg-white"
+												src="{base}/{gym.iconUrl}"
+												alt={gym.name}
+											/>
+											<span class="max-w-[160px] truncate text-sm"
+												>{gym.name}</span
+											>
+										</div>
+										<button
+											class="cursor-pointer rounded p-1 hover:bg-slate-200"
+											onclick={() => onRemoveGym(gym.placeId)}
+											aria-label="Remove {gym.name}"
+										>
+											<XIcon styles="w-4 text-slate-500" />
+										</button>
+									</div>
+								{/each}
+							</div>
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
