@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import MapPin from '$lib/icons/MapPin.svelte';
 	import MapPinPlus from '$lib/icons/MapPinPlus.svelte';
 	import type { ClimbingType, GymBoard } from '$lib/types/types';
@@ -61,24 +60,31 @@
 				</p>
 			</div>
 			<div
-				class="gym-details no-scrollbar invisible cursor-pointer overflow-x-auto overflow-y-hidden rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-xl"
-				onclick={() => !isMobile && window.open(gym.websiteUrl)}
-				onkeydown={() => !isMobile && window.open(gym.websiteUrl)}
-				role="link"
-				tabindex="0"
+				class="gym-details no-scrollbar invisible overflow-x-auto overflow-y-hidden rounded-2xl p-2 text-left text-sm leading-[1.5] text-nowrap sm:p-6 sm:text-xl"
 			>
-				<div class="flex items-center gap-1">
-					<a
-						class="flex w-fit flex-row hover:text-yellow-500"
-						href={gym.price.sourceUrl || gym.websiteUrl}
-						target="_blank"
-						onclick={(event) => event.stopPropagation()}
-					>
-						<span class="mr-1">💵</span>
-						<span class="underline decoration-1 underline-offset-2">
-							Pricing
-						</span>
-						<!-- <span class="underline decoration-1 underline-offset-2">
+				<a
+					class="flex w-fit flex-row hover:text-yellow-500"
+					href={gym.websiteUrl}
+					target="_blank"
+					onclick={(event) => event.stopPropagation()}
+				>
+					<span class="mr-1">🌐</span>
+					<span class="underline decoration-1 underline-offset-2">
+						Website
+					</span>
+				</a>
+
+				<a
+					class="flex w-fit flex-row hover:text-yellow-500"
+					href={gym.price.sourceUrl || gym.websiteUrl}
+					target="_blank"
+					onclick={(event) => event.stopPropagation()}
+				>
+					<span class="mr-1">💵</span>
+					<span class="underline decoration-1 underline-offset-2">
+						Pricing
+					</span>
+					<!-- <span class="underline decoration-1 underline-offset-2">
 							{gym.price.amount.toLocaleString('en-US', {
 								style: 'currency',
 								currency: gym.price.currency,
@@ -86,21 +92,7 @@
 							})}
 							{#if gym.price.tax}+ {gym.price.tax}{/if}
 						</span> -->
-					</a>
-					<!-- <InfoCircleOutline
-						id={`price-info-${gym.id}`}
-						class="w-4 opacity-50 sm:w-6"
-						onclick={(event) => event.stopPropagation()}
-					/>
-					<Tooltip
-						type="light"
-						triggeredBy={`#price-info-${gym.id}`}
-						class="w-full whitespace-normal sm:w-[250px]"
-					>
-						Price might be subject to change. Please check the exact price on
-						the climbing gym's website.
-					</Tooltip> -->
-				</div>
+				</a>
 
 				<a
 					class="flex w-fit flex-row hover:text-yellow-500"
@@ -115,12 +107,25 @@
 				</a>
 
 				<p>
+					{#if gym.publicTransport}
+						🚇
+						{#if gym.publicTransport.subway}
+							Line {gym.publicTransport.subway.line}
+							{capitalizeWords(gym.publicTransport.subway.station)}
+						{:else}
+							-
+						{/if}
+					{/if}
+				</p>
+
+				<p>
 					🧗
 					{(Object.keys(gym.climbingTypes) as Array<keyof ClimbingType>)
 						.filter((feature) => gym.climbingTypes[feature]) // filtering only true
 						.map((feature) => formatCamelCase(feature))
 						.join(', ')}
 				</p>
+
 				<p>
 					🛹
 					{#if gym.boards && Object.values(gym.boards).some((value) => value)}
@@ -132,32 +137,22 @@
 						x
 					{/if}
 				</p>
-				<p>
-					{#if gym.publicTransport}
-						🚇
-						{#if gym.publicTransport.subway}
-							Line {gym.publicTransport.subway.line}
-							{capitalizeWords(gym.publicTransport.subway.station)}
-						{:else}
-							-
-						{/if}
-					{/if}
-				</p>
-				<div class="flex w-full flex-row justify-between">
-					<!-- <p>
+
+				<!-- <div class="flex w-full flex-row justify-between"> -->
+				<!-- <p>
 						📐 {gym.area.value
 							? `${gym.area.value.toLocaleString()} ${gym.area.unit}`
 							: '-'}
 					</p> -->
-					<a
+				<!-- <a
 						class="w-fit sm:hidden"
 						href={gym.websiteUrl}
 						target="_blank"
 						onclick={(event) => event.stopPropagation()}
 					>
 						<ExternalLinkIcon />
-					</a>
-				</div>
+					</a> -->
+				<!-- </div> -->
 			</div>
 		</div>
 	{/each}
