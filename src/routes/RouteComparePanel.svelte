@@ -201,10 +201,7 @@
 			<div
 				class="flex items-center justify-between border-b border-slate-100 px-4 py-3"
 			>
-				<div class="flex items-center gap-2">
-					<MapPin styles="w-5 text-blue-600" />
-					<span class="font-medium text-slate-700">Compare routes</span>
-				</div>
+				<MapPin styles="w-5 text-blue-600" />
 				<button
 					class="cursor-pointer rounded p-1 hover:bg-slate-100"
 					onclick={toggleExpanded}
