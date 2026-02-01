@@ -118,21 +118,27 @@
 >
 	{#if isHomepage}
 		<!-- Overlay a semi-transparent black layer over the header background image for better text readability in mobile -->
-		<div class="absolute inset-0 bg-black/20"></div>
+		<div class="absolute inset-0 bg-black/30"></div>
 
 		<!-- Show a gradient at the bottom of the header on the homepage for a smooth visual transition in mobile -->
-		<div
+		<!-- <div
 			class="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-b from-transparent to-[#f0f0f0] sm:h-[0%]"
-		></div>
+		></div> -->
 	{/if}
 	<div class="z-1 sm:flex sm:h-full sm:flex-col sm:justify-center">
 		{#if isHomepage}
-			<h1 class="font-fugaz text-4xl font-bold text-white sm:text-6xl">
+			<h1 class="font-fugaz text-4xl font-bold text-white sm:text-white/80 sm:text-7xl">
 				<a href="/" data-sveltekit-reload>ClimberzDay</a>
 			</h1>
-			<p class="font-fugaz text-xs text-white opacity-50 sm:text-xl">
-				Explore Climbing Gyms!
-			</p>
+			<div class="absolute bottom-4 right-4 sm:relative sm:mt-14 sm:ml-6">
+				<h2 class="text-2xl font-bold text-white sm:text-3xl sm:mb-4">
+					Find Your Perfect Climb
+				</h2>
+				<div class="mt-2 sm:mt-3 text-lg text-white sm:text-2xl text-right sm:text-left">
+					<p class="sm:mb-2">Compare routes and travel time</p>
+					<p>Filter by type, sort by distance</p>
+				</div>
+			</div>
 		{:else}
 			<h1 class="text-primary-900 font-fugaz text-2xl font-bold sm:text-3xl">
 				<a
