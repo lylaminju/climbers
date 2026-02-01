@@ -134,22 +134,21 @@
 				</p>
 				<p>
 					{#if gym.publicTransport}
+						🚇
 						{#if gym.publicTransport.subway}
-							🚇 Line {gym.publicTransport.subway.line}
+							Line {gym.publicTransport.subway.line}
 							{capitalizeWords(gym.publicTransport.subway.station)}
-						{:else if gym.publicTransport.busOrTram}
-							🚌 Bus / Tram
 						{:else}
-							No public transport
+							-
 						{/if}
 					{/if}
 				</p>
 				<div class="flex w-full flex-row justify-between">
-					<p>
+					<!-- <p>
 						📐 {gym.area.value
 							? `${gym.area.value.toLocaleString()} ${gym.area.unit}`
 							: '-'}
-					</p>
+					</p> -->
 					<a
 						class="w-fit sm:hidden"
 						href={gym.websiteUrl}
