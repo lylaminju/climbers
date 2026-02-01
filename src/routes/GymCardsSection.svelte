@@ -5,8 +5,6 @@
 	import MapPinPlus from '$lib/icons/MapPinPlus.svelte';
 	import type { ClimbingType, GymBoard } from '$lib/types/types';
 	import { capitalizeWords, formatCamelCase } from '$lib/utils/formatString';
-	import { Tooltip } from 'flowbite-svelte';
-	import { InfoCircleOutline } from 'flowbite-svelte-icons';
 
 	const {
 		displayedGyms,
@@ -78,15 +76,18 @@
 					>
 						<span class="mr-1">💵</span>
 						<span class="underline decoration-1 underline-offset-2">
+							Pricing
+						</span>
+						<!-- <span class="underline decoration-1 underline-offset-2">
 							{gym.price.amount.toLocaleString('en-US', {
 								style: 'currency',
 								currency: gym.price.currency,
 								minimumFractionDigits: 0,
 							})}
 							{#if gym.price.tax}+ {gym.price.tax}{/if}
-						</span>
+						</span> -->
 					</a>
-					<InfoCircleOutline
+					<!-- <InfoCircleOutline
 						id={`price-info-${gym.id}`}
 						class="w-4 opacity-50 sm:w-6"
 						onclick={(event) => event.stopPropagation()}
@@ -98,7 +99,7 @@
 					>
 						Price might be subject to change. Please check the exact price on
 						the climbing gym's website.
-					</Tooltip>
+					</Tooltip> -->
 				</div>
 
 				<a
