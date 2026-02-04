@@ -33,3 +33,7 @@ identifier.sqlite
 
 # Sync script output
 /scripts/sync-gyms/*.json
+
+# Verify-prices script output
+/scripts/verify-prices/*.json
+/scripts/verify-prices/screenshots/
