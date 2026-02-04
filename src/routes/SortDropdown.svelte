@@ -20,10 +20,10 @@
 		// 	{ value: 'smallest', label: 'Smallest Climbing Area' },
 		// 	{ value: 'largest', label: 'Largest Climbing Area' },
 		// ],
-		// [
-		// 	{ value: 'cheapest', label: 'Price: Low to High' },
-		// 	{ value: 'expensive', label: 'Price: High to Low' },
-		// ],
+		[
+			{ value: 'cheapest', label: 'Price: Low to High' },
+			{ value: 'expensive', label: 'Price: High to Low' },
+		],
 	];
 
 	const { selectedSortingOption = '', onSortChange = (value) => {} } = $props();

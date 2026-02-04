@@ -81,17 +81,17 @@
 					onclick={(event) => event.stopPropagation()}
 				>
 					<span class="mr-1">💵</span>
-					<span class="underline decoration-1 underline-offset-2">
-						Pricing
-					</span>
 					<!-- <span class="underline decoration-1 underline-offset-2">
-							{gym.price.amount.toLocaleString('en-US', {
-								style: 'currency',
-								currency: gym.price.currency,
-								minimumFractionDigits: 0,
-							})}
-							{#if gym.price.tax}+ {gym.price.tax}{/if}
-						</span> -->
+						Pricing
+					</span> -->
+					<span class="underline decoration-1 underline-offset-2">
+						{gym.price.amount.toLocaleString('en-US', {
+							style: 'currency',
+							currency: gym.price.currency,
+							minimumFractionDigits: 0,
+						})}
+						+ tax
+					</span>
 				</a>
 
 				<a
