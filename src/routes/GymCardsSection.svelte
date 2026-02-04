@@ -85,6 +85,7 @@
 						Pricing
 					</span> -->
 					<span class="underline decoration-1 underline-offset-2">
+						Day pass:
 						{gym.price.amount.toLocaleString('en-US', {
 							style: 'currency',
 							currency: gym.price.currency,
