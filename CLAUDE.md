@@ -52,6 +52,10 @@ curl -s -X PATCH 'https://[PROJECT].supabase.co/rest/v1/gym?gym_id=eq.[GYM_ID]' 
   -d '{"price_amount": 28.00, "price_source_url": "https://example.com/pricing"}'
 ```
 
+## Data Extraction
+
+- When scraping prices or data with multiple variants (adult/youth, standard/premium, etc.), always extract ALL variants and clearly label them, defaulting to adult/standard unless specified otherwise.
+
 ## Known Limitations
 
 1. **Wix/React sites**: Content loads via JavaScript. Use raw HTML parsing with regex.
