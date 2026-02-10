@@ -37,3 +37,6 @@ identifier.sqlite
 # Verify-prices script output
 /scripts/verify-prices/*.json
 /scripts/verify-prices/screenshots/
+
+# Playwright MCP
+.playwright-mcp/

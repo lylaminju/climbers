@@ -67,6 +67,26 @@ https://climberz.day
 
 ## Challenges
 
+### Scraping Gym Prices with Playwright MCP
+
+Each gym card displays the day pass price, but keeping prices accurate is tricky — gym websites range from simple HTML to JavaScript-heavy frameworks like Wix and React that don't expose content in raw HTML.
+
+I solved this by setting up a [Playwright MCP](https://github.com/anthropics/anthropic-quickstarts/tree/main/mcp-playwright) server that gives Claude Code access to a headless browser. Instead of fragile regex patterns on raw HTML, it renders the full page and reads prices directly from the DOM — the same way a real visitor would see them.
+
+#### Bulk Validation with `browser_run_code`
+
+For straightforward HTML sites, I pass a JavaScript function to `browser_run_code` that loops through multiple gym URLs in a single Playwright session — navigating to each page, extracting text lines that match a `$` + number pattern, and returning all price candidates at once.
+
+#### Manual Fallback for Dynamic Sites
+
+Not all sites yield to bulk extraction. Many gym websites hide pricing behind interactive UI elements:
+
+- **Squarespace / WordPress** — Prices sit inside accordion panels that must be clicked open before the DOM exposes them
+- **Wix** — Content renders via JavaScript, so raw text extraction returns nothing
+- **GoDaddy Website Builder** — URL paths are encoded (e.g., `/price%2Fmembership`), and popup modals block navigation until dismissed
+
+For these, I fall back to a step-by-step approach: `browser_navigate` → `browser_snapshot` → `browser_click` (expand accordions or close popups) → `browser_snapshot` again to read the revealed prices.
+
 ### Keeping Gym Data Fresh
 
 Climbing gyms open and close, so the database needs periodic updates. I built a sync system using the Google Places API to detect changes.
