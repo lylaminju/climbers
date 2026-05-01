@@ -56,6 +56,7 @@
 			const { data: gymsData, error: gymsError } = await supabase
 				.from('gym')
 				.select('*')
+				.is('closed_at', null)
 				.order('name', { ascending: true });
 
 			if (gymsError) {

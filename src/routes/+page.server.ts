@@ -3,7 +3,10 @@ import type { ClimbingGym } from '$lib/types/types';
 
 export async function load() {
 	try {
-		const { data, error } = await supabase.from('gym').select('*');
+		const { data, error } = await supabase
+			.from('gym')
+			.select('*')
+			.is('closed_at', null);
 
 		if (error || !data) {
 			console.error('Error loading gyms from database:', error);

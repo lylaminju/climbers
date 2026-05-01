@@ -18,6 +18,7 @@ interface ExistingGym {
 	place_id: string;
 	address: string;
 	city: string;
+	closed_at: string | null;
 }
 
 interface NewGymCandidate {
@@ -107,7 +108,7 @@ async function main() {
 	console.log('Loading existing gyms from Supabase...');
 	const { data: existingGyms, error } = await supabase
 		.from('gym')
-		.select('gym_id, name, place_id, address, city');
+		.select('gym_id, name, place_id, address, city, closed_at');
 
 	if (error) {
 		console.error('Error loading gyms from Supabase:', error);
@@ -192,6 +193,7 @@ async function main() {
 
 	for (const gym of existingGyms as ExistingGym[]) {
 		if (!gym.place_id) continue;
+		if (gym.closed_at) continue;
 
 		if (!foundPlaceIds.has(gym.place_id)) {
 			potentiallyClosedGyms.push({

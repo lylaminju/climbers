@@ -120,6 +120,8 @@ async function fetchGyms(
 
 	if (gymId !== null) {
 		query = query.eq('gym_id', gymId);
+	} else {
+		query = query.is('closed_at', null);
 	}
 
 	const { data, error } = await query;

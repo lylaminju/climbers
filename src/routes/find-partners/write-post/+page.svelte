@@ -18,6 +18,7 @@
 			const { data, error } = await supabase
 				.from('gym')
 				.select('*')
+				.is('closed_at', null)
 				.order('name');
 			if (error) {
 				throw new Error('Failed to load gyms.');
