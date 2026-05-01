@@ -13,7 +13,7 @@ import {
 // ============================================================================
 
 interface ExistingGym {
-	gym_id: number;
+	gym_id: string;
 	name: string;
 	place_id: string;
 	address: string;
@@ -34,7 +34,7 @@ interface NewGymCandidate {
 }
 
 interface PotentiallyClosedGym {
-	gymId: number;
+	gymId: string;
 	name: string;
 	placeId: string;
 	address: string;

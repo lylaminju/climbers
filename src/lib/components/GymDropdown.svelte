@@ -1,13 +1,18 @@
 <script lang="ts">
-	import type { ClimbingGym } from '$lib/types/types';
 	import { Button, Dropdown, DropdownItem, Search } from 'flowbite-svelte';
 	import { ChevronDownOutline } from 'flowbite-svelte-icons';
+
+	type GymDropdownOption = {
+		gym_id: string;
+		name: string;
+		city: string;
+	};
 
 	let {
 		gyms,
 		selectedGymId = $bindable(),
 	}: {
-		gyms: ClimbingGym[];
+		gyms: GymDropdownOption[];
 		selectedGymId: string;
 	} = $props();
 

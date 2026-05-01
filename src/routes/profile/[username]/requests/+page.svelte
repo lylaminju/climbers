@@ -9,7 +9,7 @@
 	import MenuTab from '../MenuTab.svelte';
 	import { Spinner } from 'flowbite-svelte';
 
-	let username = $derived(page.params.username);
+	let username = $derived(page.params.username ?? '');
 	let isProfileOwner = $derived(
 		$userStore?.user_metadata?.username === username
 	);

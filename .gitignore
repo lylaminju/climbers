@@ -40,3 +40,4 @@ identifier.sqlite
 
 # Playwright MCP
 .playwright-mcp/
+.omx/

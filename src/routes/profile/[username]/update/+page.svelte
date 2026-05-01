@@ -10,12 +10,17 @@
 	import type { Profile } from '$lib/schemas/profile';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import type { ClimbingGym } from '$lib/types/types';
 	import { Button, Helper, Input, Spinner } from 'flowbite-svelte';
 	import { LinkOutline, UserCircleOutline } from 'flowbite-svelte-icons';
 	import { onMount } from 'svelte';
 
-	let gyms = $state<ClimbingGym[]>([]);
+	type GymDropdownOption = {
+		gym_id: string;
+		name: string;
+		city: string;
+	};
+
+	let gyms = $state<GymDropdownOption[]>([]);
 	let profile = $state<Profile | null>(null);
 	let isLoading = $state(true);
 	let isUpdating = $state(false);
@@ -55,7 +60,7 @@
 
 			const { data: gymsData, error: gymsError } = await supabase
 				.from('gym')
-				.select('*')
+				.select('gym_id, name, city')
 				.is('closed_at', null)
 				.order('name', { ascending: true });
 
@@ -64,7 +69,7 @@
 			}
 
 			profile = profileData;
-			gyms = gymsData;
+			gyms = gymsData ?? [];
 		} catch (error) {
 			console.error(`Error loading data\n${error}`);
 		} finally {
@@ -76,7 +81,7 @@
 		event.preventDefault();
 		try {
 			isUpdating = true;
-			const { data, error } = await supabase
+			const { error } = await supabase
 				.from('profile')
 				.update({
 					username: username,

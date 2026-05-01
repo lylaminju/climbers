@@ -9,7 +9,7 @@
 	import Sidebar from '../Sidebar.svelte';
 	import MyPosts from './MyPosts.svelte';
 
-	let username = $derived(page.params.username);
+	let username = $derived(page.params.username ?? '');
 	let isProfileOwner = $derived(
 		$userStore?.user_metadata?.username === username
 	);

@@ -12,7 +12,7 @@ export default ts.config(
 	includeIgnoreFile(gitignorePath),
 	js.configs.recommended,
 	...ts.configs.recommended,
-	...svelte.configs.recommended,
+	...svelte.configs['flat/recommended'],
 	prettier,
 	...svelte.configs['flat/prettier'],
 	{

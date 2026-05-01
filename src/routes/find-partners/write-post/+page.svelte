@@ -5,19 +5,24 @@
 	import TimeSelect from '$lib/components/TimeSelect.svelte';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
-	import type { ClimbingGym } from '$lib/types/types';
 	import { PostgrestError } from '@supabase/supabase-js';
 	import { Button, Datepicker, Textarea } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
-	let gyms = $state<ClimbingGym[]>([]);
+	type GymDropdownOption = {
+		gym_id: string;
+		name: string;
+		city: string;
+	};
+
+	let gyms = $state<GymDropdownOption[]>([]);
 	let errorMsg = $state('');
 
 	onMount(async () => {
 		try {
 			const { data, error } = await supabase
 				.from('gym')
-				.select('*')
+				.select('gym_id, name, city')
 				.is('closed_at', null)
 				.order('name');
 			if (error) {
