@@ -12,19 +12,30 @@
 		toggleChildElementVisibility,
 		handleDestination,
 	} = $props();
+
+	const EAGER_CARD_IMAGE_COUNT = 6;
 </script>
 
 <section id="gyms">
-	{#each displayedGyms as gym, _ (gym.id)}
+	{#each displayedGyms as gym, index (gym.id)}
 		<div
 			id="gym-card-{gym.id}"
-			class="gym-card relative h-[145px] rounded-2xl bg-[#aaaaaa] bg-cover bg-center text-white sm:h-[220px]"
-			style="background-image: url({base}/{gym.imageUrl})"
+			class="gym-card relative h-[145px] overflow-hidden rounded-2xl bg-[#aaaaaa] text-white sm:h-[220px]"
 			onclick={() => toggleChildElementVisibility(gym.id)}
 			onkeydown={() => toggleChildElementVisibility(gym.id)}
 			role="button"
 			tabindex="0"
 		>
+			{#if gym.imageUrl}
+				<img
+					class="absolute inset-0 h-full w-full rounded-2xl object-cover"
+					src="{base}/{gym.imageUrl}"
+					alt=""
+					aria-hidden="true"
+					loading={index < EAGER_CARD_IMAGE_COUNT ? 'eager' : 'lazy'}
+					decoding="async"
+				/>
+			{/if}
 			<button
 				id="add-destination-{gym.id}"
 				class="group absolute top-2 right-2 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white/80 shadow-sm transition-all duration-200 hover:w-auto hover:justify-end hover:bg-white hover:pr-2 hover:pl-3 hover:shadow-md sm:h-10 sm:w-10"
@@ -171,6 +182,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
+			z-index: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -184,6 +196,7 @@
 			position: absolute;
 			top: 0;
 			left: 0;
+			z-index: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
