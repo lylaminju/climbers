@@ -1,5 +1,6 @@
 import { supabase } from '$lib/supabaseClient';
 import type { ClimbingGym } from '$lib/types/types';
+import { MOCK_GYMS } from '$lib/mockGyms';
 
 export async function load() {
 	try {
@@ -8,9 +9,16 @@ export async function load() {
 			.select('*')
 			.is('closed_at', null);
 
-		if (error || !data) {
-			console.error('Error loading gyms from database:', error);
-			return { gyms: [], error: 'Failed to load gym data' };
+		if (error || !data || data.length === 0) {
+			console.error(
+				'Error loading gyms from database or no data found:',
+				error
+			);
+			// Fallback to mock data for development/testing if database is unavailable
+			return {
+				gyms: MOCK_GYMS,
+				error: 'Using mock data because database is unavailable',
+			};
 		}
 
 		const formattedGyms: ClimbingGym[] = data.map((gym) => ({
@@ -22,38 +30,38 @@ export async function load() {
 			placeId: gym.place_id,
 			coordinates: {
 				latitude: gym.latitude,
-				longitude: gym.longitude
+				longitude: gym.longitude,
 			},
 			publicTransport: {
 				subway: gym.subway_station
 					? { line: gym.subway_line, station: gym.subway_station }
 					: undefined,
-				busOrTram: Boolean(gym.bus_tram)
+				busOrTram: Boolean(gym.bus_tram),
 			},
 			websiteUrl: gym.website_url ?? undefined,
 			price: {
 				currency: gym.price_currency,
 				amount: gym.price_amount,
 				tax: gym.price_tax ?? undefined,
-				sourceUrl: gym.price_source_url ?? undefined
+				sourceUrl: gym.price_source_url ?? undefined,
 			},
 			iconUrl: `gym-icon/${gym.icon_url}`,
 			imageUrl: `gym-preview/${gym.image_url}`,
 			area: {
 				unit: gym.area_unit,
-				value: gym.area_value
+				value: gym.area_value,
 			},
 			climbingTypes: {
 				boulder: gym.boulder,
 				autoBelay: gym.auto_belay,
 				topRope: gym.top_rope,
-				lead: gym.lead
+				lead: gym.lead,
 			},
 			boards: {
 				moonBoard: gym.moon_board,
 				kilterBoard: gym.kilter_board,
-				tensionBoard: gym.tension_board
-			}
+				tensionBoard: gym.tension_board,
+			},
 		}));
 
 		return { gyms: formattedGyms };

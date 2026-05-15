@@ -13,11 +13,13 @@
 		"format": "prettier --write .",
 		"lint": "prettier --write . && eslint .",
 		"test:unit": "vitest",
-		"test": "npm run test:unit -- --run"
+		"test:e2e": "playwright test",
+		"test": "npm run test:unit -- --run && npm run test:e2e"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
+		"@playwright/test": "^1.60.0",
 		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/adapter-netlify": "^5.0.0",
 		"@sveltejs/adapter-static": "^3.0.8",
@@ -29,6 +31,7 @@
 		"@testing-library/svelte": "^5.2.4",
 		"@types/cheerio": "^0.22.35",
 		"@types/google.maps": "^3.58.1",
+		"@types/node": "^25.8.0",
 		"cheerio": "^1.2.0",
 		"dotenv": "^17.2.3",
 		"eslint": "^9.18.0",
