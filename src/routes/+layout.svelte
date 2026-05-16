@@ -1,10 +1,28 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { userStore } from '$lib/stores/user';
 	import { supabase } from '$lib/supabaseClient';
 	import type { Subscription } from '@supabase/supabase-js';
-	import { A, Dropdown, DropdownItem, Toast } from 'flowbite-svelte';
-	import { AnnotationOutline, BarsOutline } from 'flowbite-svelte-icons';
+	import {
+		A,
+		Dropdown,
+		DropdownDivider,
+		DropdownItem,
+		Toast,
+		Tooltip,
+	} from 'flowbite-svelte';
+	import {
+		AnnotationOutline,
+		ArrowLeftToBracketOutline,
+		ArrowRightToBracketOutline,
+		BarsOutline,
+		BellOutline,
+		FilePenOutline,
+		HomeOutline,
+		UserCircleOutline,
+		UsersGroupOutline,
+	} from 'flowbite-svelte-icons';
 	import { onDestroy, onMount } from 'svelte';
 	import '../app.css';
 	import AuthModal from '../lib/components/AuthModal.svelte';
@@ -160,7 +178,7 @@
 			class="w-fit sm:hidden"
 			bind:open={dropdownOpen}
 		>
-			<!-- <DropdownItem
+			<DropdownItem
 				onclick={() => {
 					closeDropdown();
 					goto('/');
@@ -247,7 +265,7 @@
 					Sign up
 				</DropdownItem>
 			{/if}
-			<DropdownDivider /> -->
+			<DropdownDivider />
 			<!-- Feedback -->
 			<DropdownItem
 				href="https://tally.so/r/D44dDZ"
@@ -261,7 +279,7 @@
 
 		<!-- Desktop: horizontal menu list -->
 		<ul class="hidden flex-row items-center gap-4 sm:flex">
-			<!-- <li>
+			<li>
 				<a
 					href="/"
 					class="text-primary-600 flex items-center gap-1 rounded-xl
@@ -321,7 +339,7 @@
 			{:else}
 				<li><A onclick={() => openAuthModal('sign-in')}>Sign in</A></li>
 				<li><A onclick={() => openAuthModal('sign-up')}>Sign up</A></li>
-			{/if} -->
+			{/if}
 			<!-- Feedback -->
 			<li>
 				<A
